@@ -1,0 +1,16 @@
+import styles from './Navbar.module.css'
+
+const Navbar = (props: any) => {
+    return (
+         <nav className={styles.nav}>
+                <div><a className={styles.nav_list} href="/profile">Profile</a></div>
+                <div><a className={styles.nav_list} href="/messages">Messages</a></div>
+                <div><a className={styles.nav_list} href="/newsField">News Field</a></div>
+                <div><a className={styles.nav_list} href="settings">Settings</a></div>
+                <div><a className={styles.nav_list} href="music">Music</a></div>
+
+            </nav>
+    )
+}
+
+export default Navbar;

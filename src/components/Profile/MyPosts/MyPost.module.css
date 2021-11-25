@@ -1,0 +1,24 @@
+.myPost_block {
+    padding: 10px;
+
+}
+.post {
+    margin-top: 20px;
+}
+
+
+textarea {
+    width: 400px;
+    height: 70px;
+}
+.add_button {
+    border-radius: 5px;
+    width: 150px;
+    height: 30px;
+
+    font-weight: 600;
+    background-color: rgb(7, 143, 255);
+}
+.add_button:hover {
+    background-color: cornflowerblue;
+}
