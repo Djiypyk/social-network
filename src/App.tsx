@@ -13,8 +13,7 @@ import {Route} from "react-router";
 import {BrowserRouter} from "react-router-dom";
 
 
-
-function App() {
+const App: React.FC = () => {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -22,7 +21,7 @@ function App() {
                 <Navbar/>
                 <div className="app-wrapper-content">
 
-                    <Route path="/profile" component={(props: any)=> <Profile/>}/>
+                    <Route path="/profile" component={(props: any) => <Profile/>}/>
                     <Route path="/dialogs" component={Dialogs}/>
                     <Route path="/newsField" component={NewsField}/>
                     <Route path="/music" component={Music}/>

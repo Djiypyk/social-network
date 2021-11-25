@@ -1,8 +1,9 @@
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPost from "./MyPosts/MyPost";
 import Post from "./MyPosts/Posts/Post";
+import React from "react";
 
-const Profile = (props: any) => {
+const Profile: React.FC = (props: any) => {
     return (
 
         <div>

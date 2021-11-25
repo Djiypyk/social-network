@@ -1,7 +1,7 @@
 import styles from "./MyPost.module.css";
 import React from "react";
 
-const MyPost = (props: any) => {
+const MyPost: React.FC = (props: any) => {
 
     return (
         <div className={styles.myPost_block}>
