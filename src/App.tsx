@@ -9,8 +9,7 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import NewsField from "./components/NewsField/NewsField";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {Route} from "react-router";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 
 const App: React.FC = () => {
@@ -20,17 +19,18 @@ const App: React.FC = () => {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-
-                    <Route path="/profile" component={(props: any) => <Profile/>}/>
-                    <Route path="/dialogs" component={Dialogs}/>
-                    <Route path="/newsField" component={NewsField}/>
-                    <Route path="/music" component={Music}/>
-                    <Route path="/settings" component={Settings}/>
-
+                    <Routes>
+                        <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/dialogs" element={<Dialogs/>}/>
+                        <Route path="/newsField" element={<NewsField/>}/>
+                        <Route path="/music" element={<Music/>}/>
+                        <Route path="/settings" element={<Settings/>}/>
+                    </Routes>
                 </div>
                 <Footer/>
             </div>
         </BrowserRouter>
+
     );
 }
 
