@@ -21,7 +21,7 @@ const App: React.FC = () => {
                 <div className="app-wrapper-content">
                     <Routes>
                         <Route path="/profile" element={<Profile/>}/>
-                        <Route path="/dialogs" element={<Dialogs/>}/>
+                        <Route  path="/dialogs/*" element={<Dialogs/>}/>
                         <Route path="/newsField" element={<NewsField/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>

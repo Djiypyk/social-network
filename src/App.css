@@ -3,6 +3,7 @@
     margin: 0 auto;
     width: 1200px;
 
+
     grid-template-areas:
   'header header header'
   'nav content content'

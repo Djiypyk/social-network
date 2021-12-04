@@ -1,7 +1,7 @@
 .dialogs {
 
     display: grid;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 3fr 10fr;
 
     border: 3px solid;
     border-radius: 5px;
@@ -10,12 +10,11 @@
 .dialogs_items {
     padding: 10px;
     border-right: 3px solid ;
+    text-align: center;
 
 }
 
-.dialogs_items .active {
-    color: rgb(119, 85, 0);
-}
+
 .dialog {
     padding: 5px;
     font-weight: 700;
@@ -55,8 +54,11 @@
 .message_input {
     display: flex;
     justify-content: space-around;
+
+    margin-top: 200px;
 }
 textarea{
+
     resize: none;
     width: 500px;
     border-radius: 5px;
