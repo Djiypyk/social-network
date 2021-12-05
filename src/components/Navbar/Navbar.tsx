@@ -1,7 +1,7 @@
 import styles from './Navbar.module.css'
 import React from "react";
 import {NavLink} from 'react-router-dom';
-import {useLocation} from 'react-router';
+
 
 
 const Navbar: React.FC = () => {
@@ -10,7 +10,6 @@ const Navbar: React.FC = () => {
         textDecoration: 'none',
         color: 'honeydew'
     }
-
 
 
     return (
@@ -26,7 +25,7 @@ const Navbar: React.FC = () => {
                           to="/dialogs">Messages</NavLink></div>
             <div><NavLink style={({isActive}) => isActive ? activeStyle : undefined}
                           className={styles.nav_list}
-                          to="/newsField">News Field</NavLink></div>
+                          to="/">News Field</NavLink></div>
             <div><NavLink style={({isActive}) => isActive ? activeStyle : undefined}
                           className={styles.nav_list}
                           to="settings">Settings</NavLink></div>

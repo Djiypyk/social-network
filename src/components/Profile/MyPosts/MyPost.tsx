@@ -1,5 +1,6 @@
 import styles from "./MyPost.module.css";
 import React from "react";
+import Post from "./Posts/Post";
 
 const MyPost: React.FC = (props: any) => {
 
@@ -12,6 +13,8 @@ const MyPost: React.FC = (props: any) => {
             <div>
                 <button className={styles.add_button}>Add</button>
             </div>
+            <Post message='Hi. How are you?' likesCounts={15}/>
+            <Post message='Wow, this is first post.' likesCounts={17}/>
         </div>
     );
 };
