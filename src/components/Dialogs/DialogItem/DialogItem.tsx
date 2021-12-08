@@ -12,7 +12,7 @@ type DialogItemTypeProps = {
     id: number
 }
 
-const DialogItem = (props: DialogItemTypeProps) => {
+const DialogItem: React.FC<DialogItemTypeProps> = (props) => {
     let path = "/dialogs/" + props.id
 
     return (

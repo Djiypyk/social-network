@@ -10,7 +10,6 @@ const Profile: React.FC = (props: any) => {
             <ProfileInfo/>
             <MyPost/>
 
-
         </div>
 
     )
