@@ -9,11 +9,11 @@ const activeStyle: any = {
 
 type DialogItemTypeProps = {
     name: string,
-    id: number
+    key: number
 }
 
 const DialogItem: React.FC<DialogItemTypeProps> = (props) => {
-    let path = "/dialogs/" + props.id
+    let path = "/dialogs/" + props.key
 
     return (
         <div className={styles.dialog}>

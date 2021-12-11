@@ -1,14 +1,13 @@
 import styles from "./MyPost.module.css";
 import React from "react";
 import Post from "./Posts/Post";
+import {PostsDataType} from "../../../index";
 
-const MyPost: React.FC = (props: any) => {
 
-    let posts = [
-        {id: 1, message: 'Hi. How are you?', likesCounts: 15},
-        {id: 2, message: 'Wow,  it`s my first post.', likesCounts: 15}
-    ]
-    let postsElement = posts.map (p => <Post message={p.message} likesCounts={p.likesCounts}/>)
+const MyPost: React.FC<PostsDataType> = (props) => {
+
+
+    let postsElement = props.postsData.map(p => <Post key={p.id} message={p.message} likesCounts={p.likesCounts}/>)
 
     return (
         <div className={styles.myPost_block}>

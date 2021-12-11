@@ -10,9 +10,12 @@ import NewsField from "./components/NewsField/NewsField";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import { DataType} from "./index";
 
 
-const App: React.FC = () => {
+const App: React.FC<DataType> = (props) => {
+
+
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -20,8 +23,8 @@ const App: React.FC = () => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/profile" element={<Profile/>}/>
-                        <Route  path="/dialogs/*" element={<Dialogs />}/>
+                        <Route path="/profile" element={<Profile postsData={props.postsData}/>}/>
+                        <Route path="/dialogs/*" element={<Dialogs dialogsData={props.dialogsData} messagesData={props.messagesData}/>}/>
                         <Route path="/" element={<NewsField/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
