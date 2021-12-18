@@ -2,18 +2,17 @@ import React from "react";
 import styles from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Messages/Message";
-import {DialogsDataType} from "../../index";
+import {DialogPageType} from "../../index";
 
 
-const Dialogs: React.FC<DialogsDataType> = (props) => {
-
+const Dialogs: React.FC<DialogPageType> = (props) => {
 
 
     const dialogsElements = props.dialogsData
-        .map( (d) => <DialogItem  key={d.id}  name={d.name}/>)
+        .map((d) => <DialogItem id={d.id} name={d.name}/>)
 
     const messagesElements = props.messagesData
-        .map( (m) =>  <Message key={m.id} message={m.message}/>)
+        .map((m) => <Message id={m.id} message={m.message}/>)
 
     return (
         <div className={styles.dialogs}>
