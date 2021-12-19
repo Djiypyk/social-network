@@ -10,7 +10,7 @@ import NewsField from "./components/NewsField/NewsField";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {StateType} from "./index";
+import {StateType} from "./Redux/state";
 
 
 const App: React.FC<StateType> = (props) => {
@@ -23,10 +23,10 @@ debugger
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/profile" element={<Profile postsData={props.postsData.postsData}/>}/>
+                        <Route path="/profile" element={<Profile postsData={props.profilePageData.postsData}/>}/>
                         <Route path="/dialogs/*"
-                               element={<Dialogs dialogsData={props.dialogsData.dialogsData}
-                                                 messagesData={props.dialogsData.messagesData}/>}/>
+                               element={<Dialogs dialogsData={props.dialogsPageData.dialogsData}
+                                                 messagesData={props.dialogsPageData.messagesData}/>}/>
                         <Route path="/" element={<NewsField/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>

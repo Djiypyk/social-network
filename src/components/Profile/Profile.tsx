@@ -1,7 +1,7 @@
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPost from "./MyPosts/MyPost";
 import React from "react";
-import {PostsType} from "../../index";
+import {PostsType} from "../../Redux/state";
 
 const Profile: React.FC<PostsType>= (props) => {
 
