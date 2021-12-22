@@ -33,7 +33,6 @@ export type PostsType = {
     postsData: PostItemsType[]
 }
 
-
 export type DialogsDataType = {
     id: number
     name: string
@@ -43,12 +42,10 @@ export type MessagesDataType = {
     message: string
 }
 
-
 export type DialogPageType = {
     dialogsData: DialogsDataType[]
     messagesData: MessagesDataType[]
 }
-
 
 export type StateType = {
     profilePageData: PostsType
