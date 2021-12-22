@@ -1,15 +1,16 @@
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPost from "./MyPosts/MyPost";
-
 import React from "react";
+import {PostsType} from "../../Redux/state";
 
-const Profile: React.FC = (props: any) => {
+const Profile: React.FC<PostsType>= (props) => {
+
+
     return (
 
         <div>
             <ProfileInfo/>
-            <MyPost/>
-
+            <MyPost postsData={props.postsData}/>
 
         </div>
 

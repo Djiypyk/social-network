@@ -1,18 +1,15 @@
 import React from "react";
 import styles from "./DialogItem.module.css";
 import {NavLink} from "react-router-dom";
+import {DialogsDataType} from "../../../Redux/state";
 
 const activeStyle: any = {
     textDecoration: 'none',
     color: 'rgb(119, 85, 0)'
 }
 
-type DialogItemTypeProps = {
-    name: string,
-    id: number
-}
 
-const DialogItem = (props: DialogItemTypeProps) => {
+const DialogItem: React.FC<DialogsDataType> = (props) => {
     let path = "/dialogs/" + props.id
 
     return (

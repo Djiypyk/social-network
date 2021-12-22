@@ -24,8 +24,9 @@
     background-color: rgb(221, 221, 221);
 
     font-family: 'Caveat', cursive;
-    font-size: 21px;
+    font-size: 1em;
     margin: 5px;
+    padding: 5px;
 
 }
 
