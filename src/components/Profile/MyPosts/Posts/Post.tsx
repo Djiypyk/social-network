@@ -1,9 +1,9 @@
 import styles from "./Post.module.css";
 import React from "react";
-import {PostItemsType} from "../../../../Redux/state";
+import {PostItemType} from "../../../../Redux/state";
 
 
-const Post: React.FC<PostItemsType> = (props) => {
+const Post: React.FC<PostItemType> = (props) => {
     return (
         <div key={props.id} className={styles.item}>
             <div>

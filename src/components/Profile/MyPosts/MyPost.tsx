@@ -1,9 +1,7 @@
 import styles from "./MyPost.module.css";
-import React, {ElementRef, LegacyRef, RefObject} from "react";
+import React, {RefObject} from "react";
 import Post from "./Posts/Post";
 import {PostsType} from '../../../Redux/state';
-
-
 
 
 const MyPost: React.FC<PostsType> = (props) => {
@@ -11,11 +9,12 @@ const MyPost: React.FC<PostsType> = (props) => {
 
     let postsElement = props.postsData.map(p => <Post id={p.id} message={p.message} likesCounts={p.likesCounts}/>)
 
-    const newPostElement:RefObject<HTMLTextAreaElement> = React.createRef()
+    const newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
     const addPost = () => {
         let textNewPost = newPostElement.current?.value
-        alert(textNewPost)
+        props.addPost(textNewPost)
+
 
     }
     return (
@@ -25,7 +24,7 @@ const MyPost: React.FC<PostsType> = (props) => {
                 <textarea ref={newPostElement} placeholder='Write your post'/>
             </div>
             <div>
-                <button onClick={ addPost} className={styles.add_button}>Add post</button>
+                <button onClick={addPost} className={styles.add_button}>Add post</button>
             </div>
             {postsElement}
 

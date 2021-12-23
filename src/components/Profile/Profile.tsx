@@ -10,7 +10,7 @@ const Profile: React.FC<PostsType>= (props) => {
 
         <div>
             <ProfileInfo/>
-            <MyPost postsData={props.postsData}/>
+            <MyPost postsData={props.postsData} addPost={props.addPost}/>
 
         </div>
 

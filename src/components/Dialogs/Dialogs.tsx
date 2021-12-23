@@ -1,4 +1,4 @@
-import React from "react";
+import React, {RefObject} from "react";
 import styles from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Messages/Message";
@@ -14,6 +14,13 @@ const Dialogs: React.FC<DialogPageType> = (props) => {
     const messagesElements = props.messagesData
         .map((m) => <Message id={m.id} message={m.message}/>)
 
+    const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef()
+
+    const addMessage = () => {
+        const newTextMessage = newMessageElement.current?.value
+        alert(newTextMessage)
+    }
+
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogs_items}>
@@ -23,8 +30,8 @@ const Dialogs: React.FC<DialogPageType> = (props) => {
                 {messagesElements}
 
                 <div className={styles.message_input}>
-                    <textarea placeholder="Write your message"/>
-                    <button className={styles.add_button}> Send message</button>
+                    <textarea ref={newMessageElement} placeholder="Write your message"/>
+                    <button className={styles.add_button} onClick={addMessage}> Send message</button>
                 </div>
             </div>
 

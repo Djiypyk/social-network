@@ -23,7 +23,7 @@ debugger
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/profile" element={<Profile postsData={props.profilePageData.postsData}/>}/>
+                        <Route path="/profile" element={<Profile postsData={props.profilePageData.postsData} addPost={props.profilePageData.addPost}/>}/>
                         <Route path="/dialogs/*"
                                element={<Dialogs dialogsData={props.dialogsPageData.dialogsData}
                                                  messagesData={props.dialogsPageData.messagesData}/>}/>
