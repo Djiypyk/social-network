@@ -1,19 +1,25 @@
 import styles from "./MyPost.module.css";
-import React, {RefObject} from "react";
+import React from "react";
 import Post from "./Posts/Post";
-import {PostsType} from '../../../Redux/state';
+import {PostItemType} from '../../../Redux/state';
 
+export type propsPostsType = {
+    postsData: PostItemType[]
+    addPost: (message: string) => void
+}
 
-const MyPost: React.FC<PostsType> = (props) => {
+const MyPost: React.FC<propsPostsType> = (props) => {
 
 
     let postsElement = props.postsData.map(p => <Post id={p.id} message={p.message} likesCounts={p.likesCounts}/>)
 
-    const newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
+    const newPostElement: React.LegacyRef<HTMLTextAreaElement> | undefined = React.createRef()
 
     const addPost = () => {
-        let textNewPost = newPostElement.current?.value
-        props.addPost(textNewPost)
+        if (newPostElement?.current?.value) {
+            props.addPost(newPostElement.current.value)
+            newPostElement.current.value = ''
+        }
 
 
     }

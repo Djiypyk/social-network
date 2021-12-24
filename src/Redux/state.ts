@@ -1,4 +1,5 @@
-import { v1 } from "uuid"
+import {v1} from "uuid"
+import {rerenderEntireTree} from "../index";
 
 export type PostItemType = {
     id: string
@@ -7,9 +8,10 @@ export type PostItemType = {
 
 
 }
+
 export type PostsType = {
     postsData: PostItemType[]
-    addPost: (message: string | undefined) => void
+
 }
 
 export type DialogsDataType = {
@@ -26,15 +28,14 @@ export type DialogPageType = {
     messagesData: MessagesDataType[]
 }
 
-export type StateType = {
-    profilePageData: PostsType
-    dialogsPageData: DialogPageType
 
-
+export type newStateType = {
+    profilePage: PostsType
+    dialogPage: DialogPageType
 
 }
 
-export const state =
+export const state: newStateType =
     {
         profilePage: {
             postsData: [
@@ -56,15 +57,22 @@ export const state =
                 {id: v1(), message: 'Hello!'},
                 {id: v1(), message: 'All you ready?'}
             ]
-        },
-        sidebar: {}
+        }
     }
 
-// export type AddBtnPost = { addPost: (message: string | undefined) => void }
 
-export const addPost = (message: string | '') => {
+export const addPost = (message: string) => {
     const newPost: PostItemType = {
         id: v1(), message: message, likesCounts: 0
     }
     state.profilePage.postsData.push(newPost)
+    rerenderEntireTree(state)
+}
+
+const rerenderEntireTree = () => {
+    console.log('')
+}
+
+const subscriber = (something) => {
+    rerenderEntireTree = something
 }

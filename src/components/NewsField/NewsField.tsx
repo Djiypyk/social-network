@@ -1,4 +1,4 @@
-import styles from './NewsField.module.css'
+// import styles from './NewsField.module.css'
 
 const NewsField = (props: any) => {
     return (

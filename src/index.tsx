@@ -1,21 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {addPost, state} from "./Redux/state";
+import {addPost, newStateType, state} from "./Redux/state";
+import ReactDOM from "react-dom";
+import App from "./App";
+import React from "react";
 
 
-ReactDOM.render(
-    <React.StrictMode>
-        <App dialogsPageData={state.dialogPage}
-             profilePageData={state.profilePage}
-             addPost={addPost}/>
-    </React.StrictMode>
-    ,
-    document.getElementById('root')
-);
+export const rerenderEntireTree = (state: newStateType) => {
+    ReactDOM.render(
+        <App state={state} addPost={addPost}/>,
+        document.getElementById('root')
+    );
+}
 
+rerenderEntireTree(state)
 
 reportWebVitals();
 
