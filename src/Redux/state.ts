@@ -1,5 +1,7 @@
+import { v1 } from "uuid"
+
 export type PostItemType = {
-    id: number
+    id: string
     message: string
     likesCounts: number
 
@@ -11,11 +13,11 @@ export type PostsType = {
 }
 
 export type DialogsDataType = {
-    id: number
+    id: string
     name: string
 }
 export type MessagesDataType = {
-    id: number
+    id: string
     message: string
 }
 
@@ -29,29 +31,30 @@ export type StateType = {
     dialogsPageData: DialogPageType
 
 
+
 }
 
 export const state =
     {
         profilePage: {
             postsData: [
-                {id: 1, message: 'Hi. How are you?', likesCounts: 15},
-                {id: 2, message: 'Hi, there.', likesCounts: 17},
-                {id: 3, message: 'Wow,  it`s my first post.', likesCounts: 12}
+                {id: v1(), message: 'Hi. How are you?', likesCounts: 15},
+                {id: v1(), message: 'Hi, there.', likesCounts: 17},
+                {id: v1(), message: 'Wow,  it`s my first post.', likesCounts: 12}
             ],
         },
         dialogPage: {
             dialogsData: [
-                {name: 'Alex', id: 1},
-                {name: 'Glen', id: 2},
-                {name: 'Yana', id: 3},
-                {name: 'Gloria', id: 4},
-                {name: 'Nikolai', id: 5}
+                {name: 'Alex', id: v1()},
+                {name: 'Glen', id: v1()},
+                {name: 'Yana', id: v1()},
+                {name: 'Gloria', id: v1()},
+                {name: 'Nikolai', id: v1()}
             ],
             messagesData: [
-                {id: 1, message: 'Hello, it`s me.'},
-                {id: 2, message: 'Hello!'},
-                {id: 3, message: 'All you ready?'}
+                {id: v1(), message: 'Hello, it`s me.'},
+                {id: v1(), message: 'Hello!'},
+                {id: v1(), message: 'All you ready?'}
             ]
         },
         sidebar: {}
@@ -61,7 +64,7 @@ export const state =
 
 export const addPost = (message: string | '') => {
     const newPost: PostItemType = {
-        id: 4, message: message, likesCounts: 0
+        id: v1(), message: message, likesCounts: 0
     }
     state.profilePage.postsData.push(newPost)
 }

@@ -15,21 +15,21 @@ const Navbar: React.FC = () => {
     return (
         <nav className={styles.nav}>
 
-            <div><NavLink style={({isActive}) => isActive ? activeStyle : undefined}
+            <div><NavLink style={({isActive}) => isActive ? activeStyle : ''}
                           className={styles.nav_list}
                           to="/profile">
                 Profile</NavLink>
             </div>
-            <div><NavLink style={({isActive}) => isActive ? activeStyle : undefined}
+            <div><NavLink style={({isActive}) => isActive ? activeStyle : ''}
                           className={styles.nav_list}
                           to="/dialogs">Messages</NavLink></div>
-            <div><NavLink style={({isActive}) => isActive ? activeStyle : undefined}
+            <div><NavLink style={({isActive}) => isActive ? activeStyle : ''}
                           className={styles.nav_list}
                           to="/">News Field</NavLink></div>
-            <div><NavLink style={({isActive}) => isActive ? activeStyle : undefined}
+            <div><NavLink style={({isActive}) => isActive ? activeStyle : ''}
                           className={styles.nav_list}
                           to="settings">Settings</NavLink></div>
-            <div><NavLink style={({isActive}) => isActive ? activeStyle : undefined}
+            <div><NavLink style={({isActive}) => isActive ? activeStyle : ''}
                           className={styles.nav_list}
                           to="music">Music</NavLink></div>
 

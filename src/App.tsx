@@ -14,7 +14,7 @@ import {StateType} from "./Redux/state";
 
 
 const App: React.FC<StateType> = (props) => {
-debugger
+
 
     return (
         <BrowserRouter>
