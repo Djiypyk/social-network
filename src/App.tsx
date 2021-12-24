@@ -14,7 +14,8 @@ import {newStateType} from "./Redux/state";
 
 type AppProps = {
     state: newStateType
-    addPost: (message: string) => void
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
 }
 
 const App: React.FC<AppProps> = (props) => {
@@ -27,7 +28,10 @@ const App: React.FC<AppProps> = (props) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/profile" element={<Profile postsData={props.state.profilePage.postsData} addPost={props.addPost}/>}/>
+                        <Route path="/profile" element={<Profile postsData={props.state.profilePage.postsData}
+                                                                 newPostText={props.state.profilePage.newPostText}
+                                                                 addPost={props.addPost}
+                                                                 updateNewPostText={props.updateNewPostText}/>}/>
                         <Route path="/dialogs/*"
                                element={<Dialogs dialogsData={props.state.dialogPage.dialogsData}
                                                  messagesData={props.state.dialogPage.messagesData}/>}/>

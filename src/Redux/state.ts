@@ -6,11 +6,11 @@ export type PostItemType = {
     message: string
     likesCounts: number
 
-
 }
 
 export type PostsType = {
     postsData: PostItemType[]
+    newPostText: string
 
 }
 
@@ -43,6 +43,7 @@ export const state: newStateType =
                 {id: v1(), message: 'Hi, there.', likesCounts: 17},
                 {id: v1(), message: 'Wow,  it`s my first post.', likesCounts: 12}
             ],
+            newPostText: ' '
         },
         dialogPage: {
             dialogsData: [
@@ -61,11 +62,16 @@ export const state: newStateType =
     }
 
 
-export const addPost = (message: string) => {
+export const addPost = () => {
     const newPost: PostItemType = {
-        id: v1(), message: message, likesCounts: 0
+        id: v1(), message: state.profilePage.newPostText, likesCounts: 0
     }
     state.profilePage.postsData.push(newPost)
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state)
+}
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
     rerenderEntireTree(state)
 }
 
