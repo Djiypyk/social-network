@@ -14,12 +14,10 @@ import {newStateType} from "./Redux/state";
 
 type AppProps = {
     state: newStateType
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: any) => void
 }
 
 const App: React.FC<AppProps> = (props) => {
-
 
     return (
         <BrowserRouter>
@@ -30,14 +28,13 @@ const App: React.FC<AppProps> = (props) => {
                     <Routes>
                         <Route path="/profile" element={<Profile postsData={props.state.profilePage.postsData}
                                                                  newPostText={props.state.profilePage.newPostText}
-                                                                 addPost={props.addPost}
-                                                                 updateNewPostText={props.updateNewPostText}/>}/>
+                                                                 dispatch={props.dispatch}/>}/>
                         <Route path="/dialogs/*"
                                element={<Dialogs dialogsData={props.state.dialogPage.dialogsData}
                                                  messagesData={props.state.dialogPage.messagesData}/>}/>
-                        {/*<Route path="/" element={<NewsField/>}/>*/}
-                        {/*<Route path="/music" element={<Music/>}/>*/}
-                        {/*<Route path="/settings" element={<Settings/>}/>*/}
+                        <Route path="/" element={<NewsField/>}/>
+                        <Route path="/music" element={<Music/>}/>
+                        <Route path="/settings" element={<Settings/>}/>
                     </Routes>
                 </div>
                 <Footer/>

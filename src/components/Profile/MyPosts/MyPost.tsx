@@ -1,13 +1,12 @@
 import styles from "./MyPost.module.css";
 import React from "react";
 import Post from "./Posts/Post";
-import {PostItemType, updateNewPostText} from '../../../Redux/state';
+import {PostItemType} from '../../../Redux/state';
 
 export type propsPostsType = {
     postsData: PostItemType[]
     newPostText: string
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: any) => void
 }
 
 const MyPost: React.FC<propsPostsType> = (props) => {
@@ -19,20 +18,31 @@ const MyPost: React.FC<propsPostsType> = (props) => {
 
     const addPost = () => {
         if (newPostElement?.current?.value) {
-            props.addPost()
+            // props.addPost()
+            props.dispatch({type: 'ADD-POST'})
         }
     }
-    const onPostChange = () => {
-        if (newPostElement?.current?.value) {
-        props.updateNewPostText(newPostElement.current.value)
+    const onKeyDownAddPost = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && newPostElement?.current?.value){
+                props.dispatch({type: 'ADD-POST'})
         }
+    }
+
+    const onPostChange = () => {
+
+        if (newPostElement?.current?.value) {
+            // props.updateNewPostText(newPostElement.current.value)
+            props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: newPostElement.current.value})
+        }
+
 
     }
     return (
         <div className={styles.myPost_block}>
             <h3>My posts</h3>
             <div>
-                <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText} placeholder='Write your post'/>
+                <textarea onChange={onPostChange} onKeyPress={onKeyDownAddPost} ref={newPostElement} value={props.newPostText}
+                          placeholder='Write your post'/>
             </div>
             <div>
                 <button onClick={addPost} className={styles.add_button}>Add post</button>

@@ -9,12 +9,11 @@
     border-radius: 5px;
 }
 
-.nav_list {
+.normal {
     color: #000;
     text-decoration: none;
 }
 
 .active {
-    text-decoration: none;
-    color: honeydew;
+    color: #ffffff;
 }

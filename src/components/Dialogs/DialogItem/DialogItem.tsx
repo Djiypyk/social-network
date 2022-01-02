@@ -3,10 +3,6 @@ import styles from "./DialogItem.module.css";
 import {NavLink} from "react-router-dom";
 import {DialogsDataType} from "../../../Redux/state";
 
-const activeStyle: any = {
-    textDecoration: 'none',
-    color: 'rgb(119, 85, 0)'
-}
 
 
 const DialogItem: React.FC<DialogsDataType> = (props) => {
@@ -15,7 +11,7 @@ const DialogItem: React.FC<DialogsDataType> = (props) => {
     return (
         <div className={styles.dialog}>
             <NavLink to={path}
-                     style={({isActive}) => isActive ? activeStyle : undefined}
+                     className={({isActive})=> `${styles.normal} ${isActive ? styles.active :''}`}
             >{props.name}</NavLink>
         </div>
 

@@ -1,5 +1,4 @@
 import {v1} from "uuid"
-import {rerenderEntireTree} from "../index";
 
 export type PostItemType = {
     id: string
@@ -35,8 +34,19 @@ export type newStateType = {
 
 }
 
-export const state: newStateType =
-    {
+export type StoreType = {
+    _state: newStateType
+    getState: () => newStateType
+    // addPost: () => void
+    // updateNewPostText: (newText: string) => void
+    rerenderEntireTree: (state: newStateType) => void
+    subscribe: (observer: any) => void
+    dispatch: (action: any) => void
+
+}
+
+export const store: StoreType = {
+    _state: {
         profilePage: {
             postsData: [
                 {id: v1(), message: 'Hi. How are you?', likesCounts: 15},
@@ -47,11 +57,11 @@ export const state: newStateType =
         },
         dialogPage: {
             dialogsData: [
-                {name: 'Alex', id: v1()},
-                {name: 'Glen', id: v1()},
-                {name: 'Yana', id: v1()},
-                {name: 'Gloria', id: v1()},
-                {name: 'Nikolai', id: v1()}
+                {id: v1(), name: 'Alex'},
+                {id: v1(), name: 'Glen'},
+                {id: v1(), name: 'Yana'},
+                {id: v1(), name: 'Gloria'},
+                {id: v1(), name: 'Nikolai'}
             ],
             messagesData: [
                 {id: v1(), message: 'Hello, it`s me.'},
@@ -59,26 +69,41 @@ export const state: newStateType =
                 {id: v1(), message: 'All you ready?'}
             ]
         }
-    }
 
+    },
+    getState() {
+        return this._state
+    },
+    // addPost() {
+    //     const newPost: PostItemType = {
+    //         id: v1(), message: this._state.profilePage.newPostText, likesCounts: 0
+    //     }
+    //     this._state.profilePage.postsData.push(newPost)
+    //     this._state.profilePage.newPostText = ''
+    //     this.rerenderEntireTree(this._state)
+    // },
+    // updateNewPostText(newText: string) {
+    //     this._state.profilePage.newPostText = newText
+    //     this.rerenderEntireTree(this._state)
+    // },
+    rerenderEntireTree(state: newStateType) {
+        console.log('')
+    },
+    subscribe(observer: any) {
+        this.rerenderEntireTree = observer
+    },
+    dispatch(action) {
+        if(action.type === 'ADD-POST'){
+            const newPost: PostItemType = {
+                id: v1(), message: this._state.profilePage.newPostText, likesCounts: 0
+            }
+            this._state.profilePage.postsData.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this.rerenderEntireTree(this._state)
 
-export const addPost = () => {
-    const newPost: PostItemType = {
-        id: v1(), message: state.profilePage.newPostText, likesCounts: 0
-    }
-    state.profilePage.postsData.push(newPost)
-    state.profilePage.newPostText = ''
-    rerenderEntireTree(state)
-}
-export const updateNewPostText = (newText: string) => {
-    state.profilePage.newPostText = newText
-    rerenderEntireTree(state)
-}
-
-const rerenderEntireTree = () => {
-    console.log('')
-}
-
-const subscriber = (something) => {
-    rerenderEntireTree = something
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT'){
+            this._state.profilePage.newPostText = action.newText
+            this.rerenderEntireTree(this._state)
+        }
+    },
 }
