@@ -1,7 +1,7 @@
 import styles from "./MyPost.module.css";
 import React from "react";
 import Post from "./Posts/Post";
-import {PostItemType} from '../../../Redux/state';
+import {addPostActionCreator, onPostChangeActionCreator, PostItemType} from '../../../Redux/state';
 
 export type propsPostsType = {
     postsData: PostItemType[]
@@ -19,20 +19,22 @@ const MyPost: React.FC<propsPostsType> = (props) => {
     const addPost = () => {
         if (newPostElement?.current?.value) {
             // props.addPost()
-            props.dispatch({type: 'ADD-POST'})
+            props.dispatch(addPostActionCreator())
         }
     }
     const onKeyDownAddPost = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === 'Enter' && newPostElement?.current?.value){
-                props.dispatch({type: 'ADD-POST'})
+        if (e.key === 'Enter' && newPostElement?.current?.value) {
+            props.dispatch(addPostActionCreator())
         }
     }
 
     const onPostChange = () => {
 
         if (newPostElement?.current?.value) {
+            const text = newPostElement.current.value
             // props.updateNewPostText(newPostElement.current.value)
-            props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: newPostElement.current.value})
+            let action = onPostChangeActionCreator(text)
+            props.dispatch(action)
         }
 
 
@@ -41,7 +43,8 @@ const MyPost: React.FC<propsPostsType> = (props) => {
         <div className={styles.myPost_block}>
             <h3>My posts</h3>
             <div>
-                <textarea onChange={onPostChange} onKeyPress={onKeyDownAddPost} ref={newPostElement} value={props.newPostText}
+                <textarea onChange={onPostChange} onKeyPress={onKeyDownAddPost} ref={newPostElement}
+                          value={props.newPostText}
                           placeholder='Write your post'/>
             </div>
             <div>

@@ -2,10 +2,17 @@ import React, {RefObject} from "react";
 import styles from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Messages/Message";
-import {DialogPageType} from "../../Redux/state";
+import {addMessageActionCreator, DialogPageType, DialogsDataType, MessagesDataType} from "../../Redux/state";
+import {v1} from "uuid";
+
+type DialogsPagePropsType = {
+    dialogsData : DialogsDataType[]
+    messagesData: MessagesDataType[]
+    dispatch: (action:any) => void
+}
 
 
-const Dialogs: React.FC<DialogPageType> = (props) => {
+const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
 
 
     const dialogsElements = props.dialogsData
@@ -18,6 +25,11 @@ const Dialogs: React.FC<DialogPageType> = (props) => {
 
     const addMessage = () => {
         const newTextMessage = newMessageElement.current?.value
+        if(newTextMessage){
+            //
+          props.dispatch(addMessageActionCreator())
+            //
+        }
         alert(newTextMessage)
     }
 

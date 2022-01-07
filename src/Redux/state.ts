@@ -1,5 +1,9 @@
 import {v1} from "uuid"
 
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const ADD_MESSAGE = 'ADD-MESSAGE'
+
 export type PostItemType = {
     id: string
     message: string
@@ -25,6 +29,7 @@ export type MessagesDataType = {
 export type DialogPageType = {
     dialogsData: DialogsDataType[]
     messagesData: MessagesDataType[]
+    newMessageText: string
 }
 
 
@@ -67,7 +72,8 @@ export const store: StoreType = {
                 {id: v1(), message: 'Hello, it`s me.'},
                 {id: v1(), message: 'Hello!'},
                 {id: v1(), message: 'All you ready?'}
-            ]
+            ],
+            newMessageText: ' '
         }
 
     },
@@ -93,7 +99,7 @@ export const store: StoreType = {
         this.rerenderEntireTree = observer
     },
     dispatch(action) {
-        if(action.type === 'ADD-POST'){
+        if (action.type === ADD_POST) {
             const newPost: PostItemType = {
                 id: v1(), message: this._state.profilePage.newPostText, likesCounts: 0
             }
@@ -101,9 +107,27 @@ export const store: StoreType = {
             this._state.profilePage.newPostText = ''
             this.rerenderEntireTree(this._state)
 
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT'){
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
             this.rerenderEntireTree(this._state)
+        } else if (action.type === ADD_MESSAGE) {
+            const newMessage: MessagesDataType = {
+                id: v1(), message: ' '
+            }
+
+
         }
     },
+}
+export const addPostActionCreator = () => {
+
+    return {type: ADD_POST}
+}
+export const onPostChangeActionCreator = (text: string) => {
+
+    return {type: UPDATE_NEW_POST_TEXT, newText: text}
+}
+
+export const addMessageActionCreator = () => {
+    return {type: ADD_MESSAGE}
 }
