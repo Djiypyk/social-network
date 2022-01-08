@@ -2,7 +2,13 @@ import React, {ChangeEvent, ChangeEventHandler, RefObject} from "react";
 import styles from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Messages/Message";
-import {sendMessageCreator, DialogsDataType, MessagesDataType, updateNewMessageCreator} from "../../Redux/state";
+import {
+    sendMessageCreator,
+    DialogsDataType,
+    MessagesDataType,
+    updateNewMessageCreator,
+    addPostActionCreator
+} from "../../Redux/state";
 import {v1} from "uuid";
 
 type DialogsPagePropsType = {
@@ -33,6 +39,11 @@ const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
             props.dispatch(updateNewMessageCreator(body))
         }
     }
+    const onKeyDownSendMessage = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter') {
+            props.dispatch(sendMessageCreator())
+        }
+    }
 
     return (
         <div className={styles.dialogs}>
@@ -43,7 +54,7 @@ const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
                 {messagesElements}
 
                 <div className={styles.message_input}>
-                    <textarea value={newMessageBody} onChange={onNewMessageChange} placeholder="Write your message"/>
+                    <textarea value={newMessageBody} onKeyPress={onKeyDownSendMessage} onChange={onNewMessageChange} placeholder="Write your message"/>
                     <button className={styles.add_button} onClick={onSendMessage}> Send message</button>
                 </div>
             </div>
