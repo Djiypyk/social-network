@@ -2,7 +2,8 @@ import {v1} from "uuid"
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const ADD_MESSAGE = 'ADD-MESSAGE'
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
+const SEND_MESSAGE = 'SEND-MESSAGE'
 
 export type PostItemType = {
     id: string
@@ -42,9 +43,7 @@ export type newStateType = {
 export type StoreType = {
     _state: newStateType
     getState: () => newStateType
-    // addPost: () => void
-    // updateNewPostText: (newText: string) => void
-    rerenderEntireTree: (state: newStateType) => void
+    _callSubscriber: (state: newStateType) => void
     subscribe: (observer: any) => void
     dispatch: (action: any) => void
 
@@ -80,23 +79,12 @@ export const store: StoreType = {
     getState() {
         return this._state
     },
-    // addPost() {
-    //     const newPost: PostItemType = {
-    //         id: v1(), message: this._state.profilePage.newPostText, likesCounts: 0
-    //     }
-    //     this._state.profilePage.postsData.push(newPost)
-    //     this._state.profilePage.newPostText = ''
-    //     this.rerenderEntireTree(this._state)
-    // },
-    // updateNewPostText(newText: string) {
-    //     this._state.profilePage.newPostText = newText
-    //     this.rerenderEntireTree(this._state)
-    // },
-    rerenderEntireTree(state: newStateType) {
+
+    _callSubscriber(state: newStateType) {
         console.log('')
     },
     subscribe(observer: any) {
-        this.rerenderEntireTree = observer
+        this._callSubscriber = observer
     },
     dispatch(action) {
         if (action.type === ADD_POST) {
@@ -105,16 +93,19 @@ export const store: StoreType = {
             }
             this._state.profilePage.postsData.push(newPost)
             this._state.profilePage.newPostText = ''
-            this.rerenderEntireTree(this._state)
+            this._callSubscriber(this._state)
 
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
-            this.rerenderEntireTree(this._state)
-        } else if (action.type === ADD_MESSAGE) {
-            const newMessage: MessagesDataType = {
-                id: v1(), message: ' '
-            }
-
+            this._callSubscriber(this._state)
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+            this._state.dialogPage.newMessageText = action.body
+            this._callSubscriber(this._state)
+        } else if (action.type === SEND_MESSAGE) {
+            let body = this._state.dialogPage.newMessageText
+            this._state.dialogPage.messagesData.push({id: v1(), message: body})
+            this._state.dialogPage.newMessageText = ' '
+            this._callSubscriber(this._state)
 
         }
     },
@@ -128,6 +119,10 @@ export const onPostChangeActionCreator = (text: string) => {
     return {type: UPDATE_NEW_POST_TEXT, newText: text}
 }
 
-export const addMessageActionCreator = () => {
-    return {type: ADD_MESSAGE}
+export const sendMessageCreator = () => {
+    return {type: SEND_MESSAGE}
+}
+export const updateNewMessageCreator = (body: string) => {
+
+    return {type: UPDATE_NEW_MESSAGE_TEXT, body: body}
 }
