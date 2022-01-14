@@ -11,7 +11,6 @@ export type propsPostsType = {
 
 const MyPost: React.FC<propsPostsType> = (props) => {
 
-
     let postsElement = props.postsData.map(p => <Post id={p.id} message={p.message} likesCounts={p.likesCounts}/>)
 
     const newPostElement: React.LegacyRef<HTMLTextAreaElement> | undefined = React.createRef()
@@ -29,14 +28,12 @@ const MyPost: React.FC<propsPostsType> = (props) => {
     }
 
     const onPostChange = () => {
-
         if (newPostElement?.current?.value) {
             const text = newPostElement.current.value
             // props.updateNewPostText(newPostElement.current.value)
             let action = onPostChangeActionCreator(text)
             props.dispatch(action)
         }
-
 
     }
     return (

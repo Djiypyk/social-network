@@ -9,7 +9,7 @@ import {
     updateNewMessageCreator,
     addPostActionCreator
 } from "../../Redux/state";
-import {v1} from "uuid";
+
 
 type DialogsPagePropsType = {
     dialogsData: DialogsDataType[]
@@ -20,7 +20,6 @@ type DialogsPagePropsType = {
 
 
 const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
-
 
     const dialogsElements = props.dialogsData
         .map((d) => <DialogItem id={d.id} name={d.name}/>)
