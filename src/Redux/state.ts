@@ -1,9 +1,6 @@
 import {v1} from "uuid"
-
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
-const SEND_MESSAGE = 'SEND-MESSAGE'
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
 
 export type PostItemType = {
     id: string
@@ -37,7 +34,6 @@ export type DialogPageType = {
 export type newStateType = {
     profilePage: PostsType
     dialogPage: DialogPageType
-
 }
 
 export type StoreType = {
@@ -87,42 +83,12 @@ export const store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            const newPost: PostItemType = {
-                id: v1(), message: this._state.profilePage.newPostText, likesCounts: 0
-            }
-            this._state.profilePage.postsData.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber(this._state)
 
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogPage.newMessageText = action.body
-            this._callSubscriber(this._state)
-        } else if (action.type === SEND_MESSAGE) {
-            let body = this._state.dialogPage.newMessageText
-            this._state.dialogPage.messagesData.push({id: v1(), message: body})
-            this._state.dialogPage.newMessageText = ' '
-            this._callSubscriber(this._state)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogPage = dialogsReducer(this._state.dialogPage, action)
 
-        }
-    },
-}
-export const addPostActionCreator = () => {
-
-    return {type: ADD_POST}
-}
-export const onPostChangeActionCreator = (text: string) => {
-
-    return {type: UPDATE_NEW_POST_TEXT, newText: text}
+        this._callSubscriber(this._state)
+       },
 }
 
-export const sendMessageCreator = () => {
-    return {type: SEND_MESSAGE}
-}
-export const updateNewMessageCreator = (body: string) => {
 
-    return {type: UPDATE_NEW_MESSAGE_TEXT, body: body}
-}
