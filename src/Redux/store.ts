@@ -45,7 +45,7 @@ export type StoreType = {
 
 }
 
-export const store: StoreType = {
+ const store: StoreType = {
     _state: {
         profilePage: {
             postsData: [
@@ -92,3 +92,4 @@ export const store: StoreType = {
 }
 
 
+export default store

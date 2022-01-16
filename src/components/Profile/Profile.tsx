@@ -1,7 +1,7 @@
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPost from "./MyPosts/MyPost";
 import React from "react";
-import {PostItemType} from "../../Redux/state";
+import {PostItemType} from "../../Redux/store";
 
 type ProfilePropsType = {
     postsData: PostItemType[]

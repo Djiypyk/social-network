@@ -10,7 +10,7 @@ import NewsField from "./components/NewsField/NewsField";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {newStateType} from "./Redux/state";
+import {newStateType} from "./Redux/store";
 
 type AppProps = {
     state: newStateType

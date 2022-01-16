@@ -7,7 +7,7 @@ import {
     DialogsDataType,
     MessagesDataType,
 
-} from "../../Redux/state";
+} from "../../Redux/store";
 import {sendMessageCreator, updateNewMessageCreator} from "../../Redux/dialogs-reducer";
 
 
