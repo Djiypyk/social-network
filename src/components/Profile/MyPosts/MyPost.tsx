@@ -2,38 +2,36 @@ import styles from "./MyPost.module.css";
 import React from "react";
 import Post from "./Posts/Post";
 import { PostItemType} from '../../../Redux/redux-store';
-import {addPostActionCreator, onPostChangeActionCreator} from "../../../Redux/profile-reducer";
+
 
 export type propsPostsType = {
     postsData: PostItemType[]
     newPostText: string
-    dispatch: (action: any) => void
+    updateNewPostText: (text: string) => void
+    addPost: () => void
 }
 
 const MyPost: React.FC<propsPostsType> = (props) => {
 
-    let postsElement = props.postsData.map(p => <Post id={p.id} message={p.message} likesCounts={p.likesCounts}/>)
+    const postsElement = props.postsData.map(p => <Post id={p.id} message={p.message} likesCounts={p.likesCounts}/>)
 
     const newPostElement: React.LegacyRef<HTMLTextAreaElement> | undefined = React.createRef()
 
-    const addPost = () => {
+    const onAddPost = () => {
         if (newPostElement?.current?.value) {
-            // props.addPost()
-            props.dispatch(addPostActionCreator())
+            props.addPost()
         }
     }
     const onKeyDownAddPost = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && newPostElement?.current?.value) {
-            props.dispatch(addPostActionCreator())
+            props.addPost()
         }
     }
 
     const onPostChange = () => {
         if (newPostElement?.current?.value) {
             const text = newPostElement.current.value
-            // props.updateNewPostText(newPostElement.current.value)
-            let action = onPostChangeActionCreator(text)
-            props.dispatch(action)
+            props.updateNewPostText(text)
         }
 
     }
@@ -46,7 +44,7 @@ const MyPost: React.FC<propsPostsType> = (props) => {
                           placeholder='Write your post'/>
             </div>
             <div>
-                <button onClick={addPost} className={styles.add_button}>Add post</button>
+                <button onClick={onAddPost} className={styles.add_button}>Add post</button>
             </div>
             {postsElement}
 

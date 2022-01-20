@@ -11,6 +11,7 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {ReduxStoreType} from "./Redux/redux-store";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 type AppProps = {
     state: ReduxStoreType
@@ -26,15 +27,11 @@ const App: React.FC<AppProps> = (props) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path="/profile" element={<Profile postsData={props.state.profilePage.postsData}
-                                                                 newPostText={props.state.profilePage.newPostText}
+                        <Route path="/profile" element={<Profile state={props.state}
                                                                  dispatch={props.dispatch}/>}/>
                         <Route path="/dialogs/*"
-                               element={<Dialogs dialogsData={props.state.dialogsPage.dialogsData}
-                                                 messagesData={props.state.dialogsPage.messagesData}
-                                                 dispatch={props.dispatch}
-                                                 newMessageText = {props.state.dialogsPage.newMessageText}
-                               />}/>
+                               element={<DialogsContainer state={props.state}
+                                                          dispatch={props.dispatch}/>}/>
                         <Route path="/" element={<NewsField/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>

@@ -29,19 +29,16 @@ export type DialogPageType = {
     messagesData: MessagesDataType[]
     newMessageText: string
 }
+type newStoreType = {
+    profilePage: PostsType
+    dialogsPage: DialogPageType
+}
 
 
 export type ReduxStoreType =
     {
-        profilePage: {
-            postsData:PostItemType[]
-            newPostText: string;
-        }
-        dialogsPage: {
-            dialogsData: DialogsDataType[];
-            messagesData: MessagesDataType[];
-            newMessageText: string;
-        }
+        profilePage: PostsType
+        dialogsPage: DialogPageType
         subscribe: (observer: any) => void
         dispatch: (action: any) => void
         getState: () => ReduxStoreType
@@ -53,4 +50,6 @@ let reducers = combineReducers({
 })
 
 export let store: ReduxStoreType = createStore(reducers)
+//@ts-ignore
+window.store = store
 

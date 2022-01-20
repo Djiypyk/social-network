@@ -6,12 +6,12 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
 
 const initialState = {
-        postsData: [
-            {id: v1(), message: 'Hi. How are you?', likesCounts: 15},
-            {id: v1(), message: 'Hi, there.', likesCounts: 17},
-            {id: v1(), message: 'Wow,  it`s my first post.', likesCounts: 12}
-        ],
-        newPostText: ' '
+    postsData: [
+        {id: v1(), message: 'Hi. How are you?', likesCounts: 15},
+        {id: v1(), message: 'Hi, there.', likesCounts: 17},
+        {id: v1(), message: 'Wow,  it`s my first post.', likesCounts: 12}
+    ],
+    newPostText: ' '
 }
 
 export type initialStateProfileType = typeof initialState

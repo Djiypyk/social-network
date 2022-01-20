@@ -2,43 +2,38 @@ import React, {ChangeEvent} from "react";
 import styles from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Messages/Message";
-import {
-    DialogsDataType,
-    MessagesDataType,
-} from "../../Redux/redux-store";
-import {sendMessageCreator, updateNewMessageCreator} from "../../Redux/dialogs-reducer";
+import {ReduxStoreType} from "../../Redux/redux-store";
 
 
 type DialogsPagePropsType = {
-    dialogsData: DialogsDataType[]
-    messagesData: MessagesDataType[]
-    dispatch: (action: any) => void
-    newMessageText: string
+    state: ReduxStoreType
+    updateNewMessageBody: (body: string) => void
+    sendMessage: () => void
 }
 
 
 const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
 
-    const dialogsElements = props.dialogsData
+    const dialogsElements = props.state.dialogsPage.dialogsData
         .map((d) => <DialogItem id={d.id} name={d.name}/>)
 
-    const messagesElements = props.messagesData
+    const messagesElements = props.state.dialogsPage.messagesData
         .map((m) => <Message id={m.id} message={m.message}/>)
 
-    const newMessageBody = props.newMessageText
+    const newMessageBody = props.state.dialogsPage.newMessageText
 
     const onSendMessage = () => {
-        props.dispatch(sendMessageCreator())
+        props.sendMessage()
     }
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         if (e.currentTarget.value) {
             let body = e.currentTarget.value
-            props.dispatch(updateNewMessageCreator(body))
+            props.updateNewMessageBody(body)
         }
     }
     const onKeyDownSendMessage = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter') {
-            props.dispatch(sendMessageCreator())
+            props.sendMessage()
         }
     }
 
@@ -51,7 +46,8 @@ const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
                 {messagesElements}
 
                 <div className={styles.message_input}>
-                    <textarea value={newMessageBody} onKeyPress={onKeyDownSendMessage} onChange={onNewMessageChange} placeholder="Write your message"/>
+                    <textarea value={newMessageBody} onKeyPress={onKeyDownSendMessage} onChange={onNewMessageChange}
+                              placeholder="Write your message"/>
                     <button className={styles.add_button} onClick={onSendMessage}> Send message</button>
                 </div>
             </div>
