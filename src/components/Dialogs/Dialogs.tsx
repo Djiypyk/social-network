@@ -3,11 +3,9 @@ import styles from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Messages/Message";
 import {
-
     DialogsDataType,
     MessagesDataType,
-
-} from "../../Redux/store";
+} from "../../Redux/redux-store";
 import {sendMessageCreator, updateNewMessageCreator} from "../../Redux/dialogs-reducer";
 
 

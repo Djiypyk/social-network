@@ -1,19 +1,28 @@
-import {PostItemType, PostsType} from "./store";
+import {PostItemType, PostsType} from "./redux-store";
 import {v1} from "uuid";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
+
 const initialState = {
-    postsData: [
-        {id: v1(), message: 'Hi. How are you?', likesCounts: 15},
-        {id: v1(), message: 'Hi, there.', likesCounts: 17},
-        {id: v1(), message: 'Wow,  it`s my first post.', likesCounts: 12}
-    ],
-    newPostText: ' '
+        postsData: [
+            {id: v1(), message: 'Hi. How are you?', likesCounts: 15},
+            {id: v1(), message: 'Hi, there.', likesCounts: 17},
+            {id: v1(), message: 'Wow,  it`s my first post.', likesCounts: 12}
+        ],
+        newPostText: ' '
 }
 
-export const profileReducer = (state: PostsType = initialState, action: any) => {
+export type initialStateProfileType = typeof initialState
+
+
+type profileActionType = {
+    type: typeof ADD_POST | typeof UPDATE_NEW_POST_TEXT
+    newText: string
+}
+
+export const profileReducer = (state: PostsType = initialState, action: profileActionType): initialStateProfileType => {
 
     switch (action.type) {
         case ADD_POST:

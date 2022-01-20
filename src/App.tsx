@@ -10,10 +10,10 @@ import NewsField from "./components/NewsField/NewsField";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {newStateType} from "./Redux/store";
+import {ReduxStoreType} from "./Redux/redux-store";
 
 type AppProps = {
-    state: newStateType
+    state: ReduxStoreType
     dispatch: (action: any) => void
 }
 
@@ -30,10 +30,10 @@ const App: React.FC<AppProps> = (props) => {
                                                                  newPostText={props.state.profilePage.newPostText}
                                                                  dispatch={props.dispatch}/>}/>
                         <Route path="/dialogs/*"
-                               element={<Dialogs dialogsData={props.state.dialogPage.dialogsData}
-                                                 messagesData={props.state.dialogPage.messagesData}
+                               element={<Dialogs dialogsData={props.state.dialogsPage.dialogsData}
+                                                 messagesData={props.state.dialogsPage.messagesData}
                                                  dispatch={props.dispatch}
-                                                 newMessageText = {props.state.dialogPage.newMessageText}
+                                                 newMessageText = {props.state.dialogsPage.newMessageText}
                                />}/>
                         <Route path="/" element={<NewsField/>}/>
                         <Route path="/music" element={<Music/>}/>

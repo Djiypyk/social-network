@@ -1,12 +1,11 @@
 import reportWebVitals from './reportWebVitals';
-import store from "./Redux/redux-store";
-import {newStateType} from "./Redux/store"
 import ReactDOM from "react-dom";
 import App from "./App";
 import React from "react";
+import {store, ReduxStoreType} from './Redux/redux-store';
 
 
-export let rerenderEntireTree = (state: newStateType) => {
+export let rerenderEntireTree = (state: ReduxStoreType) => {
     ReactDOM.render(
         <App state={state} dispatch={store.dispatch.bind(store)}/>,
         document.getElementById('root')
@@ -15,7 +14,7 @@ export let rerenderEntireTree = (state: newStateType) => {
 
 rerenderEntireTree(store.getState())
 
-store.subscribe(()=>{
+store.subscribe(() => {
     let state = store.getState()
     rerenderEntireTree(state)
 })
