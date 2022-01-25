@@ -2,6 +2,14 @@ import styles from './Navbar.module.css'
 import React from "react";
 import {NavLink} from 'react-router-dom';
 
+export const PATH = {
+    profile: '/profile',
+    dialogs: '/dialogs',
+    newsField: '/',
+    settings: '/settings',
+    users: '/users',
+    music: 'music'
+}
 
 const Navbar: React.FC = () => {
 
@@ -10,21 +18,24 @@ const Navbar: React.FC = () => {
         <nav className={styles.nav}>
 
             <div><NavLink className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
-                          to="/profile">
+                          to={PATH.profile}>
                 Profile</NavLink>
             </div>
             <div><NavLink
                 className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
-                to="/dialogs">Messages</NavLink></div>
+                to={PATH.dialogs}>Messages</NavLink></div>
             <div><NavLink
                 className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
-                to="/">News Field</NavLink></div>
+                to={PATH.users}>Users</NavLink></div>
             <div><NavLink
                 className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
-                to="settings">Settings</NavLink></div>
+                to={PATH.newsField}>News Field</NavLink></div>
             <div><NavLink
                 className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
-                to="music">Music</NavLink></div>
+                to={PATH.settings}>Settings</NavLink></div>
+            <div><NavLink
+                className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
+                to={PATH.music}>Music</NavLink></div>
 
         </nav>
     )

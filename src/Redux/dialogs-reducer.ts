@@ -21,7 +21,7 @@ const initialState = {
         {id: v1(), name: 'Glen'},
         {id: v1(), name: 'Yana'},
         {id: v1(), name: 'Gloria'},
-        {id: v1(), name: 'Nikolai'}
+        {id: v1(), name: 'Nikolai'},
     ] as Array<DialogsType>,
     messagesData: [
         {id: v1(), message: 'Hello, it`s me.'},
