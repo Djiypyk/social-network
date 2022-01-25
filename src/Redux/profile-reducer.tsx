@@ -17,10 +17,7 @@ const initialState = {
 export type initialStateProfileType = typeof initialState
 
 
-type profileActionType = {
-    type: typeof ADD_POST | typeof UPDATE_NEW_POST_TEXT
-    newText: string
-}
+type profileActionType = addPostACType | onPostChangeACType
 
 export const profileReducer = (state: PostsType = initialState, action: profileActionType): initialStateProfileType => {
 
@@ -40,9 +37,18 @@ export const profileReducer = (state: PostsType = initialState, action: profileA
     }
 }
 
-export const addPostActionCreator = () => {
+type addPostACType = {
+    type: typeof ADD_POST
+}
+
+type onPostChangeACType = {
+    type: typeof UPDATE_NEW_POST_TEXT
+    newText: string
+}
+
+export const addPostAC = (): addPostACType => {
     return {type: ADD_POST}
 }
-export const onPostChangeActionCreator = (text: string) => {
+export const onPostChangeAC = (text: string): onPostChangeACType => {
     return {type: UPDATE_NEW_POST_TEXT, newText: text}
 }

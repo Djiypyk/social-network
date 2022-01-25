@@ -2,38 +2,38 @@ import React, {ChangeEvent} from "react";
 import styles from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Messages/Message";
-import {ReduxStoreType} from "../../Redux/redux-store";
+import {DialogPageType} from "../../Redux/redux-store";
 
 
 type DialogsPagePropsType = {
-    state: ReduxStoreType
-    updateNewMessageBody: (body: string) => void
-    sendMessage: () => void
+    dialogs: DialogPageType
+    textBody: string
+    sendMessageAC: ()=>void
+    onChangeMessageAC: (text:string)=>void
 }
-
 
 const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
 
-    const dialogsElements = props.state.dialogsPage.dialogsData
-        .map((d) => <DialogItem id={d.id} name={d.name}/>)
+    const dialogsElements = props.dialogs.dialogsData
+        .map((d) => <DialogItem key={d.id} id={d.id} name={d.name}/>)
 
-    const messagesElements = props.state.dialogsPage.messagesData
-        .map((m) => <Message id={m.id} message={m.message}/>)
+    const messagesElements = props.dialogs.messagesData
+        .map((m) => <Message key={m.id} id={m.id} message={m.message}/>)
 
-    const newMessageBody = props.state.dialogsPage.newMessageText
+    const newMessageBody = props.textBody
 
     const onSendMessage = () => {
-        props.sendMessage()
+        props.sendMessageAC()
     }
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         if (e.currentTarget.value) {
             let body = e.currentTarget.value
-            props.updateNewMessageBody(body)
+            props.onChangeMessageAC(body)
         }
     }
     const onKeyDownSendMessage = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter') {
-            props.sendMessage()
+            props.sendMessageAC()
         }
     }
 

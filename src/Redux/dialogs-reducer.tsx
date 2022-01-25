@@ -14,6 +14,8 @@ type MessagesDataType = {
     message: string
 }
 
+
+
 const initialState = {
     dialogsData: [
         {id: v1(), name: 'Alex'},
@@ -32,11 +34,15 @@ const initialState = {
 
 export type initialStateType = typeof initialState
 
-type actionType = {
-    type: typeof SEND_MESSAGE | typeof UPDATE_NEW_MESSAGE_TEXT
+type onChangeMessageActionType = {
+    type: typeof UPDATE_NEW_MESSAGE_TEXT
     body: string
 }
 
+type sendMessageActionType = {
+    type: typeof SEND_MESSAGE
+}
+type actionType = sendMessageActionType | onChangeMessageActionType
 
 export const dialogsReducer = (state: DialogPageType = initialState, action: actionType): initialStateType => {
     switch (action.type) {
@@ -52,9 +58,10 @@ export const dialogsReducer = (state: DialogPageType = initialState, action: act
             return state
     }
 }
-export const sendMessageCreator = () => {
+export const sendMessageAC = ():sendMessageActionType => {
     return {type: SEND_MESSAGE}
 }
-export const updateNewMessageCreator = (body: string) => {
+
+export const onChangeMessageAC = (body: string):onChangeMessageActionType => {
     return {type: UPDATE_NEW_MESSAGE_TEXT, body: body}
 }
