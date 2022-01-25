@@ -15,7 +15,6 @@ type MessagesDataType = {
 }
 
 
-
 const initialState = {
     dialogsData: [
         {id: v1(), name: 'Alex'},
@@ -33,35 +32,36 @@ const initialState = {
 }
 
 export type initialStateType = typeof initialState
-
 type onChangeMessageActionType = {
     type: typeof UPDATE_NEW_MESSAGE_TEXT
     body: string
 }
-
 type sendMessageActionType = {
     type: typeof SEND_MESSAGE
 }
 type actionType = sendMessageActionType | onChangeMessageActionType
 
 export const dialogsReducer = (state: DialogPageType = initialState, action: actionType): initialStateType => {
+    const stateCopy = {...state, messagesData: [...state.messagesData]}
+
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.body
-            return state
+            stateCopy.newMessageText = action.body
+            return stateCopy
+
         case SEND_MESSAGE:
-            let body = state.newMessageText
-            state.messagesData.push({id: v1(), message: body})
-            state.newMessageText = ' '
-            return state
+            let messageText = stateCopy.newMessageText
+            stateCopy.messagesData.push({id: v1(), message: messageText})
+            stateCopy.newMessageText = ' '
+            return stateCopy
         default:
             return state
     }
 }
-export const sendMessageAC = ():sendMessageActionType => {
+export const sendMessageAC = (): sendMessageActionType => {
     return {type: SEND_MESSAGE}
 }
 
-export const onChangeMessageAC = (body: string):onChangeMessageActionType => {
+export const onChangeMessageAC = (body: string): onChangeMessageActionType => {
     return {type: UPDATE_NEW_MESSAGE_TEXT, body: body}
 }
