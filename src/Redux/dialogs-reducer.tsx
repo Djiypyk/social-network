@@ -42,18 +42,21 @@ type sendMessageActionType = {
 type actionType = sendMessageActionType | onChangeMessageActionType
 
 export const dialogsReducer = (state: DialogPageType = initialState, action: actionType): initialStateType => {
-    const stateCopy = {...state, messagesData: [...state.messagesData]}
 
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT:
-            stateCopy.newMessageText = action.body
-            return stateCopy
+        case UPDATE_NEW_MESSAGE_TEXT: {
+            return {...state, messagesData: [...state.messagesData], newMessageText: action.body}
+        }
+        case SEND_MESSAGE: {
+            let messageText = state.newMessageText
+            return {
+                ...state,
+                newMessageText: ' ',
+                messagesData: [...state.messagesData, {id: v1(), message: messageText}]
+            }
 
-        case SEND_MESSAGE:
-            let messageText = stateCopy.newMessageText
-            stateCopy.messagesData.push({id: v1(), message: messageText})
-            stateCopy.newMessageText = ' '
-            return stateCopy
+
+        }
         default:
             return state
     }

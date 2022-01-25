@@ -16,23 +16,21 @@ const initialState = {
 
 export type initialStateProfileType = typeof initialState
 
-
 type profileActionType = addPostACType | onPostChangeACType
 
 export const profileReducer = (state: PostsType = initialState, action: profileActionType): initialStateProfileType => {
-    const stateCopy = {...state, postsData: [...state.postsData]}
+
 
     switch (action.type) {
-        case ADD_POST:
+        case ADD_POST: {
             const newPost: PostItemType = {
                 id: v1(), message: state.newPostText, likesCounts: 0
             }
-            stateCopy.postsData.push(newPost)
-            stateCopy.newPostText = ''
-            return stateCopy
-        case UPDATE_NEW_POST_TEXT:
-            stateCopy.newPostText = action.newText
-            return stateCopy
+            return {...state, newPostText: '', postsData: [newPost, ...state.postsData]}
+        }
+        case UPDATE_NEW_POST_TEXT: {
+            return {...state, newPostText: action.newText}
+        }
         default:
             return state
     }
