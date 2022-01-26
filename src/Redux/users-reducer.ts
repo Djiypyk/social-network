@@ -2,19 +2,33 @@ import {v1} from "uuid";
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
+const SET_USERS = 'SET-USERS'
 
+type followAT = {
+    type: typeof FOLLOW
+    userID: string
+}
+type unfollowAT = {
+    type: typeof UNFOLLOW
+    userID: string
+}
+type setUsersAT = {
+    type: typeof SET_USERS
+    users: UserType[]
+}
+type ActionType = followAT | unfollowAT | setUsersAT
 type LocationType = {
     city: string
     country: string
 }
-
-type UserType = {
+export type UserType = {
     id: string
     followed: boolean
     fullName: string
     status: string
     location: LocationType
 }
+
 const initialState = {
     users: [
         {
@@ -41,10 +55,10 @@ const initialState = {
     ] as Array<UserType>
 };
 
-export type initialStateType = typeof initialState
+export type initialStateUsersType = typeof initialState
 
 
-const usersReducer = (state: initialStateType, action: any) => {
+export const usersReducer = (state: initialStateUsersType, action: ActionType): initialStateUsersType => {
 
     switch (action.type) {
         case FOLLOW:
@@ -60,6 +74,11 @@ const usersReducer = (state: initialStateType, action: any) => {
                         u => u.id === action.userID ? {...u, followed: false} : u)
             }
 
+        case SET_USERS:
+            return {
+                ...state, users:
+                    [...state.users, ...action.users]
+            }
         default:
             return state
     }
@@ -68,3 +87,6 @@ const usersReducer = (state: initialStateType, action: any) => {
 
 export const followAC = (userID: string) => ({type: FOLLOW, userID})
 export const unFollowAC = (userID: string) => ({type: UNFOLLOW, userID})
+export const setUsersAC = (users: UserType) => {
+    return {type: SET_USERS, users: users}
+}

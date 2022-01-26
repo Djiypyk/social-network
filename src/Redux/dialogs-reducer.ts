@@ -1,15 +1,16 @@
-import {DialogPageType,} from "./redux-store";
+
 import {v1} from "uuid";
+import {DialogPageType} from "./redux-store";
 
 
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 const SEND_MESSAGE = 'SEND-MESSAGE'
 
-type DialogsType = {
+export type DialogType = {
     id: string
     name: string
 }
-type MessagesDataType = {
+export type MessagesDataType = {
     id: string
     message: string
 }
@@ -22,7 +23,7 @@ const initialState = {
         {id: v1(), name: 'Yana'},
         {id: v1(), name: 'Gloria'},
         {id: v1(), name: 'Nikolai'},
-    ] as Array<DialogsType>,
+    ] as Array<DialogType>,
     messagesData: [
         {id: v1(), message: 'Hello, it`s me.'},
         {id: v1(), message: 'Hello!'},

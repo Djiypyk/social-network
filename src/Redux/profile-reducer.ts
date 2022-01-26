@@ -1,8 +1,19 @@
-import {PostItemType, PostsType} from "./redux-store";
+
 import {v1} from "uuid";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+
+export type PostItemType = {
+    id: string
+    message: string
+    likesCounts: number
+
+}
+export type PostsType = {
+    postsData: PostItemType[]
+    newPostText: string
+}
 
 
 const initialState = {

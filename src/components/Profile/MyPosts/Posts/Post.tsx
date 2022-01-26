@@ -1,6 +1,7 @@
 import styles from "./Post.module.css";
 import React from "react";
-import {PostItemType} from "../../../../Redux/redux-store";
+import {PostItemType} from "../../../../Redux/profile-reducer";
+
 
 
 const Post: React.FC<PostItemType> = (props) => {

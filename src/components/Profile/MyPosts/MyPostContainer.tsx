@@ -1,8 +1,8 @@
 import React from "react";
-import {addPostAC, onPostChangeAC} from "../../../Redux/profile-reducer";
+import {addPostAC, onPostChangeAC, PostItemType} from "../../../Redux/profile-reducer";
 import MyPost from "./MyPost";
 import {connect} from "react-redux";
-import {AppStateType, PostItemType} from "../../../Redux/redux-store";
+import {AppStateType} from "../../../Redux/redux-store";
 
 export type propsPostsType = mapStateType & mapDispatchType & ownPropsType
 

@@ -10,7 +10,8 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import Users from "./components/Users/Users";
+import UsersContainer from "./components/Users/UsersContainer";
+
 
 
 const App: React.FC = (props) => {
@@ -25,7 +26,7 @@ const App: React.FC = (props) => {
                         <Route path={PATH.profile} element={<Profile/>}/>
                         <Route path={`${PATH.dialogs}/*`}
                                element={<DialogsContainer />}/>
-                        <Route path={PATH.users} element={<Users/>}/>
+                        <Route path={PATH.users} element={<UsersContainer/>}/>
                         <Route path={PATH.newsField} element={<NewsField/>}/>
                         <Route path={PATH.music} element={<Music/>}/>
                         <Route path={PATH.settings} element={<Settings/>}/>

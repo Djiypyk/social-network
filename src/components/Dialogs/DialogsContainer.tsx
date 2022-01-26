@@ -1,4 +1,3 @@
-import React from "react";
 import {onChangeMessageAC, sendMessageAC} from "../../Redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {AppStateType, DialogPageType,} from "../../Redux/redux-store";

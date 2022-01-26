@@ -1,7 +1,9 @@
 import styles from "./MyPost.module.css";
 import React from "react";
 import Post from "./Posts/Post";
-import { PostItemType} from '../../../Redux/redux-store';
+import {PostItemType} from "../../../Redux/profile-reducer";
+
+
 
 
 export type propsPostsType = {
