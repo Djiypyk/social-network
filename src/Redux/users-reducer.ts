@@ -26,27 +26,31 @@ export type UserType = {
     followed: boolean
     fullName: string
     status: string
+    photoUrl: string
     location: LocationType
 }
 
 const initialState = {
     users: [
         {
-            id: v1(), followed: true, fullName: 'Dima', status: 'I am boss', location:
+            id: v1(), photoUrl: 'https://w7.pngwing.com/pngs/623/822/png-transparent-computer-icons-smile-smile-cdr-face-people-thumbnail.png',
+            followed: true, fullName: 'Dima', status: 'I am boss', location:
                 {
                     city: 'Minsk',
                     country: 'Belarus'
                 }
         },
         {
-            id: v1(), followed: true, fullName: 'Alex', status: 'I am beautiful', location:
+            id: v1(),photoUrl: 'https://w7.pngwing.com/pngs/623/822/png-transparent-computer-icons-smile-smile-cdr-face-people-thumbnail.png',
+            followed: true, fullName: 'Alex', status: 'I am beautiful', location:
                 {
                     city: 'Kemerovo',
                     country: 'Russia'
                 }
         },
         {
-            id: v1(), followed: false, fullName: 'Vasya', status: 'I am Vasya', location:
+            id: v1(), photoUrl: 'https://w7.pngwing.com/pngs/623/822/png-transparent-computer-icons-smile-smile-cdr-face-people-thumbnail.png',
+            followed: false, fullName: 'Vasya', status: 'I am Vasya', location:
                 {
                     city: 'Kiev',
                     country: 'Ukraine'

@@ -22,7 +22,9 @@ const UsersContainer: React.FC<propsPostsType> = (props) => {
 
     return <Users followUser={followUser}
                   unFollowUser={unFollowUser}
-                  setUsers={setUsers}/>
+                  setUsers={setUsers}
+                  users={props.usersPage}
+        />
 }
 
 type mapStateType = {
