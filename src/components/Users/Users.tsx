@@ -16,7 +16,7 @@ const Users: React.FC<UsersPageType> = (props) => {
    const followUser = (userID:string) => {
        props.followUser(userID)
    }
-   const setUsers = (users: UserType[]) => {
+   const setUsers = (users: UserType) => {
        props.setUsers(users)
    }
 

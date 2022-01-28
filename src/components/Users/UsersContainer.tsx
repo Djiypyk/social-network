@@ -26,7 +26,7 @@ const UsersContainer: React.FC<propsPostsType> = (props) => {
 }
 
 type mapStateType = {
-    usersPage: UserType
+    usersPage: UserType[]
 
 }
 

@@ -52,13 +52,13 @@ const initialState = {
                     country: 'Ukraine'
                 }
         },
-    ] as Array<UserType>
+    ] as UserType[]
 };
 
 export type initialStateUsersType = typeof initialState
 
 
-export const usersReducer = (state: initialStateUsersType, action: ActionType): initialStateUsersType => {
+export const usersReducer = (state: initialStateUsersType = initialState, action: ActionType): initialStateUsersType => {
 
     switch (action.type) {
         case FOLLOW:
