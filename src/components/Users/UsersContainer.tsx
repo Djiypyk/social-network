@@ -15,7 +15,7 @@ const UsersContainer: React.FC<propsPostsType> = (props) => {
     const unFollowUser = (userID: string) => {
         props.unFollowAC(userID)
     }
-    const setUsers = (users: UserType) => {
+    const setUsers = (users: UserType[]) => {
         props.setUsersAC(users)
     }
 
@@ -35,7 +35,7 @@ type mapStateType = {
 type mapDispatchType = {
     followAC: (userID: string) => void
     unFollowAC: (userID: string) => void
-    setUsersAC: (users: UserType) => void
+    setUsersAC: (users: UserType[]) => void
 }
 
 type ownPropsType = {}

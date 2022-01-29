@@ -32,30 +32,7 @@ export type UserType = {
 
 const initialState = {
     users: [
-        {
-            id: v1(), photoUrl: 'https://w7.pngwing.com/pngs/623/822/png-transparent-computer-icons-smile-smile-cdr-face-people-thumbnail.png',
-            followed: true, fullName: 'Dima', status: 'I am boss', location:
-                {
-                    city: 'Minsk',
-                    country: 'Belarus'
-                }
-        },
-        {
-            id: v1(),photoUrl: 'https://w7.pngwing.com/pngs/623/822/png-transparent-computer-icons-smile-smile-cdr-face-people-thumbnail.png',
-            followed: true, fullName: 'Alex', status: 'I am beautiful', location:
-                {
-                    city: 'Kemerovo',
-                    country: 'Russia'
-                }
-        },
-        {
-            id: v1(), photoUrl: 'https://w7.pngwing.com/pngs/623/822/png-transparent-computer-icons-smile-smile-cdr-face-people-thumbnail.png',
-            followed: false, fullName: 'Vasya', status: 'I am Vasya', location:
-                {
-                    city: 'Kiev',
-                    country: 'Ukraine'
-                }
-        },
+
     ] as UserType[]
 };
 
@@ -91,6 +68,6 @@ export const usersReducer = (state: initialStateUsersType = initialState, action
 
 export const followAC = (userID: string) => ({type: FOLLOW, userID})
 export const unFollowAC = (userID: string) => ({type: UNFOLLOW, userID})
-export const setUsersAC = (users: UserType) => {
+export const setUsersAC = (users: UserType[]) => {
     return {type: SET_USERS, users: users}
 }
