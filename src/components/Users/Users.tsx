@@ -2,6 +2,7 @@ import React from "react";
 import styles from './Users.module.css'
 import {UserType} from "../../Redux/users-reducer";
 import {v1} from "uuid";
+import  axios from "axios";
 
 type UsersPageType = {
     unFollowUser: (userID: string) => void
@@ -13,44 +14,8 @@ type UsersPageType = {
 const Users: React.FC<UsersPageType> = (props) => {
 
     if (props.users.length === 0) {
-        props.setUsers([
-            {
-            id: v1(),
-            photoUrl: 'https://w7.pngwing.com/pngs/623/822/png-transparent-computer-icons-smile-smile-cdr-face-people-thumbnail.png',
-            followed: true,
-            fullName: 'Dima',
-            status: 'I am boss',
-            location:
-                {
-                    city: 'Minsk',
-                    country: 'Belarus'
-                }
-        },
-            {
-                id: v1(),
-                photoUrl: 'https://w7.pngwing.com/pngs/623/822/png-transparent-computer-icons-smile-smile-cdr-face-people-thumbnail.png',
-                followed: true,
-                fullName: 'Alex',
-                status: 'I am beautiful',
-                location:
-                    {
-                        city: 'Kemerovo',
-                        country: 'Russia'
-                    }
-            },
-            {
-                id: v1(),
-                photoUrl: 'https://w7.pngwing.com/pngs/623/822/png-transparent-computer-icons-smile-smile-cdr-face-people-thumbnail.png',
-                followed: false,
-                fullName: 'Vasya',
-                status: 'I am Vasya',
-                location:
-                    {
-                        city: 'Kiev',
-                        country: 'Ukraine'
-                    }
-            }
-            ])
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(
+            response =>  (props.setUsers()))
     }
     // const unFollowUser = (userID: string) => {
     //     props.unFollowUser(userID)
