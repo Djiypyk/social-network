@@ -9,26 +9,44 @@ type UsersPageType = {
     followUser: (userID: string) => void
     setUsers: (users: UserType[]) => void
     users: UserType[]
+    pagesCount: number
+    totalUsersCount: number
+    currentPage: number
+    setCurrentPage: (currentPage: number) => void
 }
 
 const Users: React.FC<UsersPageType> = (props) => {
 
-    const getUsers = () => {
-        if (props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => (props.setUsers(response.data.items)))
-        }
+
+    const onPageChanged = (p: number) => {
+        props.setCurrentPage(p)
+        axios.get(
+            `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${props.pagesCount}`)
+            .then(response => (props.setUsers(response.data.items)))
+
+    }
+
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pagesCount)
+    let pages: number[] = []
+    debugger
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
     return (
 
         <div>
-            <button onClick={getUsers}>Get Users</button>
+            <div className={styles.pages}>
+                {pages.map(p => <span key={p}
+                    onClick={() => onPageChanged(p)}
+                    className={`${styles.normal} ${props.currentPage === p ? styles.selectedPage : ''}`}>{p}</span>)}
+            </div>
+
             {props.users.map(u => <div key={u.id}>
             <span>
                 <div>
                     <img className={styles.avatar_img}
-                         src={u.photos.small != undefined ? u.photos.small : userNoPhoto}
+                         src={u.photos.small !== null ? u.photos.small : userNoPhoto}
                          alt="Avatar user"/>
                 </div>
                 <div>
@@ -37,16 +55,18 @@ const Users: React.FC<UsersPageType> = (props) => {
                         : <button onClick={() => props.followUser(u.id)}> Follow</button>}
                 </div>
             </span>
-            <span>
+                    <span>
                 <span>
-                    <div>{u.name}</div>
+                    <div className={styles.name}>{u.name}</div>
                     <div>{u.status}</div>
                 </span>
                 <span>
                     <div>{"u.location.country"}</div></span>
                     <div>{"u.location.city"}</div>
             </span>
-        </div>)}</div>
+                </div>
+            )}
+        </div>
     )
 }
 
