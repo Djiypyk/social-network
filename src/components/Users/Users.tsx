@@ -1,8 +1,7 @@
 import React from "react";
 import styles from './Users.module.css'
 import {UserType} from "../../Redux/users-reducer";
-import {v1} from "uuid";
-import  axios from "axios";
+import axios from "axios";
 import userNoPhoto from './assets/img/noAvatar.jpg'
 
 type UsersPageType = {
@@ -14,24 +13,18 @@ type UsersPageType = {
 
 const Users: React.FC<UsersPageType> = (props) => {
 
-    debugger
-    if (props.users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(
-            response =>  (props.setUsers(response.data.items)))
+    const getUsers = () => {
+        if (props.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => (props.setUsers(response.data.items)))
+        }
     }
-    // const unFollowUser = (userID: string) => {
-    //     props.unFollowUser(userID)
-    // }
-    // const followUser = (userID: string) => {
-    //     props.followUser(userID)
-    // }
-    // const setUsers = (users: UserType) => {
-    //     props.setUsers(users)
-    // }
-
 
     return (
-        <div>{props.users.map(u => <div key={u.id}>
+
+        <div>
+            <button onClick={getUsers}>Get Users</button>
+            {props.users.map(u => <div key={u.id}>
             <span>
                 <div>
                     <img className={styles.avatar_img}
