@@ -26,10 +26,10 @@ const Users: React.FC<UsersPageType> = (props) => {
 
     }
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pagesCount)
+    // let pagesCount = Math.ceil(props.totalUsersCount / props.pagesCount)
     let pages: number[] = []
-    debugger
-    for (let i = 1; i <= pagesCount; i++) {
+
+    for (let i = 1; i <= 10; i++) {
         pages.push(i)
     }
 
@@ -38,8 +38,8 @@ const Users: React.FC<UsersPageType> = (props) => {
         <div>
             <div className={styles.pages}>
                 {pages.map(p => <span key={p}
-                    onClick={() => onPageChanged(p)}
-                    className={`${styles.normal} ${props.currentPage === p ? styles.selectedPage : ''}`}>{p}</span>)}
+                                      onClick={() => onPageChanged(p)}
+                                      className={`${styles.normal} ${props.currentPage === p ? styles.selectedPage : ''}`}>{p}</span>)}
             </div>
 
             {props.users.map(u => <div key={u.id}>

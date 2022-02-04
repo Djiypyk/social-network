@@ -45,6 +45,7 @@ class UsersContainer extends React.Component<propsPostsType> {
             })
     }
 
+
     followUser = (userID: string) => {
         this.props.followAC(userID)
     }
@@ -62,6 +63,7 @@ class UsersContainer extends React.Component<propsPostsType> {
     }
 
     render = () => {
+
         return <Users followUser={this.followUser}
                       unFollowUser={this.unFollowUser}
                       setUsers={this.setUsers}
