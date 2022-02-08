@@ -1,7 +1,6 @@
 import React from "react";
 import styles from './Users.module.css'
 import {UserType} from "../../Redux/users-reducer";
-
 import userNoPhoto from './assets/img/noAvatar.jpg'
 
 type UsersPageType = {
@@ -9,8 +8,6 @@ type UsersPageType = {
     followUser: (userID: string) => void
     setUsers: (users: UserType[]) => void
     users: UserType[]
-    // pagesCount: number
-    // totalUsersCount: number
     currentPage: number
     onPageChanged: (page: number) => void
 }
