@@ -45,7 +45,7 @@ const initialState = {
     users: [] as UserType[],
     pagesCount: 5,
     totalUsersCount: 1,
-    currentPage: 5,
+    currentPage: 1,
 };
 
 export type initialStateUsersType = typeof initialState

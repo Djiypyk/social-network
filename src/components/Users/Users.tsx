@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './Users.module.css'
 import {UserType} from "../../Redux/users-reducer";
-import axios from "axios";
+
 import userNoPhoto from './assets/img/noAvatar.jpg'
 
 type UsersPageType = {
@@ -9,22 +9,13 @@ type UsersPageType = {
     followUser: (userID: string) => void
     setUsers: (users: UserType[]) => void
     users: UserType[]
-    pagesCount: number
-    totalUsersCount: number
+    // pagesCount: number
+    // totalUsersCount: number
     currentPage: number
-    setCurrentPage: (currentPage: number) => void
+    onPageChanged: (page: number) => void
 }
 
 const Users: React.FC<UsersPageType> = (props) => {
-
-
-    const onPageChanged = (p: number) => {
-        props.setCurrentPage(p)
-        axios.get(
-            `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${props.pagesCount}`)
-            .then(response => (props.setUsers(response.data.items)))
-
-    }
 
     // let pagesCount = Math.ceil(props.totalUsersCount / props.pagesCount)
     let pages: number[] = []
@@ -38,7 +29,7 @@ const Users: React.FC<UsersPageType> = (props) => {
         <div>
             <div className={styles.pages}>
                 {pages.map(p => <span key={p}
-                                      onClick={() => onPageChanged(p)}
+                                      onClick={() => props.onPageChanged(p)}
                                       className={`${styles.normal} ${props.currentPage === p ? styles.selectedPage : ''}`}>{p}</span>)}
             </div>
 

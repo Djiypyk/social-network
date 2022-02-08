@@ -61,17 +61,25 @@ class UsersContainer extends React.Component<propsPostsType> {
     setTotalUserCount = (totalCounter: number) => {
         this.props.totalUsersCountAC(totalCounter)
     }
+    onPageChanged = (p: number) => {
+        this.setCurrentPage(p)
+        axios.get(
+            `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pagesCount}`)
+            .then(response => (this.setUsers(response.data.items)))
+
+    }
 
     render = () => {
 
         return <Users followUser={this.followUser}
                       unFollowUser={this.unFollowUser}
                       setUsers={this.setUsers}
-                      setCurrentPage={this.setCurrentPage}
+                      onPageChanged={this.onPageChanged}
                       users={this.props.usersPage}
-                      pagesCount={this.props.pagesCount}
-                      totalUsersCount={this.props.totalUsersCount}
+                      // pagesCount={this.props.pagesCount}
+                      // totalUsersCount={this.props.totalUsersCount}
                       currentPage={this.props.currentPage}
+
 
         />
     }
