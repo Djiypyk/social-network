@@ -25,7 +25,6 @@ type mapStateType = {
     isFetching: boolean
 
 }
-
 type mapDispatchType = {
     followAC: (userID: string) => void
     unFollowAC: (userID: string) => void
@@ -34,9 +33,7 @@ type mapDispatchType = {
     totalUsersCountAC: (totalCount: number) => void
     toggleIsFetchingAC: (isFetching: boolean) => void
 }
-
 type ownPropsType = {}
-
 
 class UsersContainer extends React.Component<propsPostsType> {
 
@@ -79,11 +76,9 @@ class UsersContainer extends React.Component<propsPostsType> {
                 this.props.toggleIsFetchingAC(false)
                 this.setUsers(response.data.items)
             })
-
     }
 
     render = () => {
-
         return <>
             {this.props.isFetching ? <Preloader alt={'Users Preloader'}/> : null}
             <Users followUser={this.followUser}
@@ -92,8 +87,6 @@ class UsersContainer extends React.Component<propsPostsType> {
                    onPageChanged={this.onPageChanged}
                    users={this.props.usersPage}
                    currentPage={this.props.currentPage}
-
-
             />
         </>
     }
@@ -109,6 +102,6 @@ const mapStateToProps = (state: AppStateType) => ({
 
 })
 
-
 export default connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
-    mapStateToProps, {followAC, unFollowAC, setUsersAC, setCurrentPageAC, totalUsersCountAC, toggleIsFetchingAC})(UsersContainer)
+    mapStateToProps, {followAC, unFollowAC, setUsersAC, setCurrentPageAC,
+        totalUsersCountAC, toggleIsFetchingAC})(UsersContainer)

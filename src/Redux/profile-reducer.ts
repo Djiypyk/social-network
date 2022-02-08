@@ -1,20 +1,54 @@
-
 import {v1} from "uuid";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const SET_USER_PROFILE = 'SET-USER-PROFILE'
 
-export type PostItemType = {
-    id: string
-    message: string
-    likesCounts: number
-
+// export type PostItemType = {
+//     id: string
+//     message: string
+//     likesCounts: number
+//
+// }
+// export type PostsType = {
+//     postsData: PostItemType[]
+//     newPostText: string
+// }
+type addPostAT = {
+    type: typeof ADD_POST
 }
-export type PostsType = {
-    postsData: PostItemType[]
-    newPostText: string
+
+type onPostChangeAT = {
+    type: typeof UPDATE_NEW_POST_TEXT
+    newText: string
 }
 
+type UserProfileAT = {
+    type: typeof SET_USER_PROFILE
+    profile: ProfileType
+}
+export type PhotoType = {
+    small: string | null
+    large: string | null
+}
+export type ProfileType = {
+    aboutMe: string | null
+    contacts: {
+        facebook: string | null
+        website: string | null
+        vk: string | null
+        twitter: string | null
+        instagram: string | null
+        youtube: string | null
+        github: string | null
+        mainLink: string | null
+    }
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | null
+    fullName: string | null
+    userId: number | null
+    photos?: PhotoType
+}
 
 const initialState = {
     postsData: [
@@ -22,19 +56,32 @@ const initialState = {
         {id: v1(), message: 'Hi, there.', likesCounts: 17},
         {id: v1(), message: 'Wow,  it`s my first post.', likesCounts: 12}
     ],
-    newPostText: ' '
+    newPostText: ' ',
+    profile: {
+        aboutMe: null,
+        contacts: {
+            facebook: null,
+            website: null,
+            vk: null,
+            twitter: null,
+            instagram: null,
+            youtube: null,
+            github: null,
+            mainLink: null,
+        },
+    },
 }
 
 export type initialStateProfileType = typeof initialState
 
-type profileActionType = addPostACType | onPostChangeACType
+type profileActionType = addPostAT | onPostChangeAT | UserProfileAT
 
-export const profileReducer = (state: PostsType = initialState, action: profileActionType): initialStateProfileType => {
+export const profileReducer = (state: initialStateProfileType = initialState, action: profileActionType): initialStateProfileType => {
 
 
     switch (action.type) {
         case ADD_POST: {
-            const newPost: PostItemType = {
+            const newPost = {
                 id: v1(), message: state.newPostText, likesCounts: 0
             }
             return {...state, newPostText: '', postsData: [newPost, ...state.postsData]}
@@ -42,23 +89,22 @@ export const profileReducer = (state: PostsType = initialState, action: profileA
         case UPDATE_NEW_POST_TEXT: {
             return {...state, newPostText: action.newText}
         }
+        case SET_USER_PROFILE: {
+            return {...state, profile: {...action.profile}}
+
+        }
         default:
             return state
     }
 }
 
-type addPostACType = {
-    type: typeof ADD_POST
-}
 
-type onPostChangeACType = {
-    type: typeof UPDATE_NEW_POST_TEXT
-    newText: string
-}
-
-export const addPostAC = (): addPostACType => {
+export const addPostAC = (): addPostAT => {
     return {type: ADD_POST}
 }
-export const onPostChangeAC = (text: string): onPostChangeACType => {
+export const onPostChangeAC = (text: string): onPostChangeAT => {
     return {type: UPDATE_NEW_POST_TEXT, newText: text}
+}
+export const setUserProfileAC = (profile: ProfileType): UserProfileAT => {
+    return {type: SET_USER_PROFILE, profile}
 }

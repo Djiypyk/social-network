@@ -2,6 +2,7 @@ import React from "react";
 import styles from './Users.module.css'
 import {UserType} from "../../Redux/users-reducer";
 import userNoPhoto from './assets/img/noAvatar.jpg'
+import {NavLink} from "react-router-dom";
 
 type UsersPageType = {
     unFollowUser: (userID: string) => void
@@ -33,10 +34,12 @@ const Users: React.FC<UsersPageType> = (props) => {
             {props.users.map(u => <div key={u.id}>
             <span>
                 <div>
+                    <NavLink to={'/profile/' + u.id}>
                     <img className={styles.avatar_img}
                          src={u.photos.small !== null ? u.photos.small : userNoPhoto}
                          alt="Avatar user"/>
-                </div>
+                </NavLink>
+                    </div>
                 <div>
                     {u.followed ?
                         <button onClick={() => props.unFollowUser(u.id)}> Unfollow</button>
