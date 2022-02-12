@@ -1,7 +1,7 @@
 import {combineReducers, createStore} from "redux";
-import {InitialStateProfileType, profileReducer} from "./profile-reducer";
+import {profileReducer} from "./profile-reducer";
 import {dialogsReducer, DialogType, MessagesDataType} from "./dialogs-reducer";
-import {usersReducer, UserType} from "./users-reducer";
+import {usersReducer} from "./users-reducer";
 
 
 export type DialogPageType = {
@@ -10,11 +10,6 @@ export type DialogPageType = {
     newMessageText: string
 }
 
-export type ReduxStoreType = {
-        profilePage: InitialStateProfileType
-        dialogsPage: DialogPageType
-        usersPage: UserType[]
-    }
 
 
 type RootReducerType = typeof rootReducer

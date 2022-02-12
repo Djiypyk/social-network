@@ -80,7 +80,7 @@ class UsersContainer extends React.Component<propsPostsType> {
 
     render = () => {
         return <>
-            {this.props.isFetching ? <Preloader alt={'Users Preloader'}/> : null}
+            {this.props.isFetching ? <Preloader /> : null}
             <Users followUser={this.followUser}
                    unFollowUser={this.unFollowUser}
                    setUsers={this.setUsers}
