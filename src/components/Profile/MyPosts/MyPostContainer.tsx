@@ -1,5 +1,5 @@
 import React from "react";
-import {addPostAC, onPostChangeAC, PostItemType} from "../../../Redux/profile-reducer";
+import {addPostAC, onPostChangeAC, PostType} from "../../../Redux/profile-reducer";
 import MyPost from "./MyPost";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/redux-store";
@@ -26,7 +26,7 @@ const MyPostContainer: React.FC<propsPostsType> = (props) => {
 
 
 type mapStateType = {
-    postsData: PostItemType[]
+    postsData: PostType[]
     newPostText: string
 }
 

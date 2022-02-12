@@ -21,7 +21,6 @@ class ProfileContainer extends React.Component<propsPostsType> {
         axios.get(
             `https://social-network.samuraijs.com/api/1.0/profile/2`)
             .then(response => {
-
                 this.setUserProfile(response.data);
             })
     }
@@ -37,7 +36,7 @@ class ProfileContainer extends React.Component<propsPostsType> {
 }
 
 const mapStateToProps = (state: AppStateType) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
 })
 
 export default connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(

@@ -1,13 +1,13 @@
 import styles from "./MyPost.module.css";
 import React from "react";
 import Post from "./Posts/Post";
-import {PostItemType} from "../../../Redux/profile-reducer";
+import {PostType} from "../../../Redux/profile-reducer";
 
 
 
 
 export type propsPostsType = {
-    postsData: PostItemType[]
+    postsData: PostType[]
     newPostText: string
     updateNewPostText: (text: string) => void
     addPost: () => void

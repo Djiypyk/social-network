@@ -1,10 +1,10 @@
 import styles from "./Post.module.css";
 import React from "react";
-import {PostItemType} from "../../../../Redux/profile-reducer";
+import {PostType} from "../../../../Redux/profile-reducer";
 
 
 
-const Post: React.FC<PostItemType> = (props) => {
+const Post: React.FC<PostType> = (props) => {
     return (
         <div key={props.id} className={styles.item}>
             <div>

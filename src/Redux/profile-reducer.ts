@@ -4,16 +4,18 @@ const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 
-// export type PostItemType = {
-//     id: string
-//     message: string
-//     likesCounts: number
-//
-// }
-// export type PostsType = {
-//     postsData: PostItemType[]
-//     newPostText: string
-// }
+export type PostType = {
+    id: string
+    message: string
+    likesCounts: number
+
+}
+export type InitialStateProfileType = {
+    postsData: PostType[]
+    newPostText: string
+    profile: ProfileType
+
+}
 type addPostAT = {
     type: typeof ADD_POST
 }
@@ -23,10 +25,7 @@ type onPostChangeAT = {
     newText: string
 }
 
-type UserProfileAT = {
-    type: typeof SET_USER_PROFILE
-    profile: ProfileType
-}
+
 export type PhotoType = {
     small: string | null
     large: string | null
@@ -49,6 +48,10 @@ export type ProfileType = {
     userId: number | null
     photos?: PhotoType
 }
+type UserProfileAT = {
+    type: typeof SET_USER_PROFILE
+    profile: ProfileType
+}
 
 const initialState = {
     postsData: [
@@ -69,14 +72,20 @@ const initialState = {
             github: null,
             mainLink: null,
         },
+        lookingForAJob: false,
+        lookingForAJobDescription: null,
+        fullName: null,
+        userId: 2,
+        photos: {
+            small: null,
+            large: null,
+        }
     },
 }
 
-export type initialStateProfileType = typeof initialState
-
 type profileActionType = addPostAT | onPostChangeAT | UserProfileAT
 
-export const profileReducer = (state: initialStateProfileType = initialState, action: profileActionType): initialStateProfileType => {
+export const profileReducer = (state: InitialStateProfileType = initialState, action: profileActionType): InitialStateProfileType => {
 
 
     switch (action.type) {
@@ -91,7 +100,6 @@ export const profileReducer = (state: initialStateProfileType = initialState, ac
         }
         case SET_USER_PROFILE: {
             return {...state, profile: {...action.profile}}
-
         }
         default:
             return state
