@@ -10,7 +10,7 @@ import Settings from "./components/Settings/Settings";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileInfo/ProfileContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 const App: React.FC = (props) => {
@@ -22,7 +22,8 @@ const App: React.FC = (props) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path={PATH.profile} element={<ProfileContainer/>}/>
+                        <Route path={`${PATH.profile}/`} element={<ProfileContainer/>}/>
+                        <Route path={`${PATH.profile}/:userId`} element={<ProfileContainer/>}/>
                         <Route path={`${PATH.dialogs}/*`}
                                element={<DialogsContainer />}/>
                         <Route path={PATH.users} element={<UsersContainer/>}/>

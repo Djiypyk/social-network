@@ -41,9 +41,11 @@
     font-weight: 600;
     color: darkblue;
 }
+
 .user_contact a:hover {
     color: dodgerblue;
 }
-.user_contact a:active{
+
+.user_contact a:active {
     color: black;
 }

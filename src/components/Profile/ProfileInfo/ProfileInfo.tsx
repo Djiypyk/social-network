@@ -35,19 +35,26 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile}) => {
                         </div>
                     </div>
                     <div>{profile.lookingForAJob &&
-                    <div style={{fontWeight:'600', color:'darkblue'}}><p style={{marginBottom:'-10px'}}>В поиске работы: </p><p>{profile.lookingForAJobDescription}</p></div>}</div>
+                    <div style={{fontWeight: '600', color: 'darkblue'}}><p style={{marginBottom: '-10px'}}>В поиске
+                        работы: </p><p>{profile.lookingForAJobDescription}</p></div>}</div>
                 </div>
                 <p style={{textAlign: "center", fontWeight: '600', fontSize: '20px'}}>Other Contacts:</p>
                 <div className={styles.user_contact}>
-                    {profile.contacts.vk && <p><a target={'_blank'} href={`https:/${profile.contacts.vk}`}>VK </a></p>}
+                    {profile.contacts.vk &&
+                    <p><a target={'_blank'} rel='noreferrer noopener' href={`https:/${profile.contacts.vk}`}>VK </a>
+                    </p>}
                     {profile.contacts.instagram &&
-                    <p><a target={'_blank'} href={`https:/${profile.contacts.instagram}`}>Instagram </a></p>}
+                    <p><a target={'_blank'} rel='noreferrer noopener'
+                          href={`https:/${profile.contacts.instagram}`}>Instagram </a></p>}
                     {profile.contacts.youtube &&
-                    <p><a target={'_blank'} href={`https:/${profile.contacts.youtube}`}>YouTube </a></p>}
+                    <p><a target={'_blank'} rel='noreferrer noopener'
+                          href={`https:/${profile.contacts.youtube}`}>YouTube </a></p>}
                     {profile.contacts.facebook &&
-                    <p><a target={'_blank'} href={`https:/${profile.contacts.facebook}`}>Facebook </a></p>}
+                    <p><a target={'_blank'} rel='noreferrer noopener'
+                          href={`https:/${profile.contacts.facebook}`}>Facebook </a></p>}
                     {profile.contacts.github &&
-                    <p><a target={'_blank'} href={`https:/${profile.contacts.github}`}>GitHub </a></p>}
+                    <p><a target={'_blank'} rel='noreferrer noopener'
+                          href={`https:/${profile.contacts.github}`}>GitHub </a></p>}
                 </div>
             </div>
         </div>

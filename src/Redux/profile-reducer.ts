@@ -55,7 +55,7 @@ type UserProfileAT = {
 
 const initialState = {
     postsData: [
-        {id: v1(), message: 'Hi. How are you?', likesCounts: 15},
+        {id: v1(), message: 'Hi. How are you? I wish you nice day!', likesCounts: 15},
         {id: v1(), message: 'Hi, there.', likesCounts: 17},
         {id: v1(), message: 'Wow,  it`s my first post.', likesCounts: 12}
     ],
@@ -65,17 +65,17 @@ const initialState = {
         contacts: {
             facebook: null,
             website: null,
-            vk: null,
+            vk: 'https://vk.com/hoziain4eloveka',
             twitter: null,
-            instagram: null,
+            instagram: 'https://www.instagram.com/zarezako.nick/',
             youtube: null,
-            github: null,
+            github: 'https://github.com/Djiypyk',
             mainLink: null,
         },
-        lookingForAJob: false,
-        lookingForAJobDescription: null,
-        fullName: null,
-        userId: 2,
+        lookingForAJob: true,
+        lookingForAJobDescription: 'Frontend Developer',
+        fullName: 'Nikolai Zarazaka',
+        userId: 16125,
         photos: {
             small: null,
             large: null,
