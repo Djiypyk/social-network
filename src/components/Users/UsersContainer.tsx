@@ -15,7 +15,7 @@ import axios from "axios";
 import {Preloader} from "../common/Preloader";
 
 
-export type propsPostsType = mapStateType & mapDispatchType & ownPropsType
+type propsPostsType = mapStateType & mapDispatchType & ownPropsType
 
 type mapStateType = {
     usersPage: UserType[]
@@ -80,7 +80,7 @@ class UsersContainer extends React.Component<propsPostsType> {
 
     render = () => {
         return <>
-            {this.props.isFetching ? <Preloader /> : null}
+            {this.props.isFetching ? <Preloader/> : null}
             <Users followUser={this.followUser}
                    unFollowUser={this.unFollowUser}
                    setUsers={this.setUsers}
@@ -103,5 +103,7 @@ const mapStateToProps = (state: AppStateType) => ({
 })
 
 export default connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
-    mapStateToProps, {followAC, unFollowAC, setUsersAC, setCurrentPageAC,
-        totalUsersCountAC, toggleIsFetchingAC})(UsersContainer)
+    mapStateToProps, {
+        followAC, unFollowAC, setUsersAC, setCurrentPageAC,
+        totalUsersCountAC, toggleIsFetchingAC
+    })(UsersContainer)

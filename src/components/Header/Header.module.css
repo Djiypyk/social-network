@@ -10,3 +10,14 @@
     width: 85px;
     height: 54px;
 }
+.login_block{
+    float: right;
+    cursor: pointer;
+    margin: 15px 10px 0 0;
+}
+.login_block a{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+}

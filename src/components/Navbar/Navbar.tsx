@@ -8,7 +8,7 @@ export const PATH = {
     newsField: '/',
     settings: '/settings',
     users: '/users',
-    music: 'music'
+    music: '/music'
 }
 
 const Navbar: React.FC = () => {
