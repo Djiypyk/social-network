@@ -11,8 +11,8 @@ import {
     UserType
 } from "../../Redux/users-reducer";
 import Users from "./Users";
-import axios from "axios";
 import {Preloader} from "../common/Preloader";
+import {API} from "../../api/api";
 
 
 type propsPostsType = mapStateType & mapDispatchType & ownPropsType
@@ -39,12 +39,12 @@ class UsersContainer extends React.Component<propsPostsType> {
 
     componentDidMount() {
         this.props.toggleIsFetchingAC(true)
-        axios.get(
-            `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pagesCount}`)
-            .then(response => {
+
+        API.getUsers(this.props.currentPage, this.props.pagesCount)
+            .then(data => {
                 this.props.toggleIsFetchingAC(false)
-                this.setUsers(response.data.items);
-                this.setTotalUserCount(response.data.totalCount)
+                this.setUsers(data.items);
+                this.setTotalUserCount(data.totalCount)
             })
     }
 
@@ -67,14 +67,13 @@ class UsersContainer extends React.Component<propsPostsType> {
     toggleIsFetching = (isFetching: boolean) => {
         this.props.toggleIsFetchingAC(!isFetching)
     }
-    onPageChanged = (p: number) => {
-        this.setCurrentPage(p)
+    onPageChanged = (pageNumber: number) => {
+        this.setCurrentPage(pageNumber)
         this.props.toggleIsFetchingAC(true)
-        axios.get(
-            `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pagesCount}`)
-            .then(response => {
+        API.getUsers(pageNumber, this.props.pagesCount)
+            .then(data => {
                 this.props.toggleIsFetchingAC(false)
-                this.setUsers(response.data.items)
+                this.setUsers(data.items)
             })
     }
 
@@ -92,14 +91,12 @@ class UsersContainer extends React.Component<propsPostsType> {
     }
 }
 
-
 const mapStateToProps = (state: AppStateType) => ({
     usersPage: state.usersPage.users,
     pagesCount: state.usersPage.pagesCount,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching
-
 })
 
 export default connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(

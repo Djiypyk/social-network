@@ -38,13 +38,11 @@ class HeaderContainer extends React.Component<propsPostsType> {
     toggleIsFetching = (isFetching: boolean) => {
         this.props.toggleIsFetchingAC(!isFetching)
     }
-
     render = () => {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <Header isAuth={this.props.isAuth} login={this.props.login}/>
         </>
-
     }
 }
 

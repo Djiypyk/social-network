@@ -13,10 +13,8 @@ export const PATH = {
 
 const Navbar: React.FC = () => {
 
-
     return (
         <nav className={styles.nav}>
-
             <div><NavLink className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
                           to={PATH.profile}>
                 Profile</NavLink>
@@ -36,7 +34,6 @@ const Navbar: React.FC = () => {
             <div><NavLink
                 className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
                 to={PATH.music}>Music</NavLink></div>
-
         </nav>
     )
 }

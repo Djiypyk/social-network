@@ -2,9 +2,9 @@ const SET_USER_DATA = 'SET_USER_DATA'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 export type UserDataType = {
-        userId: string | null,
-        email: string | null,
-        login: string | null
+    userId: string | null,
+    email: string | null,
+    login: string | null
 }
 type setUserDataAT = {
     type: typeof SET_USER_DATA
