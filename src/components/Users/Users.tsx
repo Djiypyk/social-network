@@ -3,7 +3,7 @@ import styles from './Users.module.css'
 import {UserType} from "../../Redux/users-reducer";
 import userNoPhoto from './assets/img/noAvatar.jpg'
 import {NavLink} from "react-router-dom";
-import {API} from "../../api/api";
+import {usersAPI} from "../../api/usersAPI";
 
 type UsersPageType = {
     unFollowUser: (userID: string) => void
@@ -44,7 +44,7 @@ const Users: React.FC<UsersPageType> = (props) => {
                 <div>
                     {u.followed
                         ? <button onClick={() => {
-                            API.unFollowUser(u.id)
+                            usersAPI.unFollowUser(u.id)
                                 .then(data => {
                                     if (data.resultCode === 0) {
                                         props.unFollowUser(u.id)
@@ -54,7 +54,7 @@ const Users: React.FC<UsersPageType> = (props) => {
 
                         : <button onClick={() => {
 
-                            API.followUser(u.id)
+                            usersAPI.followUser(u.id)
                                 .then(data => {
                                     if (data.resultCode === 0) {
                                         props.followUser(u.id)

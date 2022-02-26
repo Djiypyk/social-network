@@ -12,7 +12,7 @@ import {
 } from "../../Redux/users-reducer";
 import Users from "./Users";
 import {Preloader} from "../common/Preloader";
-import {API} from "../../api/api";
+import {usersAPI} from "../../api/usersAPI";
 
 
 type propsPostsType = mapStateType & mapDispatchType & ownPropsType
@@ -40,7 +40,7 @@ class UsersContainer extends React.Component<propsPostsType> {
     componentDidMount() {
         this.props.toggleIsFetchingAC(true)
 
-        API.getUsers(this.props.currentPage, this.props.pagesCount)
+        usersAPI.getUsers(this.props.currentPage, this.props.pagesCount)
             .then(data => {
                 this.props.toggleIsFetchingAC(false)
                 this.setUsers(data.items);
@@ -70,7 +70,7 @@ class UsersContainer extends React.Component<propsPostsType> {
     onPageChanged = (pageNumber: number) => {
         this.setCurrentPage(pageNumber)
         this.props.toggleIsFetchingAC(true)
-        API.getUsers(pageNumber, this.props.pagesCount)
+        usersAPI.getUsers(pageNumber, this.props.pagesCount)
             .then(data => {
                 this.props.toggleIsFetchingAC(false)
                 this.setUsers(data.items)
