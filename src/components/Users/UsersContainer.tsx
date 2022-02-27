@@ -5,7 +5,7 @@ import {
     followAC,
     setCurrentPageAC,
     setUsersAC,
-    toggleIsFetchingAC,
+    toggleIsFetchingAC, toggleIsFollowingProgressAC,
     totalUsersCountAC,
     unFollowAC,
     UserType
@@ -23,6 +23,7 @@ type mapStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingProgress: string[]
 
 }
 type mapDispatchType = {
@@ -32,6 +33,8 @@ type mapDispatchType = {
     setCurrentPageAC: (currentPage: number) => void
     totalUsersCountAC: (totalCount: number) => void
     toggleIsFetchingAC: (isFetching: boolean) => void
+    toggleIsFollowingProgressAC: (isFetching: boolean, userId: string) => void
+
 }
 type ownPropsType = {}
 
@@ -67,6 +70,9 @@ class UsersContainer extends React.Component<propsPostsType> {
     toggleIsFetching = (isFetching: boolean) => {
         this.props.toggleIsFetchingAC(!isFetching)
     }
+    toggleIsFollowingProgress = (isFetching: boolean, userId: string) => {
+        this.props.toggleIsFollowingProgressAC(isFetching, userId)
+    }
     onPageChanged = (pageNumber: number) => {
         this.setCurrentPage(pageNumber)
         this.props.toggleIsFetchingAC(true)
@@ -84,8 +90,11 @@ class UsersContainer extends React.Component<propsPostsType> {
                    unFollowUser={this.unFollowUser}
                    setUsers={this.setUsers}
                    onPageChanged={this.onPageChanged}
+                   followingInProgress={this.toggleIsFollowingProgress}
                    users={this.props.usersPage}
                    currentPage={this.props.currentPage}
+                   followingProgress={this.props.followingProgress}
+
             />
         </>
     }
@@ -96,11 +105,12 @@ const mapStateToProps = (state: AppStateType) => ({
     pagesCount: state.usersPage.pagesCount,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    followingProgress: state.usersPage.followingInProgress
 })
 
 export default connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
     mapStateToProps, {
         followAC, unFollowAC, setUsersAC, setCurrentPageAC,
-        totalUsersCountAC, toggleIsFetchingAC
+        totalUsersCountAC, toggleIsFetchingAC, toggleIsFollowingProgressAC
     })(UsersContainer)
