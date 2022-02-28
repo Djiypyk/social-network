@@ -122,7 +122,7 @@ export const toggleIsFollowingProgressAC = (isFetching: boolean, userId: string)
     userId
 })
 
-export const getUsersThunkCreator = (currentPage: number, pagesCount: number) => (dispatch: Dispatch<ActionType>) => {
+export const getUsersTC = (currentPage: number, pagesCount: number) => (dispatch: Dispatch<ActionType>) => {
     dispatch(toggleIsFetchingAC(true))
 
     usersAPI.getUsers(currentPage, pagesCount)

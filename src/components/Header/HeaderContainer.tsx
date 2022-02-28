@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./Header";
 import axios from "axios";
-import {Preloader} from "../common/Preloader";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {setAuthUserDataAC, toggleIsFetchingAC, UserDataType} from "../../Redux/auth-reducer";
@@ -40,7 +39,7 @@ class HeaderContainer extends React.Component<propsPostsType> {
     }
     render = () => {
         return <>
-            {this.props.isFetching ? <Preloader/> : null}
+            {/*{this.props.isFetching ? <Preloader/> : null}*/}
             <Header isAuth={this.props.isAuth} login={this.props.login}/>
         </>
     }

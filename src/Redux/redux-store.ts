@@ -1,8 +1,11 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {profileReducer} from "./profile-reducer";
 import {dialogsReducer, DialogType, MessagesDataType} from "./dialogs-reducer";
 import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
+import thunkMiddleWare from "redux-thunk";
+
+
 
 
 export type DialogPageType = {
@@ -23,7 +26,7 @@ let rootReducer = combineReducers({
     auth: authReducer
 })
 
-let store = createStore(rootReducer)
+let store = createStore(rootReducer, applyMiddleware(thunkMiddleWare))
 export default store
 //@ts-ignore
 window.store = store

@@ -8,7 +8,6 @@ import {usersAPI} from "../../api/usersAPI";
 type UsersPageType = {
     unFollowUser: (userID: string) => void
     followUser: (userID: string) => void
-    setUsers: (users: UserType[]) => void
     followingInProgress: (isFetching: boolean, userId: string) => void
     onPageChanged: (page: number) => void
     users: UserType[]
