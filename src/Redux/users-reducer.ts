@@ -132,3 +132,27 @@ export const getUsersTC = (currentPage: number, pagesCount: number) => (dispatch
             dispatch(totalUsersCountAC(data.totalCount))
         })
 }
+
+export const followTC = (userId: string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(toggleIsFollowingProgressAC(true, userId))
+    usersAPI.followUser(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followAC(userId))
+            }
+            dispatch(toggleIsFollowingProgressAC(false, userId))
+        })
+
+}
+
+export const unFollowTC = (userId: string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(toggleIsFollowingProgressAC(true, userId))
+    usersAPI.unFollowUser(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unFollowAC(userId))
+            }
+            dispatch(toggleIsFollowingProgressAC(false, userId))
+        })
+
+}

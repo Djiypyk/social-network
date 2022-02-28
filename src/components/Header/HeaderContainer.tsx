@@ -4,6 +4,7 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {setAuthUserDataAC, toggleIsFetchingAC, UserDataType} from "../../Redux/auth-reducer";
+import {headerAPI} from "../../api/headerAPI";
 
 type propsPostsType = mapStateType & mapDispatchType & ownPropsType
 
@@ -22,10 +23,7 @@ class HeaderContainer extends React.Component<propsPostsType> {
 
     componentDidMount() {
         this.props.toggleIsFetchingAC(true)
-        axios.get(
-            `https://social-network.samuraijs.com/api/1.0/auth/me`, {
-                withCredentials: true
-            })
+        headerAPI.me()
             .then(response => {
                 if (response.data.resultCode === 0) {
                     this.props.setAuthUserDataAC(response.data.data) // !!----> login, email, userId

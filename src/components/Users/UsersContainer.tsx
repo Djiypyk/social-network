@@ -2,11 +2,11 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {
-    followAC,
+    followTC,
     getUsersTC,
     setCurrentPageAC,
     toggleIsFollowingProgressAC,
-    unFollowAC,
+    unFollowTC,
     UserType
 } from "../../Redux/users-reducer";
 import Users from "./Users";
@@ -25,8 +25,8 @@ type mapStateType = {
 
 }
 type mapDispatchType = {
-    followAC: (userID: string) => void
-    unFollowAC: (userID: string) => void
+    followTC: (userID: string) => void
+    unFollowTC: (userID: string) => void
     setCurrentPageAC: (currentPage: number) => void
     toggleIsFollowingProgressAC: (isFetching: boolean, userId: string) => void
     getUsersTC: (currentPage: number, pagesCount: number) => void
@@ -40,13 +40,6 @@ class UsersContainer extends React.Component<propsPostsType> {
         this.props.getUsersTC(this.props.currentPage, this.props.pagesCount)
     }
 
-
-    followUser = (userID: string) => {
-        this.props.followAC(userID)
-    }
-    unFollowUser = (userID: string) => {
-        this.props.unFollowAC(userID)
-    }
     setCurrentPage = (currentPage: number) => {
         this.props.setCurrentPageAC(currentPage)
     }
@@ -60,8 +53,8 @@ class UsersContainer extends React.Component<propsPostsType> {
     render = () => {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
-            <Users followUser={this.followUser}
-                   unFollowUser={this.unFollowUser}
+            <Users followUser={this.props.followTC}
+                   unFollowUser={this.props.unFollowTC}
                    onPageChanged={this.onPageChanged}
                    followingInProgress={this.toggleIsFollowingProgress}
                    users={this.props.usersPage}
@@ -84,6 +77,6 @@ const mapStateToProps = (state: AppStateType) => ({
 
 export default connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
     mapStateToProps, {
-        followAC, unFollowAC, setCurrentPageAC,
+        unFollowTC, followTC, setCurrentPageAC,
         toggleIsFollowingProgressAC, getUsersTC
     })(UsersContainer)
