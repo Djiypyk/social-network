@@ -24,7 +24,6 @@ const Users: React.FC<UsersPageType> = (props) => {
     }
 
     return (
-
         <div>
             <div className={styles.pages}>
                 {pages.map(p => <span key={p}

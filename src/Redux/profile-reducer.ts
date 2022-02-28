@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {Dispatch} from "react";
+import {profileAPI} from "../api/profileAPI";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -115,4 +117,12 @@ export const onPostChangeAC = (text: string): onPostChangeAT => {
 }
 export const setUserProfileAC = (profile: ProfileType): UserProfileAT => {
     return {type: SET_USER_PROFILE, profile}
+}
+
+
+export const getUserProfileTC = (userId: number | string) => (dispatch: Dispatch<profileActionType>) => {
+    profileAPI.getProfile(userId)
+        .then(res => {
+            dispatch(setUserProfileAC(res.data))
+        })
 }

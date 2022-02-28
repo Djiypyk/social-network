@@ -52,7 +52,7 @@ class UsersContainer extends React.Component<propsPostsType> {
 
     render = () => {
         return <>
-            {this.props.isFetching ? <Preloader/> : null}
+            {this.props.isFetching ? <div style={{textAlign: 'center'}}> <Preloader/> </div>: null}
             <Users followUser={this.props.followTC}
                    unFollowUser={this.props.unFollowTC}
                    onPageChanged={this.onPageChanged}

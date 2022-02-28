@@ -1,3 +1,6 @@
+import {Dispatch} from "react";
+import {headerAPI} from "../api/headerAPI";
+
 const SET_USER_DATA = 'SET_USER_DATA'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
@@ -11,7 +14,7 @@ type setUserDataAT = {
     data: UserDataType[]
 }
 
-type ActionType = setUserDataAT
+type AuthActionType = setUserDataAT
     | toggleIsFetchingAT
 
 type toggleIsFetchingAT = { type: typeof TOGGLE_IS_FETCHING, isFetching: boolean }
@@ -27,7 +30,7 @@ const initialState = {
 export type initialStateUsersType = typeof initialState
 
 
-export const authReducer = (state: initialStateUsersType = initialState, action: ActionType): initialStateUsersType => {
+export const authReducer = (state: initialStateUsersType = initialState, action: AuthActionType): initialStateUsersType => {
 
     switch (action.type) {
         case SET_USER_DATA:
@@ -46,3 +49,14 @@ export const setAuthUserDataAC = (data: UserDataType[]): setUserDataAT => (
     {type: SET_USER_DATA, data}
 )
 export const toggleIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching})
+
+
+export const getAuthUserDataTC = () => (dispatch: Dispatch<AuthActionType>) => {
+    headerAPI.me()
+        .then(response => {
+            if (response.resultCode === 0) {
+                dispatch(setAuthUserDataAC(response.data)) // !!----> login, email, userId
+            }
+        })
+}
+

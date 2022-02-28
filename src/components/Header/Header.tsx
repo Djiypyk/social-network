@@ -6,6 +6,7 @@ type HeaderPropsType = {
     login: string | null
 }
 const Header = (props: HeaderPropsType) => {
+
     return (
         <header className={styles.header}>
             <img
