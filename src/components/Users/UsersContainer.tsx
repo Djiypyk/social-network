@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {
-    followAC,
+    followAC, getUsersThunkCreator,
     setCurrentPageAC,
     setUsersAC,
     toggleIsFetchingAC, toggleIsFollowingProgressAC,
@@ -34,6 +34,7 @@ type mapDispatchType = {
     totalUsersCountAC: (totalCount: number) => void
     toggleIsFetchingAC: (isFetching: boolean) => void
     toggleIsFollowingProgressAC: (isFetching: boolean, userId: string) => void
+    getUsersThunkCreator: (currentPage: number, pagesCount: number) => void
 
 }
 type ownPropsType = {}
@@ -41,14 +42,7 @@ type ownPropsType = {}
 class UsersContainer extends React.Component<propsPostsType> {
 
     componentDidMount() {
-        this.props.toggleIsFetchingAC(true)
-
-        usersAPI.getUsers(this.props.currentPage, this.props.pagesCount)
-            .then(data => {
-                this.props.toggleIsFetchingAC(false)
-                this.setUsers(data.items);
-                this.setTotalUserCount(data.totalCount)
-            })
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pagesCount)
     }
 
 
@@ -111,6 +105,7 @@ const mapStateToProps = (state: AppStateType) => ({
 
 export default connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
     mapStateToProps, {
-        followAC, unFollowAC, setUsersAC, setCurrentPageAC,
-        totalUsersCountAC, toggleIsFetchingAC, toggleIsFollowingProgressAC
+        followAC, unFollowAC, setUsersAC,
+        setCurrentPageAC, totalUsersCountAC, toggleIsFetchingAC,
+        toggleIsFollowingProgressAC, getUsersThunkCreator
     })(UsersContainer)

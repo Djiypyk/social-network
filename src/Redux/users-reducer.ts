@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/usersAPI";
+import {Dispatch} from "react";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
@@ -29,7 +32,8 @@ type toggleIsFollowingProgressAT = {
     isFetching: boolean,
     userId: string,
 }
-type ActionType = followAT
+type ActionType =
+    followAT
     | unfollowAT
     | setUsersAT
     | setCurrentPageAT
@@ -104,16 +108,27 @@ export const usersReducer = (state: initialStateUsersType = initialState, action
 
 }
 
-export const followAC = (userID: string) => ({type: FOLLOW, userID})
-export const unFollowAC = (userID: string) => ({type: UNFOLLOW, userID})
-export const setUsersAC = (users: UserType[]) => {
+export const followAC = (userID: string): followAT => ({type: FOLLOW, userID})
+export const unFollowAC = (userID: string): unfollowAT => ({type: UNFOLLOW, userID})
+export const setUsersAC = (users: UserType[]): setUsersAT => {
     return {type: SET_USERS, users: users}
 }
-export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage})
-export const totalUsersCountAC = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalCount})
-export const toggleIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching})
-export const toggleIsFollowingProgressAC = (isFetching: boolean, userId: string) => ({
+export const setCurrentPageAC = (currentPage: number): setCurrentPageAT => ({type: SET_CURRENT_PAGE, currentPage})
+export const totalUsersCountAC = (totalCount: number): setTotalUsersAT => ({type: SET_TOTAL_USERS_COUNT, totalCount})
+export const toggleIsFetchingAC = (isFetching: boolean): toggleIsFetchingAT => ({type: TOGGLE_IS_FETCHING, isFetching})
+export const toggleIsFollowingProgressAC = (isFetching: boolean, userId: string): toggleIsFollowingProgressAT => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     isFetching,
     userId
 })
+
+export const getUsersThunkCreator = (currentPage: number, pagesCount: number) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(toggleIsFetchingAC(true))
+
+    usersAPI.getUsers(currentPage, pagesCount)
+        .then(data => {
+            dispatch(toggleIsFetchingAC(false))
+            dispatch(setUsersAC(data.items))
+            dispatch(totalUsersCountAC(data.totalCount))
+        })
+}
