@@ -1,10 +1,10 @@
 import React from "react";
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {ProfileType, setUserProfileAC} from "../../Redux/profile-reducer";
 import {withRouter} from "../common/WithRouter";
+import {profileAPI} from "../../api/profileAPI";
 
 
 type MatchParams = {
@@ -29,13 +29,7 @@ class ProfileContainer extends React.Component<MapStatePropsType & MatchParams> 
     componentDidMount() {
 
         let userId = (this.props.match) ? this.props.match.params.userId : 16125
-        axios.get(
-            `https://social-network.samuraijs.com/api/1.0/profile/${userId}`, {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '7b609e77-8b87-49b1-abc2-87ddc192ab78'
-                }
-            })
+        profileAPI.getProfile(userId)
             .then(response => {
                 this.setUserProfile(response.data);
             })
