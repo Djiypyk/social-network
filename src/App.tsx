@@ -11,9 +11,10 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
 
 
-const App: React.FC = (props) => {
+const App: React.FC = () => {
 
     return (
         <BrowserRouter>
@@ -25,8 +26,9 @@ const App: React.FC = (props) => {
                         <Route path={`${PATH.profile}/`} element={<ProfileContainer/>}/>
                         <Route path={`${PATH.profile}/:userId`} element={<ProfileContainer/>}/>
                         <Route path={`${PATH.dialogs}/*`}
-                               element={<DialogsContainer />}/>
+                               element={<DialogsContainer/>}/>
                         <Route path={PATH.users} element={<UsersContainer/>}/>
+                        <Route path={PATH.login} element={<Login/>}/>
                         <Route path={PATH.newsField} element={<NewsField/>}/>
                         <Route path={PATH.music} element={<Music/>}/>
                         <Route path={PATH.settings} element={<Settings/>}/>

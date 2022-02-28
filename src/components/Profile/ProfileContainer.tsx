@@ -16,6 +16,7 @@ type MatchParams = {
 
 type mapStateType = {
     profile: ProfileType
+    isAuth: boolean
 }
 type mapDispatchType = {
     getUserProfileTC: (userId: string | number) => void
@@ -38,8 +39,9 @@ class ProfileContainer extends React.Component<MapStatePropsType & MatchParams> 
     }
 }
 
-const mapStateToProps = (state: AppStateType): { profile: ProfileType } => ({
-    profile: state.profilePage.profile
+const mapStateToProps = (state: AppStateType) => ({
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 })
 
 
