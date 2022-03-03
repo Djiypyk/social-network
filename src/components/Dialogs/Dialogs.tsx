@@ -3,8 +3,6 @@ import styles from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Messages/Message";
 import {DialogPageType} from "../../Redux/redux-store";
-import {PATH} from "../Navbar/Navbar";
-import {Navigate} from "react-router-dom";
 
 
 type DialogsPagePropsType = {
@@ -39,7 +37,6 @@ const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
             props.sendMessageAC()
         }
     }
-     if (!props.isAuth) return <Navigate to={PATH.login} />
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogs_items}>
