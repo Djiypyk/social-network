@@ -5,6 +5,8 @@ import {AppStateType} from "../../Redux/redux-store";
 import {getUserProfileTC, ProfileType} from "../../Redux/profile-reducer";
 import {withRouter} from "../common/WithRouter";
 import {WithAuthRedirect} from "../../HOC/withAuthRedirect";
+import { compose } from "redux";
+
 
 
 type MatchParams = {
@@ -45,6 +47,9 @@ const mapStateToProps = (state: AppStateType) => ({
     profile: state.profilePage.profile,
 })
 
-
-export default WithAuthRedirect(connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
-    mapStateToProps, {getUserProfileTC})(withRouter(ProfileContainer)))
+export default compose<React.ComponentType>(
+    connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
+        mapStateToProps, {getUserProfileTC}),
+    withRouter,
+    WithAuthRedirect
+)(ProfileContainer)
