@@ -3,6 +3,7 @@ import React from "react";
 import {ProfileType} from "../../../Redux/profile-reducer";
 import {Preloader} from "../../common/Preloader";
 import userNoPhoto from '../../Users/assets/img/noAvatar.jpg'
+import {ProfileStatus} from "./ProfileSatus/ProfileStatus";
 
 export type ProfileInfoPropsType = {
     profile: ProfileType
@@ -32,7 +33,9 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile}) => {
                         <div>
                             <h1>{profile.fullName}</h1>
                             <p>{profile.aboutMe}</p>
+                            <ProfileStatus status={'profile'}/>
                         </div>
+
                     </div>
                     <div>{profile.lookingForAJob &&
                     <div style={{fontWeight: '600', color: 'darkblue'}}><p style={{marginBottom: '-10px'}}>В поиске
