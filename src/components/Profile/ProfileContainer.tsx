@@ -2,11 +2,10 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {getUserProfileTC, ProfileType} from "../../Redux/profile-reducer";
+import {getUserProfileTC, getUserStatusTC, ProfileType, updateUserStatusTC} from "../../Redux/profile-reducer";
 import {withRouter} from "../common/WithRouter";
 import {WithAuthRedirect} from "../../HOC/withAuthRedirect";
-import { compose } from "redux";
-
+import {compose} from "redux";
 
 
 type MatchParams = {
@@ -19,9 +18,12 @@ type MatchParams = {
 
 type mapStateType = {
     profile: ProfileType
+    status: string
 }
 type mapDispatchType = {
     getUserProfileTC: (userId: string | number) => void
+    getUserStatusTC: (userId: string | number) => void
+    updateUserStatusTC: (status: string) => void
 }
 type ownPropsType = {}
 
@@ -32,12 +34,14 @@ class ProfileContainer extends React.Component<MapStatePropsType & MatchParams> 
     componentDidMount() {
         let userId = (this.props.match) ? this.props.match.params.userId : 16125
         this.props.getUserProfileTC(userId)
+        this.props.getUserStatusTC(userId)
     }
 
 
     render() {
         return (
-            <Profile {...this.props} profile={this.props.profile}/>
+            <Profile {...this.props} profile={this.props.profile} status={this.props.status}
+                     updateStatus={this.props.updateUserStatusTC}/>
         )
     }
 }
@@ -45,11 +49,15 @@ class ProfileContainer extends React.Component<MapStatePropsType & MatchParams> 
 
 const mapStateToProps = (state: AppStateType) => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status
 })
 
 export default compose<React.ComponentType>(
     connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
-        mapStateToProps, {getUserProfileTC}),
+        mapStateToProps, {
+            getUserProfileTC, getUserStatusTC,
+            updateUserStatusTC
+        }),
     withRouter,
     WithAuthRedirect
 )(ProfileContainer)

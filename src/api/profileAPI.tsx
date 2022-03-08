@@ -13,8 +13,14 @@ export const profileAPI = {
     getProfile(userId: string | number) {
         return axiosInstance.get(`profile/${userId}`)
     },
+    getUserStatus(userId: string | number) {
+        return axiosInstance.get(`profile/status/${userId}`)
+    },
+    updateUserStatus(status: string) {
+        return axiosInstance.put(`profile/status`, {status})
+    },
     async updateProfile(userInfo: ProfileType) {
-        return await axiosInstance.put(`profile`, userInfo)
+        return await axiosInstance.put(`/profile`, userInfo)
     },
     async updatePhoto(file: FormData) {
         return await axiosInstance.put(`profile/photo`, file, {

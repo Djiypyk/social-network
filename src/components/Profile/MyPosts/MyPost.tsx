@@ -4,8 +4,6 @@ import Post from "./Posts/Post";
 import {PostType} from "../../../Redux/profile-reducer";
 
 
-
-
 export type propsPostsType = {
     postsData: PostType[]
     newPostText: string
@@ -15,7 +13,8 @@ export type propsPostsType = {
 
 const MyPost: React.FC<propsPostsType> = (props) => {
 
-    const postsElement = props.postsData.map(p => <Post key={p.id} id={p.id} message={p.message} likesCounts={p.likesCounts}/>)
+    const postsElement = props.postsData.map(p => <Post key={p.id} id={p.id} message={p.message}
+                                                        likesCounts={p.likesCounts}/>)
 
     const newPostElement: React.LegacyRef<HTMLTextAreaElement> | undefined = React.createRef()
 
