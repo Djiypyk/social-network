@@ -1,45 +1,67 @@
 import React from "react";
 import styles from './Login.module.css'
-import Field, {InjectedFormProps, reduxForm} from "redux-form";
+import {Field, Form, Formik, FormikHelpers} from "formik";
+import * as yup from 'yup'
 
-type FormDataType = {
-    login: string
+type ValuesType = {
+    email: string
     password: string
     rememberMe: boolean
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-
+const LoginForm: React.FC = (props) => {
+    const validations = yup.object().shape({
+        email: yup.string().required('Email is required'),
+        password: yup.string().required('Password is required')
+    })
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field placeholder={'Login'} name={'login'} component={'input'}/>
-            </div>
-            <div>
-                <Field placeholder={'Password'} name={'password'} component={'input'}/>
-            </div>
-            <div>
-                <Field type="checkbox" name={'rememberMe'} component={'input'}/> remember me
-            </div>
-            <div>
-                <button>Login</button>
-            </div>
-        </form>
+        <Formik initialValues={{email: '', password: '', rememberMe: false}}
+                onSubmit={(values: ValuesType, {setSubmitting}: FormikHelpers<ValuesType>) => setSubmitting(false)}
+                validationSchema={validations}>
+            {({
+                  isSubmitting, values
+              }) => {
+                return (
+                    <Form>
+                        <div>
+                            <label htmlFor="email">Your email: </label>
+                            <br/>
+                            <Field type={'email'} name={'email'}
+                                   placeholder={'email'}
+                                   value={values.email}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="password">Your password: </label>
+                            <br/>
+                            <Field type={'password'} name={'password'}
+                                   placeholder={'password'}
+                                   value={values.password}/>
+                        </div>
+                        <div>
+                            <Field type={"checkbox"} name={'rememberMe'}/>{" remember me"}
+                        </div>
+                        <div>
+                            <button className={styles.button} type={'submit'}
+                                    onClick={() => console.log(values)} disabled={isSubmitting}>Send
+                            </button>
+                        </div>
+
+                    </Form>
+                )
+            }
+            }
+
+        </Formik>
     )
 }
 
 
-const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
-
-
 const Login: React.FC = () => {
-    const onSubmit = (formData:FormDataType ) => {
-        console.log(formData)
-    }
 
     return <div className={styles.wrapperLogin}>
-        <h1>LOGIN</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <h1>LOGIN PAGE</h1>
+        <LoginForm/>
     </div>
 }
 
