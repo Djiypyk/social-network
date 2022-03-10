@@ -1,4 +1,5 @@
 import axios from "axios";
+import {filterValuesI} from "../components/SearchForm/SearchForm";
 
 const axiosInstance = axios.create({
     withCredentials: true,
@@ -9,9 +10,10 @@ const axiosInstance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers: (currentPage: number = 1, pagesCount: number = 10) => {
+    getUsers: (currentPage: number = 1, pagesCount: number = 10, filter:filterValuesI = {name:'',friends:'null'}) => {
         return axiosInstance.get(
-            `users?page=${currentPage}&count=${pagesCount}`, {}).then(res => res.data)
+        `users?page=${currentPage}&count=${pagesCount}${filter.name !== '' ?`&term=${filter.name}` : ''}${filter.friends !== 'null' ? `&friend=${filter.friends}` : ''}`)
+            .then(res => res.data)
     },
     unFollowUser: (userId: string) => {
         return axiosInstance.delete(

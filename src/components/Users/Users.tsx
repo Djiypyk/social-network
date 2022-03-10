@@ -3,6 +3,7 @@ import styles from './Users.module.css'
 import {UserType} from "../../Redux/users-reducer";
 import userNoPhoto from './assets/img/noAvatar.jpg'
 import {NavLink} from "react-router-dom";
+import SearchForm, {filterValuesI} from "../SearchForm/SearchForm";
 
 type UsersPageType = {
     unFollowUser: (userId: string) => void
@@ -12,6 +13,7 @@ type UsersPageType = {
     users: UserType[]
     currentPage: number
     followingProgress: string[]
+    onFilterChange:(filter:filterValuesI)=>void
 }
 
 const Users: React.FC<UsersPageType> = (props) => {
@@ -26,6 +28,7 @@ const Users: React.FC<UsersPageType> = (props) => {
     return (
         <div>
             <div className={styles.pages}>
+                <SearchForm onFilterChange={props.onFilterChange}/>
                 {pages.map(p => <span key={p}
                                       onClick={() => props.onPageChanged(p)}
                                       className={`${styles.normal} ${props.currentPage === p ? styles.selectedPage : ''}`}>{p}</span>)}
