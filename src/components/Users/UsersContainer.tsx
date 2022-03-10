@@ -13,6 +13,7 @@ import Users from "./Users";
 import {Preloader} from "../common/Preloader";
 import {WithAuthRedirect} from "../../HOC/withAuthRedirect";
 import { compose } from "redux";
+import {filterValuesI} from "../SearchForm/SearchForm";
 
 
 type propsPostsType = mapStateType & mapDispatchType & ownPropsType
@@ -31,7 +32,7 @@ type mapDispatchType = {
     unFollowTC: (userID: string) => void
     setCurrentPageAC: (currentPage: number) => void
     toggleIsFollowingProgressAC: (isFetching: boolean, userId: string) => void
-    getUsersTC: (currentPage: number, pagesCount: number) => void
+    getUsersTC: (currentPage: number, pagesCount: number, filter?:filterValuesI) => void
 
 }
 type ownPropsType = {}
@@ -51,6 +52,9 @@ class UsersContainer extends React.Component<propsPostsType> {
     onPageChanged = (pageNumber: number) => {
         this.props.getUsersTC(pageNumber, this.props.pagesCount)
     }
+    onFilterChange = (filter:filterValuesI) =>{
+        this.props.getUsersTC(1,this.props.pagesCount,filter)
+    }
 
     render = () => {
         return <>
@@ -62,7 +66,7 @@ class UsersContainer extends React.Component<propsPostsType> {
                    users={this.props.usersPage}
                    currentPage={this.props.currentPage}
                    followingProgress={this.props.followingProgress}
-
+                   onFilterChange={this.onFilterChange}
             />
         </>
     }

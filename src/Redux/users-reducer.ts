@@ -1,5 +1,6 @@
 import {usersAPI} from "../api/usersAPI";
 import {Dispatch} from "react";
+import {filterValuesI} from "../components/SearchForm/SearchForm";
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -122,10 +123,10 @@ export const toggleIsFollowingProgressAC = (isFetching: boolean, userId: string)
     userId
 })
 
-export const getUsersTC = (currentPage: number, pagesCount: number) => (dispatch: Dispatch<ActionType>) => {
+export const getUsersTC = (currentPage: number, pagesCount: number,filter?:filterValuesI) => (dispatch: Dispatch<ActionType>) => {
     dispatch(toggleIsFetchingAC(true))
     dispatch(setCurrentPageAC(currentPage))
-    usersAPI.getUsers(currentPage, pagesCount)
+    usersAPI.getUsers(currentPage, pagesCount,filter)
         .then(data => {
             dispatch(toggleIsFetchingAC(false))
             dispatch(setUsersAC(data.items))
