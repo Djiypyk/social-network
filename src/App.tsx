@@ -5,7 +5,7 @@ import Footer from "./components/Footer/Footer";
 import NewsField from "./components/NewsField/NewsField";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {HashRouter, Route, Routes} from 'react-router-dom';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -16,7 +16,7 @@ import Login from "./components/Login/Login";
 const App: React.FC = () => {
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className="app-wrapper">
                 <HeaderContainer/>
                 <Navbar/>
@@ -35,7 +35,7 @@ const App: React.FC = () => {
                 </div>
                 <Footer/>
             </div>
-        </BrowserRouter>
+        </HashRouter>
 
     );
 }

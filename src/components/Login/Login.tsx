@@ -1,58 +1,59 @@
 import React from "react";
 import styles from './Login.module.css'
-import {Field, Form, Formik, FormikHelpers} from "formik";
-import * as yup from 'yup'
+import {Field, useFormik} from "formik";
+import {Button, Checkbox, Container, FormControlLabel, TextField} from "@mui/material";
 
-type ValuesType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
 
-const LoginForm: React.FC = (props) => {
-    const validations = yup.object().shape({
-        email: yup.string().required('Email is required'),
-        password: yup.string().required('Password is required')
+const LoginForm: React.FC = () => {
+    const formik = useFormik({
+        initialValues: {
+            password: '',
+            rememberMe: false,
+            email: '',
+        },
+        validate: (values) => {
+            if (!values.email) {
+                return {
+                    email: 'Email is required'
+                }
+            }
+            if (!values.password) {
+                return {
+                    password: 'Password is required'
+                }
+            }
+        },
+        onSubmit: values => {
+            alert(JSON.stringify(values, null, 2));
+        }
     })
+
     return (
-        <Formik initialValues={{email: '', password: '', rememberMe: false}}
-                onSubmit={(values: ValuesType, {setSubmitting}: FormikHelpers<ValuesType>) => setSubmitting(false)}
-                validationSchema={validations}>
-            {({
-                  isSubmitting, values
-              }) => {
-                return (
-                    <Form>
-                        <div>
-                            <label htmlFor="email">Your email: </label>
-                            <br/>
-                            <Field type={'email'} name={'email'}
-                                   placeholder={'email'}
-                                   value={values.email}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="password">Your password: </label>
-                            <br/>
-                            <Field type={'password'} name={'password'}
-                                   placeholder={'password'}
-                                   value={values.password}/>
-                        </div>
-                        <div>
-                            <Field type={"checkbox"} name={'rememberMe'}/>{" remember me"}
-                        </div>
-                        <div>
-                            <button className={styles.button} type={'submit'}
-                                    onClick={() => console.log(values)} disabled={isSubmitting}>Send
-                            </button>
-                        </div>
-
-                    </Form>
-                )
-            }
-            }
-
-        </Formik>
+            <form onSubmit={formik.handleSubmit}>
+                <TextField type={'email'}
+                           label={'Email'}
+                           margin="normal"
+                           {...formik.getFieldProps('email')}
+                           error={formik.touched.email && Boolean(formik.errors.email)}
+                           helperText={formik.touched.email && formik.errors.email}
+                />
+                <br/>
+                <TextField type={'password'}
+                           label={'Password'}
+                           margin="normal"
+                           {...formik.getFieldProps('password')}
+                           error={formik.touched.password && Boolean(formik.errors.password)}
+                           helperText={formik.touched.password && formik.errors.password}
+                />
+                <br/>
+                <FormControlLabel label={'rememberMe'}
+                                  control={
+                                      <Checkbox
+                                          {...formik.getFieldProps('rememberMe')}
+                                          checked={formik.values.rememberMe}
+                                      />}/>
+                <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+            </form>
     )
 }
 
@@ -60,7 +61,7 @@ const LoginForm: React.FC = (props) => {
 const Login: React.FC = () => {
 
     return <div className={styles.wrapperLogin}>
-        <h1>LOGIN PAGE</h1>
+        <div><h1>LOGIN PAGE</h1></div>
         <LoginForm/>
     </div>
 }
