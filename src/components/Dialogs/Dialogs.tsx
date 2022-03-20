@@ -1,15 +1,16 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import styles from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Messages/Message";
 import {DialogPageType} from "../../Redux/redux-store";
+import {AddMessageForm} from "./AddMessageForm/AddItemForm";
 
 
 type DialogsPagePropsType = {
     dialogs: DialogPageType
     textBody: string
-    sendMessageAC: ()=>void
-    onChangeMessageAC: (text:string)=>void
+    sendMessageAC: () => void
+    onChangeMessageAC: (text: string) => void
     isAuth: boolean
 }
 
@@ -21,22 +22,7 @@ const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
     const messagesElements = props.dialogs.messagesData
         .map((m) => <Message key={m.id} id={m.id} message={m.message}/>)
 
-    const newMessageBody = props.textBody
 
-    const onSendMessage = () => {
-        props.sendMessageAC()
-    }
-    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        if (e.currentTarget.value) {
-            let body = e.currentTarget.value
-            props.onChangeMessageAC(body)
-        }
-    }
-    const onKeyDownSendMessage = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === 'Enter') {
-            props.sendMessageAC()
-        }
-    }
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogs_items}>
@@ -44,18 +30,13 @@ const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
             </div>
             <div className={styles.messages}>
                 {messagesElements}
-
-                <div className={styles.message_input}>
-                    <textarea value={newMessageBody} onKeyPress={onKeyDownSendMessage} onChange={onNewMessageChange}
-                              placeholder="Write your message"/>
-                    <button className={styles.add_button} onClick={onSendMessage}> Send message</button>
-                </div>
+                <AddMessageForm textBody={props.textBody} sendMessageAC={props.sendMessageAC}
+                                onChangeMessageAC={props.onChangeMessageAC}/>
             </div>
 
 
         </div>
     )
 }
-
 
 export default Dialogs;
