@@ -3,7 +3,6 @@ import {Dispatch} from "react";
 import {profileAPI} from "../api/profileAPI";
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_STATUS = 'SET-STATUS'
 
@@ -15,18 +14,13 @@ export type PostType = {
 
 export type InitialStateProfileType = {
     postsData: PostType[]
-    newPostText: string
     profile: ProfileType
     status: string
 
 }
 type addPostAT = {
     type: typeof ADD_POST
-}
-
-type onPostChangeAT = {
-    type: typeof UPDATE_NEW_POST_TEXT
-    newText: string
+    message:string
 }
 
 type UserProfileAT = {
@@ -70,7 +64,6 @@ const initialState = {
         {id: v1(), message: 'Hi, there.', likesCounts: 17},
         {id: v1(), message: 'Wow,  it`s my first post.', likesCounts: 12}
     ],
-    newPostText: ' ',
     profile: {
         aboutMe: null,
         contacts: {
@@ -97,7 +90,7 @@ const initialState = {
 
 }
 
-type profileActionType = addPostAT | onPostChangeAT | UserProfileAT | UserStatusAT
+type profileActionType = addPostAT |  UserProfileAT | UserStatusAT
 
 export const profileReducer = (state: InitialStateProfileType = initialState, action: profileActionType): InitialStateProfileType => {
 
@@ -105,12 +98,9 @@ export const profileReducer = (state: InitialStateProfileType = initialState, ac
     switch (action.type) {
         case ADD_POST: {
             const newPost = {
-                id: v1(), message: state.newPostText, likesCounts: 0
+                id: v1(), message: action.message, likesCounts: 0
             }
-            return {...state, newPostText: '', postsData: [newPost, ...state.postsData]}
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            return {...state, newPostText: action.newText}
+            return {...state, postsData: [newPost, ...state.postsData]}
         }
         case SET_USER_PROFILE: {
             return {...state, profile: {...action.profile}}
@@ -124,11 +114,8 @@ export const profileReducer = (state: InitialStateProfileType = initialState, ac
 }
 
 
-export const addPostAC = (): addPostAT => {
-    return {type: ADD_POST}
-}
-export const onPostChangeAC = (text: string): onPostChangeAT => {
-    return {type: UPDATE_NEW_POST_TEXT, newText: text}
+export const addPostAC = (message:string): addPostAT => {
+    return {type: ADD_POST, message}
 }
 export const setUserProfileAC = (profile: ProfileType): UserProfileAT => {
     return {type: SET_USER_PROFILE, profile}

@@ -10,6 +10,22 @@ const axiosInstance = axios.create({
 
 export const headerAPI = {
     me: () => {
-        return axiosInstance.get(`auth/me`).then(res => res.data)
+        return axiosInstance.get(`auth/me`)
+    },
+    login: (data: LoginDataType[]) => {
+        return axiosInstance.post<ResponseType>(`auth/login`, {data})
+    },
+    logOut: () => {
+        return axiosInstance.delete<ResponseType>(`auth/login`)
     }
+}
+
+
+//Types
+
+export type LoginDataType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: boolean
 }

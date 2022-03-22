@@ -1,9 +1,6 @@
-
 import {v1} from "uuid";
 import {DialogPageType} from "./redux-store";
 
-
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 const SEND_MESSAGE = 'SEND-MESSAGE'
 
 export type DialogType = {
@@ -29,43 +26,30 @@ const initialState = {
         {id: v1(), message: 'Hello!'},
         {id: v1(), message: 'All you ready?'}
     ] as Array<MessagesDataType>,
-    newMessageText: ' '
+
 }
 
 export type initialStateType = typeof initialState
-type onChangeMessageActionType = {
-    type: typeof UPDATE_NEW_MESSAGE_TEXT
-    body: string
-}
 type sendMessageActionType = {
     type: typeof SEND_MESSAGE
+    text: string
 }
-type actionType = sendMessageActionType | onChangeMessageActionType
+type actionType = sendMessageActionType
 
 export const dialogsReducer = (state: DialogPageType = initialState, action: actionType): initialStateType => {
 
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT: {
-            return {...state, messagesData: [...state.messagesData], newMessageText: action.body}
-        }
         case SEND_MESSAGE: {
-            let messageText = state.newMessageText
+            let messageText = action.text
             return {
                 ...state,
-                newMessageText: ' ',
                 messagesData: [...state.messagesData, {id: v1(), message: messageText}]
             }
-
-
         }
         default:
             return state
     }
 }
-export const sendMessageAC = (): sendMessageActionType => {
-    return {type: SEND_MESSAGE}
-}
-
-export const onChangeMessageAC = (body: string): onChangeMessageActionType => {
-    return {type: UPDATE_NEW_MESSAGE_TEXT, body: body}
+export const sendMessageAC = (text:string): sendMessageActionType => {
+    return {type: SEND_MESSAGE, text}
 }

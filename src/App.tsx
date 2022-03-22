@@ -31,6 +31,8 @@ const App: React.FC = () => {
                         <Route path={PATH.newsField} element={<NewsField/>}/>
                         <Route path={PATH.music} element={<Music/>}/>
                         <Route path={PATH.settings} element={<Settings/>}/>
+                        {/*<Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>*/}
+                        {/*<Route path="*" element={<Navigate to='/404'/>}/>*/}
                     </Routes>
                 </div>
                 <Footer/>

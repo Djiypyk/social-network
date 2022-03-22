@@ -9,7 +9,6 @@ import thunkMiddleWare from "redux-thunk";
 export type DialogPageType = {
     dialogsData: DialogType[]
     messagesData: MessagesDataType[]
-    newMessageText: string
 }
 
 

@@ -3,14 +3,13 @@ import styles from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Messages/Message";
 import {DialogPageType} from "../../Redux/redux-store";
-import {AddMessageForm} from "./AddMessageForm/AddItemForm";
+import {AddMessageForm} from "./AddMessageForm/AddMessageForm1111";
 
 
 type DialogsPagePropsType = {
     dialogs: DialogPageType
     textBody: string
-    sendMessageAC: () => void
-    onChangeMessageAC: (text: string) => void
+    sendMessageAC: (text:string) => void
     isAuth: boolean
 }
 
@@ -23,6 +22,7 @@ const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
         .map((m) => <Message key={m.id} id={m.id} message={m.message}/>)
 
 
+    // if (!props.isAuth) return <Navigate to={PATH.login}/>
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogs_items}>
@@ -30,8 +30,7 @@ const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
             </div>
             <div className={styles.messages}>
                 {messagesElements}
-                <AddMessageForm textBody={props.textBody} sendMessageAC={props.sendMessageAC}
-                                onChangeMessageAC={props.onChangeMessageAC}/>
+                <AddMessageForm textBody={props.textBody} sendMessageAC={props.sendMessageAC}/>
             </div>
 
 

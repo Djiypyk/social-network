@@ -1,30 +1,27 @@
 import {Dispatch} from "react";
-import {headerAPI} from "../api/headerAPI";
+import {headerAPI, LoginDataType} from "../api/headerAPI";
 
 const SET_USER_DATA = 'SET_USER_DATA'
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 export type UserDataType = {
-    userId: string | null,
+    id: string | null,
     email: string | null,
-    login: string | null
+    login: string | null,
+    isAuth: boolean
 }
 type setUserDataAT = {
     type: typeof SET_USER_DATA
-    data: UserDataType[]
+    payload: UserDataType[]
+    isAuth: boolean
 }
 
 type AuthActionType = setUserDataAT
-    | toggleIsFetchingAT
-
-type toggleIsFetchingAT = { type: typeof TOGGLE_IS_FETCHING, isFetching: boolean }
 
 const initialState = {
     id: null,
     email: null,
     login: null,
     isAuth: false,
-    isFetching: false,
 };
 
 export type initialStateUsersType = typeof initialState
@@ -35,28 +32,47 @@ export const authReducer = (state: initialStateUsersType = initialState, action:
     switch (action.type) {
         case SET_USER_DATA:
             return {
-                ...state, ...action.data, isAuth: true
+                ...state, ...action.payload, isAuth: action.isAuth
             }
-        case TOGGLE_IS_FETCHING:
-            return {...state, isFetching: action.isFetching}
         default:
             return state
     }
 
 }
 
-export const setAuthUserDataAC = (data: UserDataType[]): setUserDataAT => (
-    {type: SET_USER_DATA, data}
-)
-export const toggleIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching})
-
+export const setAuthUserDataAC = (
+    id: string | null, email: string | null,
+    login: string | null, isAuth: boolean): setUserDataAT => {
+    return {type: SET_USER_DATA, payload: {id, email, login}, isAuth}
+}
 
 export const getAuthUserDataTC = () => (dispatch: Dispatch<AuthActionType>) => {
     headerAPI.me()
         .then(response => {
-            if (response.resultCode === 0) {
-                dispatch(setAuthUserDataAC(response.data)) // !!----> login, email, userId
+                if (response.data.resultCode === 0) {
+                    let {id, login, email} = response.data.data
+                    dispatch(setAuthUserDataAC(id, login, email, true)) // !!----> login, email, userId
+                }
             }
+        )
+}
+
+export const loginTC = (data: LoginDataType[]) => (dispatch: Dispatch<AuthActionType>) => {
+    headerAPI.login(data)
+        .then(response => {
+            console.log(response)
+            // if (response.data.resultCode === 0) {
+            //     dispatch(getAuthUserDataTC())
+            // }
         })
 }
 
+export const logOutTC = () => (dispatch: Dispatch<AuthActionType>) => {
+    headerAPI.logOut()
+        .then(response => {
+            console.log(response)
+            // if (response.data.resultCode === 0) {
+            //     dispatch(setAuthUserDataAC(null, null, null, false))
+            // }
+        })
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import {onChangeMessageAC, sendMessageAC} from "../../Redux/dialogs-reducer";
+import {sendMessageAC} from "../../Redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import {AppStateType, DialogPageType,} from "../../Redux/redux-store";
 import {connect} from "react-redux";
@@ -9,25 +9,21 @@ import {compose} from "redux";
 
 type mapStateType = {
     dialogs: DialogPageType
-    textBody: string
 }
 
 type mapDispatchType = {
-    onChangeMessageAC: (body: string) => void
-    sendMessageAC: () => void
+    sendMessageAC: (text: string) => void
 }
 type ownPropsType = {}
 
 
 const mapStateToProps = (state: AppStateType) => ({
     dialogs: state.dialogsPage,
-    textBody: state.dialogsPage.newMessageText,
 })
 const DialogsContainer = compose<React.ComponentType>(
     connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
         mapStateToProps,
         {
-            onChangeMessageAC,
             sendMessageAC
         }),
     WithAuthRedirect
