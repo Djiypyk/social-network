@@ -1,6 +1,10 @@
 import styles from './Navbar.module.css'
 import React from "react";
 import {NavLink} from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
+import {logOutTC} from "../../Redux/auth-reducer";
+import {Button} from "@mui/material";
+import {AppStateType} from "../../Redux/redux-store";
 
 export const PATH = {
     profile: '/profile',
@@ -14,7 +18,13 @@ export const PATH = {
 
 const Navbar: React.FC = () => {
 
-    return (
+    const dispatch = useDispatch()
+    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+
+    const logOut = () => dispatch(logOutTC())
+
+
+    return <>
         <nav className={styles.nav}>
             <div><NavLink className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
                           to={PATH.profile}>
@@ -35,8 +45,11 @@ const Navbar: React.FC = () => {
             <div><NavLink
                 className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
                 to={PATH.music}>Music</NavLink></div>
+            {!isAuth ? null : <Button color={'secondary'} variant={'contained'}
+                                     onClick={logOut}>Log Out</Button>}
         </nav>
-    )
+
+    </>
 }
 
 

@@ -5,6 +5,7 @@ type HeaderPropsType = {
     isAuth: boolean
     login: string | null
 }
+
 const Header = (props: HeaderPropsType) => {
 
     return (
@@ -15,7 +16,7 @@ const Header = (props: HeaderPropsType) => {
             />
             <div className={styles.login_block}>
                 {props.isAuth
-                    ? props.login
+                    ? <span>{props.login}</span>
                     : <NavLink to={'/login'}> Login</NavLink>
                 }
             </div>

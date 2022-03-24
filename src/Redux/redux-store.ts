@@ -6,14 +6,9 @@ import {authReducer} from "./auth-reducer";
 import thunkMiddleWare from "redux-thunk";
 
 
-export type DialogPageType = {
-    dialogsData: DialogType[]
-    messagesData: MessagesDataType[]
-}
 
 
-type RootReducerType = typeof rootReducer
-export type AppStateType = ReturnType<RootReducerType>
+
 
 
 let rootReducer = combineReducers({
@@ -29,3 +24,10 @@ export default store
 window.store = store
 
 
+type RootReducerType = typeof rootReducer
+export type AppStateType = ReturnType<RootReducerType>
+
+export type DialogPageType = {
+    dialogsData: DialogType[]
+    messagesData: MessagesDataType[]
+}

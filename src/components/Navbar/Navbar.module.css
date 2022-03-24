@@ -17,3 +17,7 @@
 .active {
     color: #ffffff;
 }
+
+.nav div {
+    margin: 5px 0;
+}
