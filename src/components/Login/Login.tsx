@@ -4,7 +4,7 @@ import {useFormik} from "formik";
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import {loginTC} from "../../Redux/auth-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {LoginDataType} from "../../api/headerAPI";
+import {LoginDataType} from "../../api/authAPI";
 import {AppStateType} from "../../Redux/redux-store";
 import {PATH} from "../Navbar/Navbar";
 import {Navigate} from "react-router-dom";
@@ -13,6 +13,7 @@ import {Navigate} from "react-router-dom";
 const LoginForm: React.FC = () => {
     const dispatch = useDispatch()
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+    const errors = useSelector<AppStateType, string[]>(state => state.auth.errors)
     const formik = useFormik({
         validate: (values) => {
             if (!values.email) {
@@ -83,6 +84,7 @@ const LoginForm: React.FC = () => {
                     </FormGroup>
                 </FormControl>
             </form>
+            <div className={styles.errors}>{errors}</div>
         </Grid>
     </Grid>
 }

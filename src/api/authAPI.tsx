@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
     },
 })
 
-export const headerAPI = {
+export const authAPI = {
     me: () => {
         return axiosInstance.get(`auth/me`)
     },

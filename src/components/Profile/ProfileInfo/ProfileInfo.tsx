@@ -1,7 +1,7 @@
 import styles from "./ProfileInfo.module.css";
 import React from "react";
 import {ProfileType} from "../../../Redux/profile-reducer";
-import {Preloader} from "../../common/Preloader";
+import {Preloader} from "../../common/Preloader11";
 import userNoPhoto from '../../Users/assets/img/noAvatar.jpg'
 import {ProfileStatus} from "./ProfileSatus/ProfileStatus";
 

@@ -1,11 +1,13 @@
 import {Dispatch} from "redux";
-import {headerAPI, LoginDataType} from "../api/headerAPI";
+import {authAPI, LoginDataType} from "../api/authAPI";
+
 
 const initialState = {
     id: null as null | number,
     email: null as null | string,
     login: '' as null | string,
-    isAuth: false as boolean
+    isAuth: false as boolean,
+    errors: [''] as string[]
 };
 
 export type initialStateUsersType = typeof initialState
@@ -16,6 +18,8 @@ export const authReducer = (state: initialStateUsersType = initialState, action:
             return {
                 ...state, ...action.data
             }
+        case "auth/SET_ERRORS":
+            return {...state, errors: action.errors}
         default:
             return state
     }
@@ -26,29 +30,33 @@ export const setAuthUserDataAC = (id: number | null, login: string | null, email
     data: {id, login, email, isAuth}
 })
 
+export const setErrors = (errors: string[]): setErrorsAC => ({type: 'auth/SET_ERRORS', errors})
+
 export const getAuthUserDataTC = () => (dispatch: Dispatch<AuthActionType>) => {
-    headerAPI.me()
+    return authAPI.me()
         .then(response => {
                 if (response.data.resultCode === 0) {
                     let {id, login, email} = response.data.data
-                    dispatch(setAuthUserDataAC(id, login, email, true)) // !!----> login, email, userId
+                    dispatch(setAuthUserDataAC(id, login, email, true))
                 }
             }
         )
 }
 
 export const loginTC = (data: LoginDataType) => (dispatch: Dispatch<any>) => {
-    headerAPI.login(data)
+    authAPI.login(data)
         .then((res) => {
             console.log(res)
             if (res.data.resultCode === 0) {
                 dispatch(getAuthUserDataTC())
+            } else if (res.data.resultCode === 1) {
+                dispatch(setErrors(res.data.messages))
             }
         })
 }
 
 export const logOutTC = () => (dispatch: Dispatch<AuthActionType>) => {
-    headerAPI.logOut()
+    authAPI.logOut()
         .then((res) => {
             if (res.data.resultCode === 0) {
                 dispatch(setAuthUserDataAC(null, null, null, false))
@@ -58,7 +66,12 @@ export const logOutTC = () => (dispatch: Dispatch<AuthActionType>) => {
 
 // Types
 
-type setUserDataAT = {
+type setErrorsAC = {
+    type: 'auth/SET_ERRORS'
+    errors: string[]
+}
+
+export type setUserDataAT = {
     type: 'auth/SET_USER_DATA'
     data: {
         id: number | null,
@@ -68,4 +81,4 @@ type setUserDataAT = {
     }
 }
 
-type AuthActionType = setUserDataAT
+export type AuthActionType = setUserDataAT | setErrorsAC

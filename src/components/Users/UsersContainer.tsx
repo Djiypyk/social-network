@@ -10,7 +10,7 @@ import {
     UserType
 } from "../../Redux/users-reducer";
 import Users from "./Users";
-import {Preloader} from "../common/Preloader";
+import {Preloader} from "../common/Preloader11";
 import {WithAuthRedirect} from "../../HOC/withAuthRedirect";
 import { compose } from "redux";
 import {filterValuesI} from "../SearchForm/SearchForm";
