@@ -5,7 +5,7 @@ import Footer from "./components/Footer/Footer";
 import NewsField from "./components/NewsField/NewsField";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -22,6 +22,7 @@ class App extends React.Component<propsPostsType> {
     componentDidMount() {
         this.props.initializeAppTC()
     }
+
     render() {
 
         if (!this.props.initialized) {
@@ -44,7 +45,7 @@ class App extends React.Component<propsPostsType> {
                         <Route path={PATH.music} element={<Music/>}/>
                         <Route path={PATH.settings} element={<Settings/>}/>
                         <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
-                        {/*<Route path="*" element={<Navigate to='/404'/>}/>*/}
+                        <Route path="*" element={<Navigate to='/404'/>}/>
                     </Routes>
                 </div>
                 <Footer/>

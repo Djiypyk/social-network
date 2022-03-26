@@ -11,13 +11,11 @@ class ProfileContainer extends React.Component<MapStatePropsType & MatchParams> 
 
     componentDidMount() {
         let userId = (this.props.match) ? this.props.match.params.userId : this.props.authorizedUserId
-
         if (userId) {
             this.props.getUserProfileTC(userId)
             this.props.getUserStatusTC(userId)
         }
     }
-
     render() {
         return (
             <Profile {...this.props} profile={this.props.profile} status={this.props.status}
@@ -31,7 +29,6 @@ const mapStateToProps = (state: AppStateType) => ({
     status: state.profilePage.status,
     authorizedUserId: state.auth.id,
     isAuth: state.auth.isAuth
-
 })
 
 export default compose<React.ComponentType>(
