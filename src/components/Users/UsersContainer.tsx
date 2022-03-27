@@ -16,33 +16,12 @@ import {compose} from "redux";
 import {filterValuesI} from "../SearchForm/SearchForm";
 import {
     getCurrentPage,
-    getFollowingProgress, getIsFetching,
+    getFollowingProgress,
+    getIsFetching,
     getPagesCount,
     getTotalUsersCount,
     getUsers
 } from "../../Redux/users-selectors";
-
-
-type propsPostsType = mapStateType & mapDispatchType & ownPropsType
-
-type mapStateType = {
-    usersPage: UserType[]
-    pagesCount: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    followingProgress: string[]
-
-}
-type mapDispatchType = {
-    followTC: (userID: string) => void
-    unFollowTC: (userID: string) => void
-    setCurrentPageAC: (currentPage: number) => void
-    toggleIsFollowingProgressAC: (isFetching: boolean, userId: string) => void
-    getUsersTC: (currentPage: number, pagesCount: number, filter?: filterValuesI) => void
-
-}
-type ownPropsType = {}
 
 class UsersContainer extends React.Component<propsPostsType> {
 
@@ -79,15 +58,6 @@ class UsersContainer extends React.Component<propsPostsType> {
     }
 }
 
-// const mapStateToProps = (state: AppStateType) => ({
-//     usersPage: state.usersPage.users,
-//     pagesCount: state.usersPage.pagesCount,
-//     totalUsersCount: state.usersPage.totalUsersCount,
-//     currentPage: state.usersPage.currentPage,
-//     isFetching: state.usersPage.isFetching,
-//     followingProgress: state.usersPage.followingInProgress
-// })
-
 const mapStateToProps = (state: AppStateType) => ({
     usersPage: getUsers(state),
     pagesCount: getPagesCount(state),
@@ -105,3 +75,23 @@ export default compose<React.ComponentType>(
         }),
     WithAuthRedirect
 )(UsersContainer)
+
+// Types
+
+type propsPostsType = mapStateType & mapDispatchType & ownPropsType
+type mapStateType = {
+    usersPage: UserType[]
+    pagesCount: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    followingProgress: string[]
+}
+type mapDispatchType = {
+    followTC: (userID: string) => void
+    unFollowTC: (userID: string) => void
+    setCurrentPageAC: (currentPage: number) => void
+    toggleIsFollowingProgressAC: (isFetching: boolean, userId: string) => void
+    getUsersTC: (currentPage: number, pagesCount: number, filter?: filterValuesI) => void
+}
+type ownPropsType = {}

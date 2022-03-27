@@ -5,7 +5,7 @@ import {PostType} from "../../../Redux/profile-reducer";
 import {AddPostForm} from "../common/AddPostForm";
 
 
-const MyPost: React.FC<propsPostsType> = (props) => {
+const MyPost: React.FC<propsPostsType> = React.memo((props) => {
 
     const postsElement = props.postsData.map(p => <Post key={p.id} id={p.id} message={p.message}
                                                         likesCounts={p.likesCounts}/>)
@@ -20,7 +20,7 @@ const MyPost: React.FC<propsPostsType> = (props) => {
             {postsElement}
         </div>
     );
-};
+},);
 
 export default MyPost;
 

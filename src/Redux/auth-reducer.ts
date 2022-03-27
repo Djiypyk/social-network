@@ -1,7 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI, LoginDataType} from "../api/authAPI";
 
-
 const initialState = {
     id: null as null | number,
     email: null as null | string,
@@ -9,8 +8,6 @@ const initialState = {
     isAuth: false as boolean,
     errors: [''] as string[]
 };
-
-export type initialStateUsersType = typeof initialState
 
 export const authReducer = (state: initialStateUsersType = initialState, action: AuthActionType): initialStateUsersType => {
     switch (action.type) {
@@ -24,13 +21,13 @@ export const authReducer = (state: initialStateUsersType = initialState, action:
             return state
     }
 }
-
 export const setAuthUserDataAC = (id: number | null, login: string | null, email: string | null, isAuth: boolean): setUserDataAT => ({
     type: 'auth/SET_USER_DATA',
     data: {id, login, email, isAuth}
 })
-
 export const setErrors = (errors: string[]): setErrorsAC => ({type: 'auth/SET_ERRORS', errors})
+
+//Thunk
 
 export const getAuthUserDataTC = () => (dispatch: Dispatch<AuthActionType>) => {
     return authAPI.me()
@@ -70,7 +67,6 @@ type setErrorsAC = {
     type: 'auth/SET_ERRORS'
     errors: string[]
 }
-
 export type setUserDataAT = {
     type: 'auth/SET_USER_DATA'
     data: {
@@ -80,5 +76,5 @@ export type setUserDataAT = {
         isAuth: boolean
     }
 }
-
+export type initialStateUsersType = typeof initialState
 export type AuthActionType = setUserDataAT | setErrorsAC
