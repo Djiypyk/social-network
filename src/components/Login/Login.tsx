@@ -10,6 +10,7 @@ import {PATH} from "../Navbar/Navbar";
 import {Navigate} from "react-router-dom";
 
 
+//LoginForm
 const LoginForm: React.FC = () => {
     const dispatch = useDispatch()
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
@@ -36,7 +37,6 @@ const LoginForm: React.FC = () => {
             dispatch(loginTC(values))
         }
     })
-
 
     if (isAuth) {
         return <Navigate to={PATH.profile}/>
@@ -89,6 +89,7 @@ const LoginForm: React.FC = () => {
     </Grid>
 }
 
+//Login Component
 const Login: React.FC = () => {
     return <div className={styles.wrapperLogin}>
         <div><h1>LOGIN PAGE</h1></div>

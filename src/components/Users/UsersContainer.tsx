@@ -10,7 +10,6 @@ import {
     UserType
 } from "../../Redux/users-reducer";
 import Users from "./Users";
-import {Preloader} from "../common/Preloader11";
 import {WithAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
 import {filterValuesI} from "../SearchForm/SearchForm";
@@ -22,11 +21,13 @@ import {
     getTotalUsersCount,
     getUsers
 } from "../../Redux/users-selectors";
+import {CircularProgress} from "@mui/material";
 
 class UsersContainer extends React.Component<propsPostsType> {
 
     componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage, this.props.pagesCount)
+        const {currentPage, pagesCount} = this.props
+        this.props.getUsersTC(currentPage, pagesCount)
     }
 
     setCurrentPage = (currentPage: number) => {
@@ -36,19 +37,20 @@ class UsersContainer extends React.Component<propsPostsType> {
         this.props.toggleIsFollowingProgressAC(isFetching, userId)
     }
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsersTC(pageNumber, this.props.pagesCount)
+        const {pagesCount} = this.props
+        this.props.getUsersTC(pageNumber, pagesCount)
     }
     onFilterChange = (filter: filterValuesI) => {
-        this.props.getUsersTC(1, this.props.pagesCount, filter)
+        const {pagesCount} = this.props
+        this.props.getUsersTC(1, pagesCount, filter)
     }
 
     render = () => {
         return <>
-            {this.props.isFetching ? <div style={{textAlign: 'center'}}><Preloader/></div> : null}
+            {this.props.isFetching ? <CircularProgress/> : null}
             <Users followUser={this.props.followTC}
                    unFollowUser={this.props.unFollowTC}
                    onPageChanged={this.onPageChanged}
-                   followingInProgress={this.toggleIsFollowingProgress}
                    users={this.props.usersPage}
                    currentPage={this.props.currentPage}
                    followingProgress={this.props.followingProgress}

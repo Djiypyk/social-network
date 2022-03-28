@@ -29,36 +29,28 @@ export const setErrors = (errors: string[]): setErrorsAC => ({type: 'auth/SET_ER
 
 //Thunk
 
-export const getAuthUserDataTC = () => (dispatch: Dispatch<AuthActionType>) => {
-    return authAPI.me()
-        .then(response => {
-                if (response.data.resultCode === 0) {
-                    let {id, login, email} = response.data.data
-                    dispatch(setAuthUserDataAC(id, login, email, true))
-                }
-            }
-        )
+export const getAuthUserDataTC = () => async (dispatch: Dispatch<AuthActionType>) => {
+    let res = await authAPI.me()
+    if (res.data.resultCode === 0) {
+        let {id, login, email} = res.data.data
+        dispatch(setAuthUserDataAC(id, login, email, true))
+    }
 }
 
-export const loginTC = (data: LoginDataType) => (dispatch: Dispatch<any>) => {
-    authAPI.login(data)
-        .then((res) => {
-            console.log(res)
-            if (res.data.resultCode === 0) {
-                dispatch(getAuthUserDataTC())
-            } else if (res.data.resultCode === 1) {
-                dispatch(setErrors(res.data.messages))
-            }
-        })
+export const loginTC = (data: LoginDataType) => async (dispatch: Dispatch<any>) => {
+    let res = await authAPI.login(data)
+    if (res.data.resultCode === 0) {
+        dispatch(getAuthUserDataTC())
+    } else if (res.data.resultCode === 1) {
+        dispatch(setErrors(res.data.messages))
+    }
 }
 
-export const logOutTC = () => (dispatch: Dispatch<AuthActionType>) => {
-    authAPI.logOut()
-        .then((res) => {
-            if (res.data.resultCode === 0) {
-                dispatch(setAuthUserDataAC(null, null, null, false))
-            }
-        })
+export const logOutTC = () => async (dispatch: Dispatch<AuthActionType>) => {
+    let res = await authAPI.logOut()
+    if (res.data.resultCode === 0) {
+        dispatch(setAuthUserDataAC(null, null, null, false))
+    }
 }
 
 // Types

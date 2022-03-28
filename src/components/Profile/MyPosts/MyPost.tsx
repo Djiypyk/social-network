@@ -5,12 +5,12 @@ import {PostType} from "../../../Redux/profile-reducer";
 import {AddPostForm} from "../common/AddPostForm";
 
 
-const MyPost: React.FC<propsPostsType> = React.memo((props) => {
+const MyPost: React.FC<propsPostsType> = React.memo(({postsData, addPost}) => {
 
-    const postsElement = props.postsData.map(p => <Post key={p.id} id={p.id} message={p.message}
-                                                        likesCounts={p.likesCounts}/>)
+    const postsElement = postsData.map(p => <Post key={p.id} id={p.id} message={p.message}
+                                                  likesCounts={p.likesCounts}/>)
 
-    const addNewPost = (message: string) => props.addPost(message)
+    const addNewPost = (message: string) => addPost(message)
 
     // UI
     return (

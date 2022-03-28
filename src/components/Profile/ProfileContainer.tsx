@@ -8,7 +8,6 @@ import {WithAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
 
 class ProfileContainer extends React.Component<MapStatePropsType & MatchParams> {
-
     componentDidMount() {
         let userId = (this.props.match) ? this.props.match.params.userId : this.props.authorizedUserId
         if (userId) {
@@ -16,6 +15,7 @@ class ProfileContainer extends React.Component<MapStatePropsType & MatchParams> 
             this.props.getUserStatusTC(userId)
         }
     }
+
     render() {
         return (
             <Profile {...this.props} profile={this.props.profile} status={this.props.status}
@@ -50,7 +50,6 @@ type MatchParams = {
         }
     }
 }
-
 type mapStateType = {
     profile: ProfileType
     status: string
@@ -62,5 +61,4 @@ type mapDispatchType = {
     updateUserStatusTC: (status: string) => void
 }
 type ownPropsType = {}
-
 export type MapStatePropsType = mapStateType & mapDispatchType & ownPropsType

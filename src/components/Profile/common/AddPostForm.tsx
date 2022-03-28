@@ -3,7 +3,6 @@ import {useFormik} from "formik";
 import styles from "../MyPosts/MyPost.module.css";
 import {Button, FormControl, FormGroup, TextField} from "@mui/material";
 
-
 export const AddPostForm: React.FC<AddPostFormType> = ({addNewPost}) => {
 
     const formik = useFormik({
@@ -42,7 +41,6 @@ export const AddPostForm: React.FC<AddPostFormType> = ({addNewPost}) => {
 }
 
 //Types
-
 type AddPostFormType = {
     addNewPost: (message: string) => void
 }

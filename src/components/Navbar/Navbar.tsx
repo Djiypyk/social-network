@@ -16,41 +16,32 @@ export const PATH = {
     login: '/login'
 }
 
-const Navbar: React.FC = () => {
-
+export const Navbar: React.FC = () => {
     const dispatch = useDispatch()
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
-
     const logOut = () => dispatch(logOutTC())
 
-
-    return <>
-        <nav className={styles.nav}>
-            <div><NavLink className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
-                          to={PATH.profile}>
-                Profile</NavLink>
-            </div>
-            <div><NavLink
-                className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
-                to={PATH.dialogs}>Messages</NavLink></div>
-            <div><NavLink
-                className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
-                to={PATH.users}>Users</NavLink></div>
-            <div><NavLink
-                className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
-                to={PATH.newsField}>News Field</NavLink></div>
-            <div><NavLink
-                className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
-                to={PATH.settings}>Settings</NavLink></div>
-            <div><NavLink
-                className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
-                to={PATH.music}>Music</NavLink></div>
-            {!isAuth ? null : <Button color={'secondary'} variant={'contained'}
-                                     onClick={logOut}>Log Out</Button>}
-        </nav>
-
-    </>
+    return <nav className={styles.nav}>
+        <div><NavLink className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
+                      to={PATH.profile}>
+            Profile</NavLink>
+        </div>
+        <div><NavLink
+            className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
+            to={PATH.dialogs}>Messages</NavLink></div>
+        <div><NavLink
+            className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
+            to={PATH.users}>Users</NavLink></div>
+        <div><NavLink
+            className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
+            to={PATH.newsField}>News Field</NavLink></div>
+        <div><NavLink
+            className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
+            to={PATH.settings}>Settings</NavLink></div>
+        <div><NavLink
+            className={({isActive}) => `${styles.normal} ${isActive ? styles.active : ''}`}
+            to={PATH.music}>Music</NavLink></div>
+        {!isAuth ? null : <Button color={'secondary'} variant={'contained'}
+                                  onClick={logOut}>Log Out</Button>}
+    </nav>
 }
-
-
-export default Navbar;

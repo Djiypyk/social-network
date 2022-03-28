@@ -68,23 +68,21 @@ export const deletePostAC = (id: string) => {
 }
 
 //Thunk
-export const getUserStatusTC = (userId: string | number) => (dispatch: Dispatch<profileActionType>) => {
-    profileAPI.getUserStatus(userId).then(res => {
-        dispatch(setUserStatus(res.data))
-    })
+export const getUserStatusTC = (userId: string | number) => async (dispatch: Dispatch<profileActionType>) => {
+    let res = await profileAPI.getUserStatus(userId)
+    dispatch(setUserStatus(res.data))
 }
-export const updateUserStatusTC = (status: string) => (dispatch: Dispatch<profileActionType>) => {
-    profileAPI.updateUserStatus(status).then(res => {
-        if (res.data.resultCode === 0) {
-            dispatch(setUserStatus(status))
-        }
-    })
+
+export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch<profileActionType>) => {
+    let res = await profileAPI.updateUserStatus(status)
+    if (res.data.resultCode === 0) {
+        dispatch(setUserStatus(status))
+    }
 }
-export const getUserProfileTC = (userId: number | string) => (dispatch: Dispatch<profileActionType>) => {
-    profileAPI.getProfile(userId)
-        .then(res => {
-            dispatch(setUserProfileAC(res.data))
-        })
+
+export const getUserProfileTC = (userId: number | string) => async (dispatch: Dispatch<profileActionType>) => {
+    let res = await profileAPI.getProfile(userId)
+    dispatch(setUserProfileAC(res.data))
 }
 
 //Types

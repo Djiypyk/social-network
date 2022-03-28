@@ -3,9 +3,9 @@ import React from "react";
 import {ProfileType} from "../../../Redux/profile-reducer";
 import {Preloader} from "../../common/Preloader11";
 import userNoPhoto from '../../Users/assets/img/noAvatar.jpg'
-import {ProfileStatusWithHooks} from "./ProfileSatus/ProfileStatusWithHooks";
+import {ProfileStatus} from "./ProfileSatus/ProfileStatus";
 
-const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, ...props}) => {
+const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) => {
     if (!profile) {
         return <Preloader/>
     }
@@ -29,7 +29,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, ...props}
                         <div>
                             <h1>{profile.fullName}</h1>
                             <p>{profile.aboutMe}</p>
-                            <ProfileStatusWithHooks status={status} updateUserStatus={props.updateStatus}/>
+                            <ProfileStatus status={status} updateUserStatus={updateStatus}/>
                         </div>
 
                     </div>
