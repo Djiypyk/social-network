@@ -9,7 +9,7 @@ export const ProfileStatus: React.FC<StatusPropsType> = ({updateUserStatus, ...p
     }, [props.status])
 
     const activateEditMode = () => {
-        setEditMode(true)
+        if (props.isOwner) setEditMode(true)
     }
     const deactivateEditMode = () => {
         setEditMode(false)
@@ -23,7 +23,7 @@ export const ProfileStatus: React.FC<StatusPropsType> = ({updateUserStatus, ...p
         <div>
             {!editMode &&
             <div>
-                <span onDoubleClick={activateEditMode}>{status || 'New status.'}</span>
+                <b>Status: </b> <span onDoubleClick={activateEditMode}>{status || 'New status.'}</span>
             </div>
             }
             {editMode &&
@@ -39,4 +39,5 @@ export const ProfileStatus: React.FC<StatusPropsType> = ({updateUserStatus, ...p
 type StatusPropsType = {
     status: string
     updateUserStatus: (status: string) => void
+    isOwner: boolean
 }

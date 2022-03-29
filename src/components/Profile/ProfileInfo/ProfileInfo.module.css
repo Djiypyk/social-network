@@ -1,31 +1,12 @@
-
 .content_profile_img {
     width: 100%;
     height: 300px;
     border-radius: 5px;
 }
 
-.avatar {
-    border-radius: 50%;
-    width: 120px;
-}
-
-.content_about_user {
+.avatar_block {
     display: flex;
-    justify-content: space-between;
-    padding-left: 15px;
-}
-
-.content_about_user h1 {
-    font-size: 26px;
-    font-style: italic;
-    font-weight: bold;
-    padding-left: 15px;
-}
-
-
-.content_about_user p {
-    padding-left: 15px;
+    justify-content: center;
 }
 
 .user_contact {
@@ -41,12 +22,14 @@
     text-decoration: none;
     font-weight: 600;
     color: darkblue;
+    cursor: pointer;
 }
 
 .user_contact a:hover {
-    color: dodgerblue;
+    color: #1a8fff;
 }
 
 .user_contact a:active {
     color: black;
 }
+
