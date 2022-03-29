@@ -5,22 +5,24 @@ import Footer from "./components/Footer/Footer";
 import NewsField from "./components/NewsField/NewsField";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {HashRouter, Navigate, Route, Routes} from 'react-router-dom';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import {connect} from "react-redux";
-import {AppStateType} from "./Redux/redux-store";
+import {connect, Provider} from "react-redux";
+import store, {AppStateType} from "./Redux/redux-store";
 import {compose} from "redux";
 import {initializeAppTC} from "./Redux/app-reducer";
-import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 class App extends React.Component<propsPostsType> {
     componentDidMount() {
         this.props.initializeAppTC()
     }
+
     render() {
 
         if (!this.props.initialized) {
@@ -56,9 +58,17 @@ class App extends React.Component<propsPostsType> {
 const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
-export default compose<React.ComponentType>(
+const AppContainer = compose<React.ComponentType>(
     connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
         mapStateToProps, {initializeAppTC}))(App)
+
+export const MainApp = () => {
+    return <Provider store={store}>
+        <HashRouter>
+            <AppContainer/>
+        </HashRouter>
+    </Provider>
+}
 
 //Types
 type mapStateType = {
