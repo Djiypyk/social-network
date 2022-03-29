@@ -22,11 +22,13 @@ export const profileAPI = {
     async updateProfile(userInfo: ProfileType) {
         return await axiosInstance.put(`/profile`, userInfo)
     },
-    async updatePhoto(file: FormData) {
-        return await axiosInstance.put(`profile/photo`, file, {
+    async savePhoto(photo: File) {
+        const formData = new FormData()
+        formData.append('image',photo)
+        return await axiosInstance.put(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
-    }
+    },
 }

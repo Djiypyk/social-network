@@ -10,14 +10,14 @@ import store, {AppStateType} from "./Redux/redux-store";
 import {compose} from "redux";
 import {initializeAppTC} from "./Redux/app-reducer";
 import CircularProgress from '@mui/material/CircularProgress';
+
 import NewsField from "./components/NewsField/NewsField";
 import Settings from "./components/Settings/Settings";
 import Music from "./components/Music/Music";
-import {WithSuspense} from "./HOC/WithSuspens";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 class App extends React.Component<propsPostsType> {
     componentDidMount() {
@@ -36,13 +36,15 @@ class App extends React.Component<propsPostsType> {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route path={`${PATH.profile}/`} element={
-                            WithSuspense(<ProfileContainer/>)}/>
+                        <Route path={`${PATH.profile}/`} element={<ProfileContainer/>}/>
                         <Route path={`${PATH.profile}/:userId`}
                                element={<ProfileContainer/>}/>
                         <Route path={`${PATH.dialogs}/*`}
-                               element={WithSuspense(<DialogsContainer/>)}/>
-                        <Route path={PATH.users} element={WithSuspense(<UsersContainer/>)}/>
+                               element={<Suspense fallback={<CircularProgress/>}><DialogsContainer/> </Suspense>}/>
+                        <Route path={PATH.users} element={
+                            <Suspense fallback={<CircularProgress/>}>
+                                <UsersContainer/>
+                            </Suspense>}/>
                         <Route path={PATH.login} element={<Login/>}/>
                         <Route path={PATH.newsField} element={<NewsField/>}/>
                         <Route path={PATH.music} element={<Music/>}/>
@@ -58,17 +60,12 @@ class App extends React.Component<propsPostsType> {
     }
 }
 
-const mapStateToProps = (state: AppStateType) => (
-    {
-        initialized: state.app.initialized
-    }
-)
-const AppContainer = compose
-    < React.ComponentType > (
-        connect
-        < mapStateType
-            , mapDispatchType, ownPropsType, AppStateType > (
-            mapStateToProps, {initializeAppTC}))(App)
+const mapStateToProps = (state: AppStateType) => ({
+    initialized: state.app.initialized
+})
+const AppContainer = compose<React.ComponentType>(
+    connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
+        mapStateToProps, {initializeAppTC}))(App)
 
 export const MainApp = () => {
     return <Provider store={store}>

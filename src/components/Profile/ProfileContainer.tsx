@@ -2,13 +2,20 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {getUserProfileTC, getUserStatusTC, ProfileType, updateUserStatusTC} from "../../Redux/profile-reducer";
+import {
+    getUserProfileTC,
+    getUserStatusTC,
+    ProfileType,
+    savePhotoTC,
+    updateUserStatusTC
+} from "../../Redux/profile-reducer";
 import {withRouter} from "../common/WithRouter";
 import {WithAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
 
 class ProfileContainer extends React.Component<MapStatePropsType & MatchParams> {
-    componentDidMount() {
+
+    refreshProfile() {
         let userId = (this.props.match) ? this.props.match.params.userId : this.props.authorizedUserId
         if (userId) {
             this.props.getUserProfileTC(userId)
@@ -16,10 +23,22 @@ class ProfileContainer extends React.Component<MapStatePropsType & MatchParams> 
         }
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<MapStatePropsType & MatchParams>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.match?.params?.userId !== prevProps.match?.params.userId) {
+            this.refreshProfile()
+        }
+    }
+
     render() {
         return (
-            <Profile {...this.props} profile={this.props.profile} status={this.props.status}
-                     updateStatus={this.props.updateUserStatusTC}/>
+            <Profile isOwner={!this.props.match?.params?.userId} {...this.props} profile={this.props.profile}
+                     status={this.props.status}
+                     updateStatus={this.props.updateUserStatusTC}
+                     savePhoto={this.props.savePhotoTC}/>
         )
     }
 }
@@ -35,7 +54,7 @@ export default compose<React.ComponentType>(
     connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
         mapStateToProps, {
             getUserProfileTC, getUserStatusTC,
-            updateUserStatusTC
+            updateUserStatusTC, savePhotoTC,
         }),
     withRouter,
     WithAuthRedirect
@@ -59,6 +78,7 @@ type mapDispatchType = {
     getUserProfileTC: (userId: string | number) => void
     getUserStatusTC: (userId: string | number) => void
     updateUserStatusTC: (status: string) => void
+    savePhotoTC: (photo: File) => void
 }
 type ownPropsType = {}
 export type MapStatePropsType = mapStateType & mapDispatchType & ownPropsType

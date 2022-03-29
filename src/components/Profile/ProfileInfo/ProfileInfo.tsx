@@ -2,10 +2,11 @@ import styles from "./ProfileInfo.module.css";
 import React from "react";
 import {ProfileType} from "../../../Redux/profile-reducer";
 import {Preloader} from "../../common/Preloader11";
-import userNoPhoto from '../../Users/assets/img/noAvatar.jpg'
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
+import {AvatarPhoto} from "./AvatarPhoto";
 
-const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) => {
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
+
     if (!profile) {
         return <Preloader/>
     }
@@ -20,18 +21,11 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateSta
             </div>
             <div>
                 <div className={styles.content_about_user}>
-                    <div style={{display: "flex", justifyContent: 'flex-start'}}>
-                        <img
-                            className={styles.avatar}
-                            src={profile?.photos?.small || userNoPhoto}
-                            alt="Avatar Icon"
-                        />
-                        <div>
-                            <h1>{profile.fullName}</h1>
-                            <p>{profile.aboutMe}</p>
-                            <ProfileStatus status={status} updateUserStatus={updateStatus}/>
-                        </div>
-
+                    <AvatarPhoto profile={profile} isOwner={isOwner} savePhoto={savePhoto}/>
+                    <div>
+                        <h1>{profile.fullName}</h1>
+                        <p>{profile.aboutMe}</p>
+                        <ProfileStatus status={status} updateUserStatus={updateStatus}/>
                     </div>
                     <div>{profile.lookingForAJob &&
                     <div style={{fontWeight: '600', color: 'darkblue'}}><p style={{marginBottom: '-10px'}}>В поиске
@@ -57,7 +51,8 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateSta
                 </div>
             </div>
         </div>
-    );
+    )
+        ;
 };
 
 export default ProfileInfo;
@@ -69,4 +64,6 @@ export type ProfileInfoPropsType = {
     profile: ProfileType
     status: string
     updateStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (photo: File) => void
 }
