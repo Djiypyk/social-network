@@ -13,20 +13,20 @@ const initialState = {
         contacts: {
             facebook: null,
             website: null,
-            vk: 'https://vk.com/hoziain4eloveka',
+            vk: null,
             twitter: null,
-            instagram: 'https://www.instagram.com/zarezako.nick/',
+            instagram: null,
             youtube: null,
-            github: 'https://github.com/Djiypyk',
+            github: null,
             mainLink: null,
         },
         lookingForAJob: true,
-        lookingForAJobDescription: 'Frontend Developer',
-        fullName: 'Nikolai Zarazaka',
+        lookingForAJobDescription: '',
+        fullName: '',
         userId: 16125,
         photos: {
-            small: null,
-            large: null,
+            small: ' ',
+            large: ' ',
         },
 
     },
@@ -100,11 +100,12 @@ export const savePhotoTC = (photo: File) => async (dispatch: Dispatch<any>) => {
         dispatch(savePhotoSuccessAC(res.data.data.photos))
     }
 }
-export const saveProfileTC = (profile: ProfileType) => async (dispatch: Dispatch<any>) => {
+export const saveProfileTC = (profile: ProfileType) => async (dispatch: Dispatch<any>, getState:any) => {
+    const userId = getState().auth.userId
     let res = await profileAPI.saveProfile(profile)
+
     if (res.data.resultCode === 0) {
-        debugger
-        dispatch(saveUserProfileAC(res.data.profile))
+        dispatch(getUserProfileTC(userId))
     }
 }
 
@@ -127,8 +128,8 @@ type DeletePostAT = ReturnType<typeof deletePostAC>
 type SavePhotoAT = ReturnType<typeof savePhotoSuccessAC>
 type saveUserProfileAT = ReturnType<typeof saveUserProfileAC>
 export type PhotoType = {
-    small: string | null
-    large: string | null
+    small?: string | null
+    large?: string | null
 }
 export type ProfileType = {
     aboutMe: string | null

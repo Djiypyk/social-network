@@ -4,10 +4,15 @@ import {ProfileType} from "../../../Redux/profile-reducer";
 import {Preloader} from "../../common/Preloader11";
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 import {UserAvatar} from "./common/UserAvatar";
-import {Typography} from "@mui/material";
+import {Button, Typography} from "@mui/material";
 import {ProfileDataForm} from "./common/EditModeComponent/ProfileDataFrom";
 
-export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({
+                                                                profile,
+                                                                status,
+                                                                updateStatus,
+                                                                isOwner, savePhoto
+                                                            }) => {
     const [editMode, setEditMode] = useState<boolean>(false)
 
     if (!profile) {
@@ -29,8 +34,14 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, up
                                 isOwner={isOwner} savePhoto={savePhoto}/>
                 </div>
                 <ProfileStatus status={status} updateUserStatus={updateStatus} isOwner={isOwner}/>
-                {editMode ? <ProfileDataForm isOwner={isOwner} profile={profile}/> :
-                    <ProfileData goToEditMode={() => setEditMode(true)} isOwner={isOwner} profile={profile}/>}
+                {editMode ? <ProfileDataForm
+                        initialValues={profile}
+                        editMode={editMode}
+                        isOwner={isOwner}
+                        goCloseEditMode={() => setEditMode(false)}
+                        profile={profile}/> :
+                    <ProfileData editMode={editMode} goToEditMode={() => setEditMode(true)} isOwner={isOwner}
+                                 profile={profile}/>}
 
             </div>
         </div>
@@ -38,9 +49,13 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, up
 }
 export default ProfileInfo;
 
-const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEditMode}) => {
+const ProfileData: React.FC<ProfileDataPropsType> = ({
+                                                         profile, isOwner,
+                                                         goToEditMode,
+                                                         editMode
+                                                     }) => {
     return <div>
-        {isOwner && <button onClick={goToEditMode}>Edit</button>}
+        {isOwner && <Button variant={'contained'} color={'primary'} onClick={goToEditMode}>Edit</Button>}
         <div><Typography component={'div'} variant={'h5'}>{profile.fullName}</Typography>
             <div>
                 <b>Looking for a job</b>:{profile.lookingForAJob ? ' Yes' : ' No'}
@@ -56,16 +71,17 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEdit
         <div className={styles.user_contact}>
             <div><b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
                     // @ts-ignore
-                    return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+                    return <Contact editMode={editMode} key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
                 }
             )}</div>
         </div>
     </div>
 }
 
-export const Contact: React.FC<ContactPropsType> = ({contactTitle, contactValue}) => {
+export const Contact: React.FC<ContactPropsType> = ({contactTitle, contactValue, editMode}) => {
+    const editModeNotTrue = <div><b>{contactTitle}</b>: {contactValue} </div>
     return <div>
-        <b>{contactTitle}</b>: {contactValue}
+        {editMode ? contactValue : editModeNotTrue}
     </div>
 }
 
@@ -75,11 +91,13 @@ type ProfileDataPropsType = {
     profile: ProfileType
     isOwner: boolean
     goToEditMode: () => void
+    editMode: boolean
 }
 
 type ContactPropsType = {
     contactTitle: string
     contactValue: string
+    editMode: boolean
 }
 type ProfileInfoPropsType = {
     profile: ProfileType
