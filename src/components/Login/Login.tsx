@@ -15,6 +15,7 @@ const LoginForm: React.FC = () => {
     const dispatch = useDispatch()
     const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
     const errors = useSelector<AppStateType, string[]>(state => state.auth.errors)
+    const captchaUrl = useSelector<AppStateType, string | null>(state => state.auth.captchaUrl)
     const formik = useFormik({
         validate: (values) => {
             if (!values.email) {
@@ -32,6 +33,7 @@ const LoginForm: React.FC = () => {
             email: '',
             password: '',
             rememberMe: false,
+            captcha: null
         },
         onSubmit: (values: LoginDataType) => {
             dispatch(loginTC(values))
@@ -80,9 +82,19 @@ const LoginForm: React.FC = () => {
                                     {...formik.getFieldProps('rememberMe')}
                                     checked={formik.values.rememberMe}
                                 />}/>
+                        {captchaUrl && <img src={captchaUrl} alt={'Captcha'}/>}
+                        {captchaUrl && <TextField type={'captcha'}
+                                                  label={'Captcha'}
+                                                  margin="normal"
+                                                  {...formik.getFieldProps('captcha')}
+                                                  error={formik.touched.captcha && Boolean(formik.errors.captcha)}
+                                                  helperText={formik.touched.captcha && formik.errors.captcha}
+                        />}
                         <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+
                     </FormGroup>
                 </FormControl>
+
             </form>
             <div className={styles.errors}>{errors}</div>
         </Grid>
