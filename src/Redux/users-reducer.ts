@@ -14,24 +14,24 @@ const initialState = {
 
 export const usersReducer = (state: initialStateUsersType = initialState, action: ActionType): initialStateUsersType => {
     switch (action.type) {
-        case 'FOLLOW':
+        case 'users/FOLLOW':
             return {
                 ...state,
                 users: updateObjectInArray(state.users, action.userID, 'id', {followed: true})
             }
-        case 'UNFOLLOW':
+        case 'users/UNFOLLOW':
             return {
                 ...state, users: updateObjectInArray(state.users, action.userID, 'id', {followed: false})
             }
-        case 'SET-USERS':
+        case 'users/SET-USERS':
             return {...state, users: action.users}
-        case 'SET-CURRENT-PAGE':
+        case 'users/SET-CURRENT-PAGE':
             return {...state, currentPage: action.currentPage}
-        case 'SET-TOTAL-USERS-COUNT':
+        case 'users/SET-TOTAL-USERS-COUNT':
             return {...state, totalUsersCount: action.totalCount}
-        case 'TOGGLE-IS-FETCHING':
+        case 'users/TOGGLE-IS-FETCHING':
             return {...state, isFetching: action.isFetching}
-        case 'TOGGLE-IS-FOLLOWING-PROGRESS':
+        case 'users/TOGGLE-IS-FOLLOWING-PROGRESS':
             return {
                 ...state, followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
@@ -43,20 +43,20 @@ export const usersReducer = (state: initialStateUsersType = initialState, action
 }
 
 // Action
-export const followAC = (userID: string) => ({type: 'FOLLOW', userID}) as const
-export const unFollowAC = (userID: string) => ({type: 'UNFOLLOW', userID}) as const
+export const followAC = (userID: string) => ({type: 'users/FOLLOW', userID}) as const
+export const unFollowAC = (userID: string) => ({type: 'users/UNFOLLOW', userID}) as const
 export const setUsersAC = (users: UserType[]) => {
-    return {type: 'SET-USERS', users: users} as const
+    return {type: 'users/SET-USERS', users: users} as const
 }
-export const setCurrentPageAC = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage}) as const
-export const totalUsersCountAC = (totalCount: number) => ({type: 'SET-TOTAL-USERS-COUNT', totalCount}) as const
+export const setCurrentPageAC = (currentPage: number) => ({type: 'users/SET-CURRENT-PAGE', currentPage}) as const
+export const totalUsersCountAC = (totalCount: number) => ({type: 'users/SET-TOTAL-USERS-COUNT', totalCount}) as const
 export const toggleIsFetchingAC = (isFetching: boolean) => ({
-    type: 'TOGGLE-IS-FETCHING',
+    type: 'users/TOGGLE-IS-FETCHING',
     isFetching
 }) as const
 export const toggleIsFollowingProgressAC = (isFetching: boolean, userId: string) =>
     ({
-        type: 'TOGGLE-IS-FOLLOWING-PROGRESS',
+        type: 'users/TOGGLE-IS-FOLLOWING-PROGRESS',
         isFetching,
         userId
     }) as const
@@ -91,7 +91,6 @@ export const unFollowTC = (userId: string) => async (dispatch: Dispatch<ActionTy
 }
 
 //Types
-
 type FollowAT = ReturnType<typeof followAC>
 type UnFollowAT = ReturnType<typeof unFollowAC>
 type setUsersAT = ReturnType<typeof setUsersAC>

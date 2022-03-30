@@ -61,7 +61,6 @@ export default compose<React.ComponentType>(
 )(ProfileContainer)
 
 //Types
-
 type MatchParams = {
     match: {
         params: {

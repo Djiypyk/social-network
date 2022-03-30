@@ -2,7 +2,7 @@ import React, {Suspense} from 'react';
 import './App.css';
 import {Navbar, PATH} from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import {HashRouter, Navigate, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
@@ -10,7 +10,6 @@ import store, {AppStateType} from "./Redux/redux-store";
 import {compose} from "redux";
 import {initializeAppTC} from "./Redux/app-reducer";
 import CircularProgress from '@mui/material/CircularProgress';
-
 import NewsField from "./components/NewsField/NewsField";
 import Settings from "./components/Settings/Settings";
 import Music from "./components/Music/Music";
@@ -59,19 +58,17 @@ class App extends React.Component<propsPostsType> {
         );
     }
 }
+const mapStateToProps = (state: AppStateType) => ({initialized: state.app.initialized})
 
-const mapStateToProps = (state: AppStateType) => ({
-    initialized: state.app.initialized
-})
 const AppContainer = compose<React.ComponentType>(
     connect<mapStateType, mapDispatchType, ownPropsType, AppStateType>(
         mapStateToProps, {initializeAppTC}))(App)
 
 export const MainApp = () => {
     return <Provider store={store}>
-        <HashRouter>
+        <BrowserRouter>
             <AppContainer/>
-        </HashRouter>
+        </BrowserRouter>
     </Provider>
 }
 

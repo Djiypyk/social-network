@@ -23,7 +23,6 @@ export default connect<mapStateType, mapDispatchType,
     })(MyPostContainer)
 
 //Types
-
 type mapStateType = { postsData: PostType[] }
 type mapDispatchType = { addPostAC: (message: string) => void }
 type ownPropsType = {}

@@ -24,7 +24,6 @@ import {
 import {CircularProgress} from "@mui/material";
 
 class UsersContainer extends React.Component<propsPostsType> {
-
     componentDidMount() {
         const {currentPage, pagesCount} = this.props
         this.props.getUsersTC(currentPage, pagesCount)
@@ -79,7 +78,6 @@ export default compose<React.ComponentType>(
 )(UsersContainer)
 
 // Types
-
 type propsPostsType = mapStateType & mapDispatchType & ownPropsType
 type mapStateType = {
     usersPage: UserType[]

@@ -79,9 +79,8 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({
 }
 
 export const Contact: React.FC<ContactPropsType> = ({contactTitle, contactValue, editMode}) => {
-    const editModeNotTrue = <div><b>{contactTitle}</b>: {contactValue} </div>
     return <div>
-        {editMode ? contactValue : editModeNotTrue}
+        {editMode ? contactValue : <div><b>{contactTitle}</b>: {contactValue} </div>}
     </div>
 }
 

@@ -6,7 +6,12 @@ import {Contact} from '../../ProfileInfo'
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 
-export const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({initialValues,profile, goCloseEditMode, editMode}) => {
+export const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({
+                                                                        initialValues,
+                                                                        profile,
+                                                                        goCloseEditMode,
+                                                                        editMode
+                                                                    }) => {
     const dispatch = useDispatch()
 
     const formik = useFormik({
@@ -14,28 +19,28 @@ export const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({initialValu
         validate: () => {
 
         },
-        initialValues : initialValues,
-        // initialValues: {
-        //     aboutMe: profile.aboutMe,
-        //     contacts: {
-        //         facebook: profile.contacts.facebook,
-        //         website: profile.contacts.website,
-        //         vk: profile.contacts.vk,
-        //         twitter: profile.contacts.twitter,
-        //         instagram: profile.contacts.instagram,
-        //         youtube: profile.contacts.youtube,
-        //         github: profile.contacts.github,
-        //         mainLink: profile.contacts.mainLink,
-        //     },
-        //     lookingForAJob: profile.lookingForAJob,
-        //     lookingForAJobDescription: profile.lookingForAJobDescription,
-        //     fullName: profile.fullName,
-        //     userId: profile.userId,
-        //     photos: {
-        //         small: profile.photos?.small,
-        //         large: profile.photos?.large,
-        //     },
-        // },
+        // initialValues: initialValues,
+        initialValues: {
+            aboutMe: profile.aboutMe,
+            contacts: {
+                facebook: profile.contacts.facebook,
+                website: profile.contacts.website,
+                vk: profile.contacts.vk,
+                twitter: profile.contacts.twitter,
+                instagram: profile.contacts.instagram,
+                youtube: profile.contacts.youtube,
+                github: profile.contacts.github,
+                mainLink: profile.contacts.mainLink,
+            },
+            lookingForAJob: profile.lookingForAJob,
+            lookingForAJobDescription: profile.lookingForAJobDescription,
+            fullName: profile.fullName,
+            userId: profile.userId,
+            photos: {
+                small: profile.photos?.small,
+                large: profile.photos?.large,
+            },
+        },
         onSubmit: (values: ProfileType) => {
             dispatch(saveProfileTC(values))
             goCloseEditMode()
@@ -81,7 +86,6 @@ export const ProfileDataForm: React.FC<ProfileDataFormPropsType> = ({initialValu
         <p style={{textAlign: "center", fontWeight: '600', fontSize: '20px'}}>Other Contacts:</p>
         <div className={styles.user_contact}>
             <div><b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
-
                     // @ts-ignore
                     const contactsValue = profile.contacts[key]
                     return <div key={key}><TextField

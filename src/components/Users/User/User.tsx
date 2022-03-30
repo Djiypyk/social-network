@@ -6,10 +6,8 @@ import {Button} from "@mui/material";
 import {UserType} from "../../../Redux/users-reducer";
 
 export const User: React.FC<UserPropsType> = ({
-                                                  user,
-                                                  unFollowUser,
-                                                  followingProgress,
-                                                  followUser
+                                                  user, unFollowUser,
+                                                  followingProgress, followUser
                                               }) => {
     return (
         <div>

@@ -18,7 +18,7 @@ const initialState = {
 
 export const dialogsReducer = (state: DialogPageType = initialState, action: actionType): initialStateType => {
     switch (action.type) {
-        case 'SEND-MESSAGE': {
+        case 'dialogs/SEND-MESSAGE': {
             let messageText = action.text
             return {
                 ...state,
@@ -30,7 +30,7 @@ export const dialogsReducer = (state: DialogPageType = initialState, action: act
     }
 }
 export const sendMessageAC = (text: string) => {
-    return {type: 'SEND-MESSAGE', text} as const
+    return {type: 'dialogs/SEND-MESSAGE', text} as const
 }
 
 //Types

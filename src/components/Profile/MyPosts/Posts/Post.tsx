@@ -11,7 +11,6 @@ const Post: React.FC<PostType> = ({id, message, likesCounts}) => {
                     alt='Avatar icon'/>
             </div>
             <div><p className={styles.post_text}>{message}</p></div>
-
             <span>Like {likesCounts}</span>
         </div>
     )

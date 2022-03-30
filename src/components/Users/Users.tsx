@@ -5,16 +5,6 @@ import SearchForm, {filterValuesI} from "../SearchForm/SearchForm";
 import {Paginator} from "./Paginator/Paginator";
 import {User} from "./User/User";
 
-type UsersPageType = {
-    unFollowUser: (userId: string) => void
-    followUser: (userId: string) => void
-    onPageChanged: (page: number) => void
-    users: UserType[]
-    currentPage: number
-    followingProgress: string[]
-    onFilterChange: (filter: filterValuesI) => void
-}
-
 const Users: React.FC<UsersPageType> = ({users, onFilterChange, onPageChanged, currentPage, ...props}) => {
     return (
         <div>
@@ -35,3 +25,14 @@ const Users: React.FC<UsersPageType> = ({users, onFilterChange, onPageChanged, c
     )
 }
 export default Users
+
+//Types
+type UsersPageType = {
+    unFollowUser: (userId: string) => void
+    followUser: (userId: string) => void
+    onPageChanged: (page: number) => void
+    users: UserType[]
+    currentPage: number
+    followingProgress: string[]
+    onFilterChange: (filter: filterValuesI) => void
+}

@@ -3,14 +3,6 @@ import React from "react";
 import MyPostContainer from "./MyPosts/MyPostContainer";
 import {ProfileType} from "../../Redux/profile-reducer";
 
-export type ProfileContainerPropsType = {
-    profile: ProfileType
-    status: string
-    updateStatus: (status: string) => void
-    isOwner: boolean
-    savePhoto: (photo: File) => void
-}
-
 const Profile: React.FC<ProfileContainerPropsType> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
 
     return (
@@ -24,3 +16,12 @@ const Profile: React.FC<ProfileContainerPropsType> = ({profile, status, updateSt
 }
 
 export default Profile;
+
+//Types
+export type ProfileContainerPropsType = {
+    profile: ProfileType
+    status: string
+    updateStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (photo: File) => void
+}

@@ -37,7 +37,7 @@ test('length of posts should be incremented', () => {
     let newState = profileReducer(initialState, action)
 //expect
     expect(newState.postsData.length).toBe(4)
-    expect(newState.postsData[3].message).toBe('Hello world!')
+    expect(newState.postsData[0].message).toBe('Hello world!')
 })
 
 test('length of posts should be decrement', () => {
